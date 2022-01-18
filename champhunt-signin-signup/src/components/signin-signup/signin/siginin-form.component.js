@@ -94,7 +94,7 @@ export default function SignInForm({ breakPoint }) {
         };
         axios(loginOptions)
         .then(response => {
-            navigate('/onboaring-page')
+            navigate('/onboarding')
         })
         .catch(error => {
             if (error.response.status == 401){

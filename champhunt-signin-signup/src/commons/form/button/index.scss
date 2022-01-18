@@ -1,0 +1,34 @@
+.form-element.button {
+    position: relative;
+
+    & button {
+        width: 150px;
+        padding: 6px;
+        border-radius: 15px;
+        border: none;
+        color: #CFCFCF;
+        cursor: pointer;
+
+        &.primary-button {
+            background-color: black;
+            border: 1px solid black;
+        }
+
+        &.secondary-button {
+            background-color: transparent;
+            border: 1px solid #CFCFCF;
+        }
+        &.tertiary-button {
+            color: #ffffff;
+            background-color: #747452;
+        }
+    }
+    
+    & .button-icon {
+        position: absolute;
+        top: 5px;
+        left: 25px;
+        height: 15px;
+        width: 15px;
+    }
+}

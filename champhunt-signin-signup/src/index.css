@@ -10,3 +10,10 @@ body {
   font-family: "Poppins", sans-serif;
   /* background-color: black; */
 }
+
+.primary {
+  font-family: 'Poppins';
+  font-size: 14px;
+  color: #FFFFFF;
+  font-weight: 300;
+}

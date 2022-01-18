@@ -4,6 +4,7 @@ import store from './stores/app.store'
 import { Provider } from 'react-redux';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SignIn from './components/signin-signup/signin/signin.component';
+import Onboarding from './containers/onboarding';
 import SignUp from './components/signin-signup/signup/signup.component';
 import CollectUserInfo from './components/signin-signup/collect-userInfo/collect-userInfo.component';
 
@@ -39,6 +40,7 @@ function App() {
           <div>
             {/* <HomePageSection /> */}
             <Routes>
+              <Route path={'/onboarding'} element={<Onboarding />} />
               <Route path={'/login'} element={<SignIn />} />
               <Route path={'/signup'} element={<SignUp />} />
               <Route path={'/userinfo'} element={<CollectUserInfo />} />
