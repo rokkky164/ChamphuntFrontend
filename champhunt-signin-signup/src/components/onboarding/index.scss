@@ -50,3 +50,56 @@
 .center {
     text-align: center;
 }
+
+@media screen and (max-width: 769px) {
+    .on-boarding {
+        margin: auto;
+        background-color: #00000059;
+        border: 1px solid #FFFFFF52;
+        padding: 20px 50px;
+        border-radius: 20px;
+        max-width: 340px;
+    
+        & .gtkm {
+            margin-top: 45px;
+            max-width: 340px;
+        }
+    
+        & .restrict-75 {
+            max-width: 65%;
+            word-break: break-all;
+        }
+    
+        & .gtkm-upload {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        & .gtkm-upload .ctas {
+            display: flex;
+            flex-direction: column;
+            & .button {
+                margin-right: 15px;
+                margin-bottom: 15px;
+            }
+        }
+        & .gtkm-footer {
+            margin-top: 35px;
+            text-align: center;
+        }
+        & .limit {
+            display: inline-block;
+        }
+        & .interests {
+            display: flex;
+            flex-wrap: wrap;
+    
+            & .interest {
+                flex-basis: 50%;
+                text-align: center;
+                margin-bottom: 15px;
+                cursor: pointer;
+            }
+        }
+    }
+}

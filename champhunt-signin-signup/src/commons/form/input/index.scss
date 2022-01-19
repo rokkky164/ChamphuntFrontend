@@ -20,3 +20,29 @@
         font-size: 12px;
     }
 }
+
+@media screen and (max-width: 769px) {
+    .input {
+        display: flex;
+        flex-direction: column;
+        min-width: 240px;
+        width: 100%;
+        margin-bottom: 25px;
+    
+        & label {
+            color: #CFCFCF;
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+    
+        & .input-element {
+            border: none;
+            border-bottom: 1px solid #CFCFCF;
+            background: transparent;
+            color: #CFCFCF;
+            padding: 4px 0;
+            outline: none;
+            font-size: 12px;
+        }
+    }
+}
