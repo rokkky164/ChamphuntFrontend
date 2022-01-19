@@ -1,4 +1,5 @@
 import { Button } from 'carbon-components-react';
+import { useRef } from 'react';
 import './index.scss';
 
 const ChampButton = (props) => {
@@ -8,12 +9,35 @@ const ChampButton = (props) => {
         classes,
         onClick,
         icon,
+        type='button',
         disabled = false
     } = props;
 
+    const inputRef = useRef(null);
+
+    const handleClick = () => {
+        inputRef.current.click();
+    }
+
     return <div className="form-element button">
-        {icon && <img className='button-icon' src={icon} />}
+        { 
+        type === 'file'
+        ?
+        <label class="custom-file-upload">
+            { 
+            icon && <>
+                <img className='button-icon' src={icon} />
+                <input type='file' ref={inputRef} />
+                <button onClick={handleClick} className={classes}>{label}</button>
+            </>
+            }
+        </label> 
+        :
+        <>
+        {icon && <img className='button-icon' src={icon} /> }
         <Button className={classes} onClick={onClick} disabled={disabled} >{label}</Button>
+        </>
+        }
     </div>
 }
 

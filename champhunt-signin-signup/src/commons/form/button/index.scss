@@ -1,6 +1,10 @@
 .form-element.button {
     position: relative;
 
+    & input[type="file"] {
+        display: none;
+    }
+
     & button {
         width: 150px;
         padding: 6px;
@@ -8,6 +12,7 @@
         border: none;
         color: #CFCFCF;
         cursor: pointer;
+
 
         &:disabled {
             cursor: not-allowed;

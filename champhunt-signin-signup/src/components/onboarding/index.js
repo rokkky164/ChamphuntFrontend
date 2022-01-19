@@ -7,6 +7,16 @@ import ChampButton from '../../commons/form/button';
 import Upload from '../../assets/images/onboarding/upload.svg';
 import Avatar from '../../assets/images/onboarding/avatar.svg';
 
+import Batsmen from '../../assets/images/onboarding/batsmen.svg';
+import Keeper from '../../assets/images/onboarding/keeper.svg';
+import Umpire from '../../assets/images/onboarding/umpire.svg';
+import Bowler from '../../assets/images/onboarding/bowler.svg';
+
+import BatsmenSelected from '../../assets/images/onboarding/batsmen-selected.svg';
+import KeeperSelected from '../../assets/images/onboarding/keeper-selected.svg';
+import UmpireSelected from '../../assets/images/onboarding/umpire-selected.svg';
+import BowlerSelected from '../../assets/images/onboarding/bowler-selected.svg';
+
 import './index.scss';
 
 const OnboardingComponent = () => {
@@ -16,7 +26,12 @@ const OnboardingComponent = () => {
     const [userInfo, setUserInfo] = useState({
         name: '',
         place: '',
-        interests: []
+        interests: {
+            batsmen: false,
+            bowler: false,
+            keeper: false,
+            umpire: false
+        }
     });
     const [step, setStep] = useState(1);
 
@@ -46,10 +61,6 @@ const OnboardingComponent = () => {
         setOptions(stateOptions);
     }, []);
 
-    const handleUpload = () => {
-
-    }
-
     const handleLater = () => {
 
         window.location.href = "/pitch";
@@ -57,7 +68,11 @@ const OnboardingComponent = () => {
     }
 
     const handleNext = () => {
-        setStep(2);
+        if( step === 2 ) {
+            handleLater();
+        } else {
+            setStep(2);
+        }
     }
 
     const handleOnChange = ( event ) => {
@@ -69,6 +84,16 @@ const OnboardingComponent = () => {
         });
     }
 
+    const updateInterests = (key) => {
+        const interests = { ...userInfo.interests, [key]: !userInfo.interests[key] };
+
+        setUserInfo({
+            ...userInfo,
+            interests 
+        });
+
+    }
+
     const getGtkmMarkup = () => {
         let markup;
 
@@ -77,7 +102,7 @@ const OnboardingComponent = () => {
                 markup = <>
                 <p className='center primary'>Hello , XYZ.mail.com</p>
                 <p className='center primary'>Let others know about you</p>
-                <form className='onboarding gtkm form'>
+                <div className='onboarding gtkm form'>
                     <Input
                         classes='primary gtkm-name'
                         placeholder='Type here...'
@@ -104,7 +129,7 @@ const OnboardingComponent = () => {
                                 classes='upload primary-button'
                                 label='Upload'
                                 icon={ Upload }
-                                onClick={handleUpload}
+                                type='file'
                             />
                             <ChampButton
                                 label='Do it later'
@@ -113,57 +138,44 @@ const OnboardingComponent = () => {
                             /> 
                         </div>
                     </div>
-                </form>
+                </div>
                 </>
                 break;
             default:
+
+                const {
+                    batsmen,
+                    bowler,
+                    keeper,
+                    umpire
+                } = userInfo.interests;
+
                 markup = <>
                 <p className='center primary'>Hello , Itachi</p>
-                <p className='center limit primary'>Meet new people {'&'} discover activities , news and much more of your interest. What are you interested in ?</p>
+                <span className='center limit primary'>Meet new people {'&'} discover activities , news and much more of your interest. What are you interested in ?</span>
                 <form className='onboarding gtkm form'>
-                <Input
-                    classes='primary gtkm-name'
-                    placeholder='Type here...'
-                    label='My friends call me'
-                    name='name'
-                    onChange={ handleOnChange }
-                />
-                <Select
-                    options = {options}
-                    onChange={ handleOnChange }
-                    name = 'place'
-                    titleText = 'I am from'
-                    label = 'Select'
-                />
-                <p className='primary'>
-                    Add a photo to better connect with friends and the like minded ones. People love your smile
-                </p>
-                <div className='gtkm-upload'>
-                    <div className='avatar'>
-                        <img src={Avatar} alt='Upload your avatar' />
+                    <div className='interests'>
+                        <div className='interest'>
+                            <img src={ batsmen ? BatsmenSelected : Batsmen } onClick={()=>{updateInterests('batsmen')}} />
+                        </div>
+                        <div className='interest'>
+                            <img src={ keeper ? KeeperSelected : Keeper} onClick={()=>{updateInterests('keeper')}} />
+                        </div>
+                        <div className='interest'>
+                            <img src={ bowler ? BowlerSelected : Bowler } onClick={()=>{updateInterests('bowler')}} />
+                        </div>
+                        <div className='interest'>
+                            <img src={ umpire ? UmpireSelected : Umpire } onClick={()=>{updateInterests('umpire')}} />
+                        </div>
                     </div>
-                    <div className='ctas'>
-                        <ChampButton
-                            classes='upload primary-button'
-                            label='Upload'
-                            icon={ Upload }
-                            onClick={handleUpload}
-                        />
-                        <ChampButton
-                            label='Do it later'
-                            classes='later secondary-button'
-                            onClick={handleLater}
-                        /> 
-                    </div>
-                </div>
-            </form>
+                </form>
             </>
         }
         return markup;
     }
 
     useEffect(()=>{
-        if( userInfo.name && userInfo.place ) {
+        if( (userInfo.name && userInfo.place) || step === 2 ) {
             setDisabled(false);
         }
     },[userInfo]);
