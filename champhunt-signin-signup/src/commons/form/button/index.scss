@@ -9,6 +9,10 @@
         color: #CFCFCF;
         cursor: pointer;
 
+        &:disabled {
+            cursor: not-allowed;
+        }
+
         &.primary-button {
             background-color: black;
             border: 1px solid black;

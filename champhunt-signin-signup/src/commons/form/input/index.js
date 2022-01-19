@@ -6,12 +6,14 @@ const Input = (props) => {
         label,
         name,
         classes,
-        placeholder
+        placeholder,
+        onChange
     } = props;
 
     return <div className="form-element input">
         { label && <label className="label" htmlFor={name} >{ label }</label> }
         <input
+            onChange={onChange}
             id={name}
             type='text'
             name={name}

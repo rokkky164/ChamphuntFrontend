@@ -7,12 +7,13 @@ const ChampButton = (props) => {
         label,
         classes,
         onClick,
-        icon
+        icon,
+        disabled = false
     } = props;
 
     return <div className="form-element button">
         {icon && <img className='button-icon' src={icon} />}
-        <Button className={classes} onClick={onClick} >{label}</Button>
+        <Button className={classes} onClick={onClick} disabled={disabled} >{label}</Button>
     </div>
 }
 

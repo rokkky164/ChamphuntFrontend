@@ -8,7 +8,8 @@ const ChampSelect = (props) => {
         options = [],
         name,
         titleText,
-        label 
+        label,
+        onChange
     } = props;
 
     return <div className="form-element select">
@@ -16,7 +17,9 @@ const ChampSelect = (props) => {
             id={name}
             className="select-container"
             text={label}
+            name={name}
             labelText={titleText}
+            onChange={onChange}
         >
             <SelectItem value='' text={label} /> 
             { options.map( option => {
