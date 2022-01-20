@@ -1,0 +1,13 @@
+.hero-cnt {
+    position: relative;
+    .hero-content {
+        background-color: #000;
+        color: #cfcfcf;
+        padding: 20px 45px;
+        position: absolute;
+        bottom: -9px;
+        border-bottom-right-radius: 20px;
+        border-bottom-left-radius: 20px;
+        opacity: 0.65;
+    }
+}
