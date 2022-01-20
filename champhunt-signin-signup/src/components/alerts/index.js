@@ -13,7 +13,7 @@ const Alert = () => {
     return <div className="component alert">
         
         <div className='left'>
-            <img src={Avatar} />
+            <img src={Avatar} alt='' />
             <span className='primary'>
                 Hello, test@customer.com
             </span>

@@ -48,12 +48,12 @@ const Header = () => {
                     onChange={handleOnChange}
                 />
                 <div className='bell-icon'>
-                    <img src={Bell} />
+                    <img src={Bell} alt='' />
                 </div>
             </div>
             <div className="profile-block">
                 <div className='avatar'>
-                    <img src={Avatar} />
+                    <img src={Avatar} alt='' />
                 </div>
                 <p className='primary'>
                     Pranay Karwa
