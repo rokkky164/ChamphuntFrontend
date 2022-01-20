@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SignIn from './components/signin-signup/signin/signin.component';
 import Onboarding from './containers/onboarding';
+import PitchPage from './containers/pitch';
 import SignUp from './components/signin-signup/signup/signup.component';
 import CollectUserInfo from './components/signin-signup/collect-userInfo/collect-userInfo.component';
 
@@ -17,6 +18,8 @@ const AllRotes = () => {
       <li><a href='/login'>signin</a></li>
       <li><a href='/signup'>signup</a></li>
       <li><a href='/userinfo'>userinfo</a></li>
+      <li><a href='/onboarding'>onboarding</a></li>
+      <li><a href='/pitch'>pitch</a></li>
     </ul>
   )
 }
@@ -40,6 +43,7 @@ function App() {
           <div>
             {/* <HomePageSection /> */}
             <Routes>
+              <Route path={'/pitch'} element={<PitchPage />} />
               <Route path={'/onboarding'} element={<Onboarding />} />
               <Route path={'/login'} element={<SignIn />} />
               <Route path={'/signup'} element={<SignUp />} />
