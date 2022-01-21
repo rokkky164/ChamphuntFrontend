@@ -94,6 +94,7 @@ export default function SignInForm({ breakPoint }) {
         };
         axios(loginOptions)
         .then(response => {
+            localStorage.setItem('access-token', response.data['access']);
             navigate('/onboarding')
         })
         .catch(error => {

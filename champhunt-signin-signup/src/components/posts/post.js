@@ -6,11 +6,11 @@ const Post = ( props ) => {
             url,
             avatar
         },
-        coAuthor,
         post: {
             date,
             time,
             content,
+            image,
             comments,
             runs
         }
