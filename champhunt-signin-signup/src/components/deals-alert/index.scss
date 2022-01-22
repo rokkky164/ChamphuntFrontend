@@ -1,0 +1,49 @@
+.deals-alert {
+
+    background-color: #383B5A;
+    border-radius: 12px;
+    padding: 15px 45px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 1;
+
+    & .left {
+        display: flex;
+        align-items: center;
+
+        & img {
+            height: 45px;
+        }
+
+        & .primary {
+            margin-left: 10px;
+        }
+    }
+
+    & .right {
+        display: flex;
+        & .separator {
+            padding-right: 25px;
+            border-left: 1px solid #cfcfcf;
+            margin-left: 25px;
+        }
+        & .add {
+            display: flex;
+            align-items: center;
+
+            & .add-money {
+                max-width: 85px;
+                margin-left: 15px;
+                background-color: #8045E7;
+            }
+        }
+        & .coins {
+            display: flex;
+            align-items: center;
+            & img {
+                margin-right: 25px;
+            }
+        }
+    }
+}

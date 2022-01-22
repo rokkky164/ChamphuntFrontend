@@ -1,5 +1,10 @@
 .hero-cnt {
     position: relative;
+    & .image-block {
+        & img {
+            width: 100%;
+        }
+    }
     .hero-content {
         background-color: #000;
         color: #cfcfcf;
