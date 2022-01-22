@@ -23,16 +23,17 @@ const Feeds = () => {
                 <Tab>My posts</Tab>
                 <Tab>By friends</Tab>
             </TabList>
-
             <TabPanel>
                 <Hero />
                 <Posts />
             </TabPanel>
             <TabPanel>
-                <h2>Any content 2</h2>
+                <Hero />
+                <Posts filter={'my_posts'}/>
             </TabPanel>
             <TabPanel>
-                <h2>Any content 2</h2>
+                <Hero />
+                <Posts filter={'friends'}/>
             </TabPanel>
         </Tabs>
     </div>
