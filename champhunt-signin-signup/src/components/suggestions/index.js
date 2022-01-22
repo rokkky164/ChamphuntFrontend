@@ -1,38 +1,52 @@
 import { useEffect, useState } from 'react';
 import './index.scss';
 import Suggestion from './suggestion';
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 const Suggestions = () => {
-
+    const navigate = useNavigate();
     const [suggestions, setSuggestions] = useState([]);
-
+    const accessToken = localStorage.getItem('access-token');
+    let url = 'http://127.0.0.1:8001/api/v0/friends-suggestion/';
+    var getSuggestionsOptions = {
+         method: 'get',
+         url: url,
+         headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + accessToken
+         },
+         json: true
+    };
+    
     useEffect(()=>{
-        const data = [
-            {
-                name: "Pranav Karwa",
-                role: "Bowler",
-                avatar: "https://i.pravatar.cc/75",
-                followers: 55,
-                runs: 300,
-                id: 1
-            },{
-                name: "Rajatesh Nath",
-                role: "Umpire",
-                avatar: "https://i.pravatar.cc/75",
-                followers: 55,
-                runs: 120,
-                id: 2
-            },{
-                name: "Sameer Kanva",
-                role: "Batsmen",
-                avatar: "https://i.pravatar.cc/75",
-                followers: 15,
-                runs: 3000,
-                id: 3
-            }
-        ];
+        axios(getSuggestionsOptions)
+            .then(response => {
+                const results = response.data.results;
+                let suggestionsData = [];
+                for (let i = 0; i < results.length; i++) {
+                    suggestionsData.push({
+                        name: results[i].first_name + ' '+ results[i].last_name,
+                        role: results[i].player_profile,
+                        avatar: "https://i.pravatar.cc/75",
+                        followers: results[i].followers.length,
+                        runs: results[i].runs,
+                        id: results[i].id
+                    });
+                }
+                setSuggestions(suggestionsData);
+            })
+            .catch(error => {
+                if (error.response.status == 400){
 
-        setSuggestions(data);
+                }
+                else if (error.response.status == 401){
+                    navigate('/login')
+                }
+            })
+
+        
 
     }, []);
 

@@ -14,7 +14,7 @@ const Header = () => {
     const handleOnChange = () => {
 
     }
-
+    const userProfileName = '';
     return <header className="header">
         <div className='header-cnt'>
             <div className="logo-block">
@@ -56,7 +56,7 @@ const Header = () => {
                     <img src={Avatar} alt='' />
                 </div>
                 <p className='primary'>
-                    Pranay Karwa
+                    {userProfileName}
                     <i className='arrow down'></i>
                 </p>
             </div>
