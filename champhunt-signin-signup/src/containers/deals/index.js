@@ -1,3 +1,4 @@
+import Deals from "../../components/deals";
 import DealsAlert from "../../components/deals-alert";
 import Header from "../../components/header";
 
@@ -9,6 +10,7 @@ const DealsPage = () => {
         <Header />
         <main className="deals-main">
             <DealsAlert />
+            <Deals />
         </main>
     </div>
 
