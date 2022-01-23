@@ -7,7 +7,7 @@ import './index.scss';
 const AllDeals = () => {
 
     const [deals,setDeals] = useState([]);
-    let url = 'http://127.0.0.1:8001/api/v0/offers/';
+    let url = 'https://dc4b-2401-4900-3130-a158-f185-ddd3-ff01-421c.ngrok.io/api/v0/offers/';
     const accessToken = localStorage.getItem('access-token');
     var getDealsOptions = {
          method: 'get',
@@ -27,7 +27,7 @@ const AllDeals = () => {
                 for (let i = 0; i < results.length; i++) {
                     offers.push({
                         tag: "HOT",
-                        src: 'http://127.0.0.1:8001' + results[i].brand.logo,
+                        src: 'https://dc4b-2401-4900-3130-a158-f185-ddd3-ff01-421c.ngrok.io' + results[i].brand.logo,
                         crickcoins_required: results[i].crickcoins_required,
                         offername: results[i].name
                     });

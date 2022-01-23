@@ -20,7 +20,6 @@ const DealsAlert = () => {
         <div className='right'>
             <div className='add'>
                 <span className='rupee primary'>&#8377; 00.00</span>
-                <ChampButton classes='add-money' label='ADD' />
             </div>
             <div className='separator'>
 

@@ -8,7 +8,7 @@ const Suggestions = () => {
     const navigate = useNavigate();
     const [suggestions, setSuggestions] = useState([]);
     const accessToken = localStorage.getItem('access-token');
-    let url = 'http://127.0.0.1:8001/api/v0/friends-suggestion/';
+    let url = 'https://dc4b-2401-4900-3130-a158-f185-ddd3-ff01-421c.ngrok.io/api/v0/friends-suggestion/';
     var getSuggestionsOptions = {
          method: 'get',
          url: url,
