@@ -1,4 +1,5 @@
 import Feeds from "../../components/feeds";
+import Footer from "../../components/footer";
 import Header from "../../components/header";
 import Suggestions from "../../components/suggestions";
 
@@ -12,6 +13,7 @@ const PitchPage = () => {
             <Feeds />
             <Suggestions />
         </main>
+        <Footer />
     </div>
 
 }
