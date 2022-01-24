@@ -9,11 +9,13 @@ import Input from '../../commons/form/input';
 
 import './index.scss';
 
-const Header = () => {
+const Header = ( props ) => {
 
     const handleOnChange = () => {
 
     }
+
+    const { onlyLogo } = props;
 
     return <header className="header">
         <div className='header-cnt'>
@@ -23,7 +25,7 @@ const Header = () => {
                     CHAMPHUNT
                 </span>
             </div>
-            <div className="nav-links">
+            { !onlyLogo && <div className="nav-links">
                 <NavLink to='/pitch' className={isActive => `nav-link ${isActive?'active':''}`}>
                     Pitch
                 </NavLink>
@@ -40,6 +42,8 @@ const Header = () => {
                     About Us
                 </NavLink>
             </div>
+            }
+            { !onlyLogo && 
             <div className="search-block">
                 <Input
                     placeholder="Search"
@@ -51,6 +55,8 @@ const Header = () => {
                     <img src={Bell} alt='' />
                 </div>
             </div>
+            }
+            { !onlyLogo && 
             <div className="profile-block">
                 <div className='avatar'>
                     <img src={Avatar} alt='' />
@@ -60,6 +66,7 @@ const Header = () => {
                     <i className='arrow down'></i>
                 </p>
             </div>
+            }
         </div>
     </header>
 }
