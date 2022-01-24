@@ -84,6 +84,10 @@
     
         background-color: #25294A;
         padding: 10px 0;
+
+        & .desktop-only {
+            display: none;
+        }
     
         & .header-cnt {
     
@@ -91,7 +95,7 @@
             max-width: 85%;
             margin: auto;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
     
             & .logo-block {
                 display: flex;
@@ -100,6 +104,7 @@
     
                 & .logo-text {
                     margin-left: 5px;
+                    display: none;
                 }
             }
     
@@ -117,8 +122,6 @@
     
             & .search-block {
                 
-                display: flex;
-                align-items: center;
     
                 & .input {
                     margin-bottom: 0;
@@ -141,8 +144,7 @@
             }
     
             & .profile-block {
-                display: flex;
-                align-items: center;
+                
                 & .primary {
                     margin-left: 12px;
                 }

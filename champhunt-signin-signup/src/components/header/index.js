@@ -26,7 +26,7 @@ const Header = ( props ) => {
                     CHAMPHUNT
                 </span>
             </div>
-            { !onlyLogo && <div className="nav-links">
+            { !onlyLogo && <div className="desktop-only nav-links">
                 <NavLink to='/pitch' className={isActive => `nav-link ${isActive?'active':''}`}>
                     Pitch
                 </NavLink>
@@ -45,7 +45,7 @@ const Header = ( props ) => {
             </div>
             }
             { !onlyLogo && 
-            <div className="search-block">
+            <div className="desktop-only search-block">
                 <Input
                     placeholder="Search"
                     name="search"
@@ -58,7 +58,7 @@ const Header = ( props ) => {
             </div>
             }
             { !onlyLogo && 
-            <div className="profile-block">
+            <div className="desktop-only profile-block">
                 <div className='avatar'>
                     <img src={Avatar} alt='' />
                 </div>

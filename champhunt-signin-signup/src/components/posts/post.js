@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Comments from '../../assets/images/posts/comments.svg';
 import Share from '../../assets/images/posts/share.svg';
 import Runs from '../../assets/images/posts/runs.svg';
+import InfoIcon from '../../assets/images/posts/info.svg';
 
 const Post = ( props ) => {
 
@@ -37,15 +38,15 @@ const Post = ( props ) => {
                         { name }
                         { coAuthorName && <> shared <Link className='shared-link' to={coAuthorURL}> {coAuthorName} </Link> post</> }
                     </p>
-                    <p>{ date } {time}</p>
+                    <p className='date-time'>{ date } {time}</p>
                 </div>
             </div>
             <div className="right">
                 <div className="icon-holder">
-
+                    <img className='info-icon' src={InfoIcon} alt=''/>
                 </div>
                 <div className="runs-cnt">
-                    {runs} runs
+                    <span className='runs-info'>{runs} runs</span>
                 </div>
             </div>
         </div>
