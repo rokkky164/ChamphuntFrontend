@@ -8,7 +8,7 @@ import './index.scss';
 const DealsPage = () => {
 
     return <div className="page deals">
-        <Header />
+        <Header showAdd={true} />
         <main className="deals-main">
             <DealsAlert />
             <Deals />

@@ -2,6 +2,7 @@
 import { NavLink } from 'react-router-dom';
 
 import Logo from '../../assets/images/header/logo.png';
+import Plus from '../../assets/images/header/plus.svg';
 import Bell from '../../assets/images/header/bell.svg';
 import Avatar from '../../assets/images/header/avatar.png';
 
@@ -16,7 +17,7 @@ const Header = ( props ) => {
 
     }
 
-    const { onlyLogo } = props;
+    const { onlyLogo, showAdd } = props;
 
     const userProfileName = '';
     return <header className="header">
@@ -27,6 +28,13 @@ const Header = ( props ) => {
                     CHAMPHUNT
                 </span>
             </div>
+            { showAdd && <div className='add-funds'>
+                    <div className='add-button'>
+                        <img src={Plus} alt='' />
+                    </div>
+                    <p className='money'>0.00</p>
+                </div>
+            }
             { !onlyLogo && <div className="desktop-only nav-links">
                 <NavLink to='/pitch' className={isActive => `nav-link ${isActive?'active':''}`}>
                     Pitch

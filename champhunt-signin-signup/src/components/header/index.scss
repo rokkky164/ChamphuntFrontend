@@ -88,6 +88,24 @@
         & .desktop-only {
             display: none;
         }
+
+        & .add-funds {
+            display: flex;
+            align-items: center;
+
+            & .add-button {
+                background-color: #8045E7;
+                padding: 5px 8px;
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                margin-right: 10px;
+            }
+
+            & .money {
+                color: #cfcfcf;
+            }
+        }
     
         & .header-cnt {
     
