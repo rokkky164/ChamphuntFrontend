@@ -17,6 +17,7 @@ const Header = ( props ) => {
 
     const { onlyLogo } = props;
 
+    const userProfileName = '';
     return <header className="header">
         <div className='header-cnt'>
             <div className="logo-block">
@@ -62,7 +63,7 @@ const Header = ( props ) => {
                     <img src={Avatar} alt='' />
                 </div>
                 <p className='primary'>
-                    Pranay Karwa
+                    {userProfileName}
                     <i className='arrow down'></i>
                 </p>
             </div>

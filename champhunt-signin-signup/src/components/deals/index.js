@@ -18,8 +18,8 @@ const Deals = () => {
             <TabList>
                 <Tab disabled={true} >Sort by</Tab>
                 <Tab>All</Tab>
-                <Tab>My posts</Tab>
-                <Tab>By friends</Tab>
+                <Tab>Hot</Tab>
+                <Tab>New</Tab>
             </TabList>
             <TabPanel></TabPanel>
             <TabPanel>
