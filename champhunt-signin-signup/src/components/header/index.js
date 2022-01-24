@@ -8,6 +8,7 @@ import Avatar from '../../assets/images/header/avatar.png';
 import Input from '../../commons/form/input';
 
 import './index.scss';
+import HeaderMenu from '../header-menu';
 
 const Header = ( props ) => {
 
@@ -68,6 +69,7 @@ const Header = ( props ) => {
                 </p>
             </div>
             }
+            <HeaderMenu />
         </div>
     </header>
 }
