@@ -20,21 +20,35 @@ const AllDeals = () => {
          json: true
     };
     useEffect(()=>{
-        axios(getDealsOptions)
-            .then(response => {
-                const results = response.data;
-                let offers = [];
-                for (let i = 0; i < results.length; i++) {
-                    offers.push({
-                        tag: "HOT",
-                        src: 'http://127.0.0.1:8001' + results[i].brand.logo,
-                        crickcoins_required: results[i].crickcoins_required,
-                        offername: results[i].name
-                    });
-                }
-                setDeals(offers);
-            })
-            .catch(error => {})
+        const deals = [
+            {
+                tag: "HOT",
+                src: "./puma.png"
+            },{
+                tag: "NEW",
+                src: "./puma.png"
+            },{
+                tag: "HOT",
+                src: "./puma.png"
+            },{
+                tag: "HOT",
+                src: "./puma.png"
+            },{
+                tag: "HOT",
+                src: "./puma.png"
+            },{
+                tag: "HOT",
+                src: "./puma.png"
+            },{
+                tag: "HOT",
+                src: "./puma.png"
+            },{
+                tag: "HOT",
+                src: "./puma.png"
+            }
+        ];
+
+        setDeals( deals );
     }, [])
 
     return <div className="component all-deals">

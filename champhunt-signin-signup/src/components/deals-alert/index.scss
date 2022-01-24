@@ -1,48 +1,111 @@
-.deals-alert {
+@media screen and (min-width: 769px) {
+    .deals-alert {
 
-    background-color: #383B5A;
-    border-radius: 12px;
-    padding: 15px 45px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-grow: 1;
-
-    & .left {
+        background-color: #383B5A;
+        border-radius: 12px;
+        padding: 15px 45px;
         display: flex;
+        justify-content: space-between;
         align-items: center;
-
-        & img {
-            height: 45px;
-        }
-
-        & .primary {
-            margin-left: 10px;
-        }
-    }
-
-    & .right {
-        display: flex;
-        & .separator {
-            padding-right: 25px;
-            border-left: 1px solid #cfcfcf;
-            margin-left: 25px;
-        }
-        & .add {
+        flex-grow: 1;
+    
+        & .left {
             display: flex;
             align-items: center;
-
-            & .add-money {
-                max-width: 85px;
-                margin-left: 15px;
-                background-color: #8045E7;
+    
+            & img {
+                height: 45px;
+            }
+    
+            & .primary {
+                margin-left: 10px;
             }
         }
-        & .coins {
+    
+        & .right {
+            display: flex;
+            & .separator {
+                padding-right: 25px;
+                border-left: 1px solid #cfcfcf;
+                margin-left: 25px;
+            }
+            & .add {
+                display: flex;
+                align-items: center;
+    
+                & .add-money {
+                    max-width: 85px;
+                    margin-left: 15px;
+                    background-color: #8045E7;
+                }
+            }
+            & .coins {
+                display: flex;
+                align-items: center;
+                & img {
+                    margin-right: 25px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 769px) {
+    .deals-alert {
+
+        background-color: #383B5A;
+        border-radius: 12px;
+        padding: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-grow: 1;
+
+        & .desktop-only {
+            display: none !important;
+        }
+    
+        & .left {
+
             display: flex;
             align-items: center;
+            flex-basis: 70%;
+
             & img {
-                margin-right: 25px;
+                height: 45px;
+            }
+    
+            & .primary {
+                margin-left: 10px;
+            }
+        }
+    
+        & .right {
+
+            display: flex;
+            background-color: #8045E7;
+            padding: 8px 12px;
+            border-radius: 8px;
+
+            & .primary {
+                font-weight: bold;
+            }
+            & .add {
+                display: flex;
+                align-items: center;
+    
+                & .add-money {
+                    max-width: 85px;
+                    margin-left: 15px;
+                    background-color: #8045E7;
+                }
+            }
+            & .coins {
+                display: flex;
+                align-items: center;
+                & img {
+                    margin-right: 25px;
+                }
             }
         }
     }
