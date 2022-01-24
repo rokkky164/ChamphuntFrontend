@@ -1,3 +1,9 @@
+import { Link } from 'react-router-dom';
+
+import Comments from '../../assets/images/posts/comments.svg';
+import Share from '../../assets/images/posts/share.svg';
+import Runs from '../../assets/images/posts/runs.svg';
+
 const Post = ( props ) => {
 
     const { 
@@ -6,6 +12,10 @@ const Post = ( props ) => {
             url,
             avatar
         },
+        coAuthor: {
+            name: coAuthorName,
+            url: coAuthorURL
+        } = {},
         post: {
             date,
             time,
@@ -23,7 +33,10 @@ const Post = ( props ) => {
                     <img className="avatar-image" src={avatar} alt={name} />
                 </div>
                 <div className="avatar-cnt">
-                    <p>{ name }</p>
+                    <p>
+                        { name }
+                        { coAuthorName && <> shared <Link className='shared-link' to={coAuthorURL}> {coAuthorName} </Link> post</> }
+                    </p>
                     <p>{ date } {time}</p>
                 </div>
             </div>
@@ -41,13 +54,13 @@ const Post = ( props ) => {
         </div>
         <div className="post-footer">
             <div className="comments-hld">
-                CMN
+                <img src={Comments} alt='' />
             </div>
             <div className="share-hld">
-                SHR
+                <img src={Share} alt='' />
             </div>
             <div className="runs-hld">
-                RUNS
+                <img src={Runs} alt='' />
             </div>
         </div>
     </div>
