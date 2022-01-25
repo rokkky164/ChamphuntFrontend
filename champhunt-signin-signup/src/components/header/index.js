@@ -5,20 +5,29 @@ import Logo from '../../assets/images/header/logo.png';
 import Plus from '../../assets/images/header/plus.svg';
 import Bell from '../../assets/images/header/bell.svg';
 import Coins from '../../assets/images/deals/coins.svg';
+import SearchIcon from '../../assets/images/header/search_icon.svg';
 import Avatar from '../../assets/images/header/avatar.png';
 
 import Input from '../../commons/form/input';
 import HeaderMenu from '../header-menu';
 
 import './index.scss';
+import { useState } from 'react';
 
 const Header = ( props ) => {
+    
+    const { onlyLogo, showAdd, notification = 0 } = props;
+
+    const [showInput, setShowInput] = useState(false);
 
     const handleOnChange = () => {
 
     }
 
-    const { onlyLogo, showAdd, notification = 0 } = props;
+    const handleSearchIconClick = () => {
+        setShowInput(!showInput);
+    }
+
 
     const userProfileName = 'Pranay Karwa';
     return <header className="header">
@@ -59,9 +68,12 @@ const Header = ( props ) => {
                 <Input
                     placeholder="Search"
                     name="search"
-                    classes="search desktop-only"
+                    classes={`search desktop-only ${showInput?'show':'hide'}`}
                     onChange={handleOnChange}
                 />
+                <div className='desktop-only search-icon' role="button" onClick={handleSearchIconClick} >
+                    <img src={SearchIcon} alt='' />
+                </div>
                 <div className={`bell-icon ${notification>0 ? 'notification' : ''}`}>
                     <span className='not-present'></span>
                     <img src={Bell} alt='' />

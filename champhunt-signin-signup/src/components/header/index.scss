@@ -43,6 +43,18 @@
                 display: flex;
                 align-items: center;
 
+               
+
+                & .search-icon {
+                    height: 38px;
+                    cursor: pointer;
+                    margin-left: 8px;
+
+                    & img {
+                        height: 38px;
+                    }
+                }
+
                 & .coins-block {
                     display: flex;
                     align-items: center;
@@ -79,10 +91,18 @@
                     min-width: 250px;
                 }
                 & .search {
+                    transition: width 0.8s;
+                }
+                & .search {
                     max-width: 270px;
                     border: 1px solid #49528F;
                     border-radius: 10px;
                     padding: 12px;
+                    &.hide {
+                        width: 0;
+                        padding: 0;
+                        border: 0;
+                    }
                 }
                 & .bell-icon {
                     margin-left: 10px;
@@ -177,6 +197,7 @@
 
                 display: flex;
                 align-items: center;
+                margin-left: auto;
 
                 & .coins-block {
                     display: flex;
