@@ -42,6 +42,37 @@
                 
                 display: flex;
                 align-items: center;
+
+                & .coins-block {
+                    display: flex;
+                    align-items: center;
+                    color: #fff;
+                    margin-left: 10px;
+                    border: 1px solid #49528F;
+                    padding: 6px 12px;
+                    border-radius: 8px;
+
+                    & .coins-img {
+                        height: 18px;
+                    }
+                    & .coins-hand {
+                        margin-left: 8px;
+                    }
+                }
+
+                & .notification {
+                    position: relative;
+                    cursor: pointer;
+                    & .not-present {
+                        position: absolute;
+                        width: 8px;
+                        height: 8px;
+                        background-color: #FF614C;
+                        border-radius: 50%;
+                        top: 4px;
+                        right: 10px;
+                    }
+                }
     
                 & .input {
                     margin-bottom: 0;
@@ -143,11 +174,45 @@
             }
     
             & .search-block {
+
+                display: flex;
+                align-items: center;
+
+                & .coins-block {
+                    display: flex;
+                    align-items: center;
+                    color: #fff;
+                    margin-left: 10px;
+                    border: 1px solid #49528F;
+                    padding: 6px 12px;
+                    border-radius: 8px;
+
+                    & .coins-img {
+                        height: 18px;
+                    }
+                    & .coins-hand {
+                        margin-left: 8px;
+                    }
+                }
                 
+                & .notification {
+                    position: relative;
+                    cursor: pointer;
+                    & .not-present {
+                        position: absolute;
+                        width: 8px;
+                        height: 8px;
+                        background-color: #FF614C;
+                        border-radius: 50%;
+                        top: 4px;
+                        right: 10px;
+                    }
+                }
     
                 & .input {
                     margin-bottom: 0;
                     min-width: 250px;
+                    display: none;
                 }
                 & .search {
                     max-width: 270px;

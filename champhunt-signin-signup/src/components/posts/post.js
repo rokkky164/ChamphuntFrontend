@@ -55,6 +55,7 @@ const Post = ( props ) => {
         </div>
         <div className="post-footer">
             <div className="comments-hld">
+                {comments > 0 && <span className='info-box'>{comments}</span> }
                 <img src={Comments} alt='' />
             </div>
             <div className="share-hld">
