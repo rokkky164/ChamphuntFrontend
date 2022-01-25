@@ -2,18 +2,23 @@
 import { NavLink } from 'react-router-dom';
 
 import Logo from '../../assets/images/header/logo.png';
+import Plus from '../../assets/images/header/plus.svg';
 import Bell from '../../assets/images/header/bell.svg';
 import Avatar from '../../assets/images/header/avatar.png';
 
 import Input from '../../commons/form/input';
 
 import './index.scss';
+import HeaderMenu from '../header-menu';
 
-const Header = () => {
+const Header = ( props ) => {
 
     const handleOnChange = () => {
 
     }
+
+    const { onlyLogo, showAdd } = props;
+
     const userProfileName = '';
     return <header className="header">
         <div className='header-cnt'>
@@ -23,7 +28,14 @@ const Header = () => {
                     CHAMPHUNT
                 </span>
             </div>
-            <div className="nav-links">
+            { showAdd && <div className='add-funds'>
+                    <div className='add-button'>
+                        <img src={Plus} alt='' />
+                    </div>
+                    <p className='money'>0.00</p>
+                </div>
+            }
+            { !onlyLogo && <div className="desktop-only nav-links">
                 <NavLink to='/pitch' className={isActive => `nav-link ${isActive?'active':''}`}>
                     Pitch
                 </NavLink>
@@ -40,7 +52,9 @@ const Header = () => {
                     About Us
                 </NavLink>
             </div>
-            <div className="search-block">
+            }
+            { !onlyLogo && 
+            <div className="desktop-only search-block">
                 <Input
                     placeholder="Search"
                     name="search"
@@ -51,7 +65,9 @@ const Header = () => {
                     <img src={Bell} alt='' />
                 </div>
             </div>
-            <div className="profile-block">
+            }
+            { !onlyLogo && 
+            <div className="desktop-only profile-block">
                 <div className='avatar'>
                     <img src={Avatar} alt='' />
                 </div>
@@ -60,6 +76,8 @@ const Header = () => {
                     <i className='arrow down'></i>
                 </p>
             </div>
+            }
+            <HeaderMenu />
         </div>
     </header>
 }

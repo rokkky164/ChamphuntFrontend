@@ -22,11 +22,11 @@ const ChampSelect = (props) => {
             onChange={onChange}
         >
             <SelectItem value='' text={label} /> 
-            { options.map( option => {
+            { options.map( (option, index) => {
 
                 const { id, label } = option;
 
-                return <SelectItem value={id} text={label} />
+                return <SelectItem key={index} value={id} text={label} />
             } ) }
         </Select>
     </div>

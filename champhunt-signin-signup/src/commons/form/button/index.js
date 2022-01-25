@@ -23,7 +23,7 @@ const ChampButton = (props) => {
         { 
         type === 'file'
         ?
-        <label class="custom-file-upload">
+        <label className="custom-file-upload">
             { 
             icon && <>
                 <img className='button-icon' src={icon} />

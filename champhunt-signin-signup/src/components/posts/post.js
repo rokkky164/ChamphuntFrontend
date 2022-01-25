@@ -1,3 +1,10 @@
+import { Link } from 'react-router-dom';
+
+import Comments from '../../assets/images/posts/comments.svg';
+import Share from '../../assets/images/posts/share.svg';
+import Runs from '../../assets/images/posts/runs.svg';
+import InfoIcon from '../../assets/images/posts/info.svg';
+
 const Post = ( props ) => {
 
     const { 
@@ -6,6 +13,10 @@ const Post = ( props ) => {
             url,
             avatar
         },
+        coAuthor: {
+            name: coAuthorName,
+            url: coAuthorURL
+        } = {},
         post: {
             date,
             time,
@@ -23,16 +34,19 @@ const Post = ( props ) => {
                     <img className="avatar-image" src={avatar} alt={name} />
                 </div>
                 <div className="avatar-cnt">
-                    <p>{ name }</p>
-                    <p>{ date } {time}</p>
+                    <p>
+                        { name }
+                        { coAuthorName && <> shared <Link className='shared-link' to={coAuthorURL}> {coAuthorName} </Link> post</> }
+                    </p>
+                    <p className='date-time'>{ date } {time}</p>
                 </div>
             </div>
             <div className="right">
                 <div className="icon-holder">
-
+                    <img className='info-icon' src={InfoIcon} alt=''/>
                 </div>
                 <div className="runs-cnt">
-                    {runs} runs
+                    <span className='runs-info'>{runs} runs</span>
                 </div>
             </div>
         </div>
@@ -41,13 +55,13 @@ const Post = ( props ) => {
         </div>
         <div className="post-footer">
             <div className="comments-hld">
-                CMN
+                <img src={Comments} alt='' />
             </div>
             <div className="share-hld">
-                SHR
+                <img src={Share} alt='' />
             </div>
             <div className="runs-hld">
-                RUNS
+                <img src={Runs} alt='' />
             </div>
         </div>
     </div>

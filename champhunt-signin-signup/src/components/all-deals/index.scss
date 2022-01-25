@@ -1,38 +1,87 @@
-.all-deals {
-    display: flex;
-    flex-wrap: wrap;
-
-    & .deal {
-        
-        flex-basis: calc(25% - 25px);
-        margin-right: 25px;
-        margin-bottom: 25px;
-        padding: 25px;
-        box-sizing: border-box;
-        background-color: #ffffff;
-        text-align: center;
-        border-radius: 12px;
-        position: relative;
-
-        & .tag {
-            position: absolute;
-            top: 8px;
-        }
-
-        &:nth-child(2n) {
-            & button {
-                background-color: #D73131;
-            }
+@media screen and (min-width: 769px) {
+    .all-deals {
+        display: flex;
+        flex-wrap: wrap;
+    
+        & .deal {
+            
+            flex-basis: calc(25% - 25px);
+            margin-right: 25px;
+            margin-bottom: 25px;
+            padding: 25px;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            text-align: center;
+            border-radius: 12px;
+            position: relative;
+    
             & .tag {
-                color: #D73131;
+                position: absolute;
+                top: 8px;
+            }
+    
+            &:nth-child(2n) {
+                & button {
+                    background-color: #D73131;
+                }
+                & .tag {
+                    color: #D73131;
+                }
+            }
+            &:nth-child(2n+1) {
+                & button {
+                    background-color: #26A700;
+                }
+                & .tag {
+                    color: #26A700;
+                }
             }
         }
-        &:nth-child(2n+1) {
-            & button {
-                background-color: #26A700;
+    }
+}
+
+@media screen and (max-width: 769px) {
+    .all-deals {
+        display: flex;
+        flex-wrap: wrap;
+    
+        & .deal {
+            
+            flex-basis: calc(50% - 25px);
+            margin-right: 25px;
+            margin-bottom: 25px;
+            padding: 25px;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            text-align: center;
+            border-radius: 12px;
+            position: relative;
+
+            & .deal-image {
+                width: 90px;
             }
+    
             & .tag {
-                color: #26A700;
+                position: absolute;
+                top: 8px;
+            }
+    
+            &:nth-child(2n) {
+                margin-right: 0;
+                & button {
+                    background-color: #D73131;
+                }
+                & .tag {
+                    color: #D73131;
+                }
+            }
+            &:nth-child(2n+1) {
+                & button {
+                    background-color: #26A700;
+                }
+                & .tag {
+                    color: #26A700;
+                }
             }
         }
     }

@@ -7,7 +7,7 @@ import './index.scss';
 const AllDeals = () => {
 
     const [deals,setDeals] = useState([]);
-    let url = 'https://dc4b-2401-4900-3130-a158-f185-ddd3-ff01-421c.ngrok.io/api/v0/offers/';
+    let url = 'http://localhost:8001/api/v0/offers/';
     const accessToken = localStorage.getItem('access-token');
     var getDealsOptions = {
          method: 'get',

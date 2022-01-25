@@ -13,15 +13,16 @@ const DealsAlert = () => {
         
         <div className='left'>
             <span className='primary'>
-                Hello , iamsomeone@gmail.com , Redeem your virtual coins with these e vouchers
+                <span className='desktop-only greetings'> Hello , iamsomeone@gmail.com ,</span>
+                <span className='info'> Redeem your virtual coins with these e vouchers</span>
             </span>
         </div>
         
         <div className='right'>
-            <div className='add'>
+            <div className='desktop-only add'>
                 <span className='rupee primary'>&#8377; 00.00</span>
             </div>
-            <div className='separator'>
+            <div className='desktop-only separator'>
 
             </div>
             <div className='coins'>
