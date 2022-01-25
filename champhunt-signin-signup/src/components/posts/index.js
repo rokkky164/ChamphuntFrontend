@@ -12,10 +12,10 @@ const Posts = (filterPitches) => {
     const accessToken = localStorage.getItem('access-token');
     let url = 'http://127.0.0.1:8001/api/v0/pitches/';
     if (filterPitches){
-        if (filterPitches.filter == 'my_posts'){
+        if (filterPitches.filter === 'my_posts'){
            url = 'http://127.0.0.1:8001/api/v0/pitches/?filter=user'; 
         }
-        else if (filterPitches.filter == 'friends'){
+        else if (filterPitches.filter === 'friends'){
            url = 'http://127.0.0.1:8001/api/v0/pitches/?filter=friends'; 
         }
     }
@@ -65,11 +65,12 @@ const Posts = (filterPitches) => {
                 setPosts(postArray);
             })
             .catch(error => {
-                if (error.response.status == 400){
+                if (error.response.status === 400){
                     
-                } else if (error.response.status == 401){
+                } else if (error.response.status === 401){
                     navigate('/login')
                 }
+            })
     }, []);
 
     return <div className="component posts">
