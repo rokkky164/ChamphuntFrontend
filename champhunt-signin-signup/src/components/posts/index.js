@@ -31,41 +31,46 @@ const Posts = (filterPitches) => {
     };
 
     useEffect(()=>{
-        const data = [
-            {
-                author: {
-                    name: "Sameer Kanva",
-                    url: "/users/chandan",
-                    avatar: "https://i.pravatar.cc/45",
-                },
-                coAuthor: {
-                    name: "Navendhu Sinha",
-                    url: "/users/navendhu",
-                },
-                post: {
-                    date: "30.12.2021",
-                    time: "15:20:45",
-                    content: "Hey, Stats of a winner",
-                    comments: 4,
-                    runs: 123
-                }
-            },{
-                author: {
-                    name: "Navendhu Sinha",
-                    url: "/users/chandan",
-                    avatar: "https://i.pravatar.cc/45",
-                },
-                post: {
-                    date: "30.12.2021",
-                    time: "15:20:45",
-                    content: "Sachin vs Kohli",
-                    comments: 4,
-                    runs: 123
-                }
-            }
-        ];
+        axios(getPostOptions)
+            .then(response => {
+                const pitches = response.data.results;
+                let postArray = [];
+                for (let i = 0; i < pitches.length; i++) {
+                    var postDateObj = new Date(pitches[i].created);
+                    var postDate = ''
+                    var postTime = '';
+                    var x = "AM";
+                    if (postDateObj.getHours() > 12){
+                        x= "PM"
+                    }
+                    postDate = postDateObj.getDate() + "."+ parseInt(postDateObj.getMonth()+1) +"."+postDateObj.getFullYear();
+                    postTime = postDateObj.getHours() % 12 + ":"+ postDateObj.getMinutes() + ' '+ x;
+                    postArray.push({
+                    'author': {
+                        'name': pitches[i].user_data.first_name + ' '+ pitches[i].user_data.last_name,
+                        'url': '',
+                        'avatar':  "https://i.pravatar.cc/45"
+                    },
+                    'post':{
+                        'date': postDate,
+                        'time': postTime,
+                        'content': pitches[i].message,
+                        'comments': '',
+                        'runs': pitches[i].runs,
+                        'image': pitches[i].image
+                    }
 
-        setPosts(data);
+                  });
+                }
+                setPosts(postArray);
+            })
+            .catch(error => {
+                if (error.response.status === 400){
+                    
+                } else if (error.response.status === 401){
+                    navigate('/login')
+                }
+            })
     }, []);
 
     return <div className="component posts">
