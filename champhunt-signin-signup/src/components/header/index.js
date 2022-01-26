@@ -1,25 +1,37 @@
 
-import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import Logo from '../../assets/images/header/logo.png';
 import Plus from '../../assets/images/header/plus.svg';
 import Bell from '../../assets/images/header/bell.svg';
+import Coins from '../../assets/images/deals/coins.svg';
+import SearchIcon from '../../assets/images/header/search_icon.svg';
 import Avatar from '../../assets/images/header/avatar.png';
 
 import Input from '../../commons/form/input';
-
-import './index.scss';
 import HeaderMenu from '../header-menu';
 
+import './index.scss';
+
 const Header = ( props ) => {
+    
+    const { onlyLogo, showAdd, notification = 0 } = props;
+
+    const [showInput, setShowInput] = useState(false);
+
+    const navigate = useNavigate();
 
     const handleOnChange = () => {
 
     }
 
-    const { onlyLogo, showAdd } = props;
+    const handleSearchIconClick = () => {
+        navigate('/search');
+    }
 
-    const userProfileName = '';
+
+    const userProfileName = 'Pranay Karwa';
     return <header className="header">
         <div className='header-cnt'>
             <div className="logo-block">
@@ -54,15 +66,23 @@ const Header = ( props ) => {
             </div>
             }
             { !onlyLogo && 
-            <div className="desktop-only search-block">
+            <div className="search-block">
                 <Input
                     placeholder="Search"
                     name="search"
-                    classes="search"
+                    classes={`search desktop-only ${showInput?'show':'hide'}`}
                     onChange={handleOnChange}
                 />
-                <div className='bell-icon'>
+                <div className='desktop-only search-icon' role="button" onClick={handleSearchIconClick} >
+                    <img src={SearchIcon} alt='' />
+                </div>
+                <div className={`bell-icon ${notification>0 ? 'notification' : ''}`}>
+                    <span className='not-present'></span>
                     <img src={Bell} alt='' />
+                </div>
+                <div className='coins-block'>
+                    <img src={Coins} alt='' className='coins-img' />
+                    <span className='coins-hand'>25000</span>
                 </div>
             </div>
             }

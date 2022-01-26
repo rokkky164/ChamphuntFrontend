@@ -6,6 +6,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SignIn from './components/signin-signup/signin/signin.component';
 import Onboarding from './containers/onboarding';
 import PitchPage from './containers/pitch';
+import SearchPage from './containers/search';
 import DealsPage from './containers/deals';
 import SignUp from './components/signin-signup/signup/signup.component';
 import CollectUserInfo from './components/signin-signup/collect-userInfo/collect-userInfo.component';
@@ -44,6 +45,7 @@ function App() {
           <div>
             {/* <HomePageSection /> */}
             <Routes>
+              <Route path={'/search'} element={<SearchPage />} />
               <Route path={'/pitch'} element={<PitchPage />} />
               <Route path={'/deals'} element={<DealsPage />} />
               <Route path={'/onboarding'} element={<Onboarding />} />

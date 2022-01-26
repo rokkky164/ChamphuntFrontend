@@ -1,5 +1,7 @@
 import Button from "../../commons/form/button";
 
+import './index.scss';
+
 const Suggestion = ( props ) => {
 
     const handleFollow = () => {

@@ -2,9 +2,6 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import AllDeals from '../all-deals';
 
-import Hero from "../hero";
-import Posts from "../posts";
-
 import './index.scss';
 
 const Deals = () => {
