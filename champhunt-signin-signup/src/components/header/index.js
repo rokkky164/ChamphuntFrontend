@@ -1,5 +1,6 @@
 
-import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import Logo from '../../assets/images/header/logo.png';
 import Plus from '../../assets/images/header/plus.svg';
@@ -12,7 +13,6 @@ import Input from '../../commons/form/input';
 import HeaderMenu from '../header-menu';
 
 import './index.scss';
-import { useState } from 'react';
 
 const Header = ( props ) => {
     
@@ -20,12 +20,14 @@ const Header = ( props ) => {
 
     const [showInput, setShowInput] = useState(false);
 
+    const navigate = useNavigate();
+
     const handleOnChange = () => {
 
     }
 
     const handleSearchIconClick = () => {
-        setShowInput(!showInput);
+        navigate('/search');
     }
 
 

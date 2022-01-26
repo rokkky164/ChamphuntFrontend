@@ -5,6 +5,8 @@ import Share from '../../assets/images/posts/share.svg';
 import Runs from '../../assets/images/posts/runs.svg';
 import InfoIcon from '../../assets/images/posts/info.svg';
 
+import './index.scss';
+
 const Post = ( props ) => {
 
     const { 
