@@ -17,9 +17,13 @@
             justify-content: space-between;
     
             & .logo-block {
-                display: flex;
-                align-items: center;
-                color: #ffffff;
+                
+                & a {
+                    display: flex;
+                    align-items: center;
+                    color: #ffffff;
+                    text-decoration: none;
+                }
     
                 & .logo-text {
                     margin-left: 5px;
@@ -75,6 +79,15 @@
                 & .notification {
                     position: relative;
                     cursor: pointer;
+
+                    & svg {
+                        color: transparent;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                    }
                     & .not-present {
                         position: absolute;
                         width: 8px;
@@ -145,7 +158,7 @@
         }
 
         & .add-funds {
-            display: flex;
+            display: none;
             align-items: center;
 
             & .add-button {
@@ -171,9 +184,12 @@
             justify-content: space-between;
     
             & .logo-block {
-                display: flex;
-                align-items: center;
-                color: #ffffff;
+                
+                & a {
+                    display: flex;
+                    align-items: center;
+                    color: #ffffff;
+                }
     
                 & .logo-text {
                     margin-left: 5px;
@@ -219,6 +235,14 @@
                 & .notification {
                     position: relative;
                     cursor: pointer;
+                    & svg {
+                        color: transparent;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                    }
                     & .not-present {
                         position: absolute;
                         width: 8px;

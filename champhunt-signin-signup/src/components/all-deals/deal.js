@@ -1,13 +1,27 @@
+import { useState } from "react";
+
+import Modal from './modal';
 import ChampButton from "../../commons/form/button";
+
 
 const Deal = (props) => {
 
     const { tag, src, offername,  crickcoins_required} = props;
 
-    const handleOnClick = () => {
+    const [showModal, setShowModal] = useState(false);
 
+    const handleOnClick = () => {
+        setShowModal(!showModal);
     }
+
     return <div className="component deal">
+        {
+            showModal && <Modal
+                handleClose = {handleOnClick}
+                image = {src}
+                tag={tag}
+            />
+        }
         <div className="tag">
             { tag }
         </div>

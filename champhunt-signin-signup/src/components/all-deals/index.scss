@@ -38,6 +38,89 @@
             }
         }
     }
+    .deal-modal {
+
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 2;
+        left: 0;
+        top: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        & .deal-container {
+            border-radius: 20px;
+            background-color: #ffffff;
+            position: relative;
+        }
+
+        & .deal-content {
+            padding: 50px;
+            
+            & .copy-paste {
+                color: #131639;
+                font-size: 14px;
+            }
+            & .code-block {
+
+                display: flex;
+                border-radius: 45px;
+                border: 1px solid #49348F;
+                max-width: 575px;
+                margin: auto;
+                align-items: center;
+                justify-content: space-between;
+                padding-left: 51px;
+                padding-right: 20px;
+                box-sizing: border-box;
+
+                & .copy {
+                    background-color: #49348F;
+                    border-radius: 45px;
+                    padding: 8px 45px;
+                    color: #cfcfcf;
+                    cursor: pointer;
+                    margin: 8px 0;
+                }
+
+                & .code {
+                    color: #131639;
+                    font-weight: bold;
+                    font-size: 24px;
+                    margin: 8px 0;
+                    border: none;
+                }
+            }
+            & .discount {
+                font-weight: 600;
+                font-size: 18px;
+                color: #131639;
+                & .highlight {
+                    color: #FF8700;
+                }
+            }
+        }
+
+        & .deal-footer {
+            max-width: 90%;
+            margin: auto;
+            border-top: 1px solid #707070;
+            font-size: 12px;
+
+            & p {
+                padding: 0 12px;
+            }
+        }
+
+        & .deal-tag {
+            position: absolute;
+            left: 35px;
+            color: #FF0008;
+        }
+    }
 }
 
 @media screen and (max-width: 769px) {
@@ -83,6 +166,89 @@
                     color: #26A700;
                 }
             }
+        }
+    }
+    .deal-modal {
+
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 2;
+        left: 0;
+        top: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        & .deal-container {
+            border-radius: 20px;
+            background-color: #ffffff;
+            position: relative;
+        }
+
+        & .deal-content {
+            padding: 50px;
+            
+            & .copy-paste {
+                color: #131639;
+                font-size: 14px;
+            }
+            & .code-block {
+
+                display: flex;
+                border-radius: 45px;
+                border: 1px solid #49348F;
+                max-width: 575px;
+                margin: auto;
+                align-items: center;
+                justify-content: space-between;
+                padding-left: 51px;
+                padding-right: 20px;
+                box-sizing: border-box;
+
+                & .copy {
+                    background-color: #49348F;
+                    border-radius: 45px;
+                    padding: 8px 45px;
+                    color: #cfcfcf;
+                    cursor: pointer;
+                    margin: 8px 0;
+                }
+
+                & .code {
+                    color: #131639;
+                    font-weight: bold;
+                    font-size: 24px;
+                    margin: 8px 0;
+                    border: none;
+                }
+            }
+            & .discount {
+                font-weight: 600;
+                font-size: 18px;
+                color: #131639;
+                & .highlight {
+                    color: #FF8700;
+                }
+            }
+        }
+
+        & .deal-footer {
+            max-width: 90%;
+            margin: auto;
+            border-top: 1px solid #707070;
+            font-size: 12px;
+
+            & p {
+                padding: 0 12px;
+            }
+        }
+
+        & .deal-tag {
+            position: absolute;
+            left: 35px;
+            color: #FF0008;
         }
     }
 }
