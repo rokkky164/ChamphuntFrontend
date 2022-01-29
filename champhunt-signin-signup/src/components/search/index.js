@@ -21,14 +21,14 @@ const Search = () => {
         setSearchTerm(searchTerm);
         let url = 'http://127.0.0.1:8001/api/v0/search/?search_term=' + searchTerm;
         var getSearchOptions = {
-             method: 'get',
-             url: url,
-             headers: {
+            method: 'get',
+            url: url,
+            headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + accessToken
-             },
-             json: true
+            },
+            json: true
         };
         axios(getSearchOptions)
             .then(response => {
@@ -45,28 +45,28 @@ const Search = () => {
                     deals: []
                 }
                 // populate profiles
-                profiles.forEach(function(profile){
+                profiles.forEach(function(profile) {
                     searchResults.profiles.push({
                         'name': profile.first_name + ' ' + profile.last_name,
                         'avatar': "https://i.pravatar.cc/45",
                         'role': '',
                         'followers': profile.followers.length,
                         'runs': profile.runs,
-                        'id': profile.id 
+                        'id': profile.id
                     })
 
                 })
                 // populate pitches 
-                pitches.forEach(function(pitch){
+                pitches.forEach(function(pitch) {
                     var postDateObj = new Date(pitch.created);
                     var postDate = ''
                     var postTime = '';
                     var x = "AM";
-                    if (postDateObj.getHours() > 12){
-                        x= "PM"
+                    if (postDateObj.getHours() > 12) {
+                        x = "PM"
                     }
-                    postDate = postDateObj.getDate() + "."+ parseInt(postDateObj.getMonth()+1) +"."+postDateObj.getFullYear();
-                    postTime = postDateObj.getHours() % 12 + ":"+ postDateObj.getMinutes() + ' '+ x;
+                    postDate = postDateObj.getDate() + "." + parseInt(postDateObj.getMonth() + 1) + "." + postDateObj.getFullYear();
+                    postTime = postDateObj.getHours() % 12 + ":" + postDateObj.getMinutes() + ' ' + x;
                     searchResults.pitches.push({
                         'author': {
                             'name': pitch.user_data.first_name + ' ' + pitch.user_data.last_name,
@@ -86,9 +86,9 @@ const Search = () => {
                 setSearchResults(searchResults);
             })
             .catch(error => {
-                if (error.response.status === 400){
-                    
-                } else if (error.response.status === 401){
+                if (error.response.status === 400) {
+
+                } else if (error.response.status === 401) {
                     navigate('/login')
                 }
             })

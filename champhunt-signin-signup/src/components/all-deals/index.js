@@ -6,20 +6,20 @@ import './index.scss';
 
 const AllDeals = () => {
 
-    const [deals,setDeals] = useState([]);
+    const [deals, setDeals] = useState([]);
     let url = 'http://localhost:8001/api/v0/offers/';
     const accessToken = localStorage.getItem('access-token');
     var getDealsOptions = {
-         method: 'get',
-         url: url,
-         headers: {
+        method: 'get',
+        url: url,
+        headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + accessToken
-         },
-         json: true
+        },
+        json: true
     };
-    useEffect(()=>{
+    useEffect(() => {
         axios(getDealsOptions)
             .then(response => {
                 const results = response.data;

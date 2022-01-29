@@ -44,13 +44,13 @@ export default function SignInUp() {
             </span>
         </RegisterHere>
     </div>)
-    const desktopView = (
-        <>
-            <div style={{ padding: 40 }}>
+    const desktopView = ( <
+        >
+        <div style={{ padding: 40 }}>
                 <LogoWithTitle fontSize={90} />
-            </div>
-            <div style={{ width: "80%", margin: '0 auto', border: '1px solid white', borderRadius: 20 }}>
-                <Grid container>
+            </div> <
+        div style = { { width: "80%", margin: '0 auto', border: '1px solid white', borderRadius: 20 } } >
+        <Grid container>
                     <Grid item xs={6}>
                         <div style={{ width: "60%", padding: 50, paddingBottom: 20 }}>
                             <SignInForm />
@@ -61,9 +61,9 @@ export default function SignInUp() {
                             <SignUpForm />
                         </div>
                     </Grid>
-                </Grid>
-            </div>
-        </>
+                </Grid> <
+        /div> <
+        />
     )
     return (<PageContainer>{matches ? desktopView : mobileView}</PageContainer>);
 }

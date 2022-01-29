@@ -10,24 +10,24 @@ const Suggestions = () => {
     const accessToken = localStorage.getItem('access-token');
     let url = 'http://127.0.0.1:8001/api/v0/friends-suggestion/';
     var getSuggestionsOptions = {
-         method: 'get',
-         url: url,
-         headers: {
+        method: 'get',
+        url: url,
+        headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + accessToken
-         },
-         json: true
+        },
+        json: true
     };
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         axios(getSuggestionsOptions)
             .then(response => {
                 const results = response.data.results;
                 let suggestionsData = [];
-                results.forEach(function(element){
+                results.forEach(function(element) {
                     suggestionsData.push({
-                        name: element.first_name + ' '+ element.last_name,
+                        name: element.first_name + ' ' + element.last_name,
                         role: element.player_profile,
                         avatar: "https://i.pravatar.cc/75",
                         followers: element.followers.length,
@@ -39,15 +39,14 @@ const Suggestions = () => {
                 setSuggestions(suggestionsData);
             })
             .catch(error => {
-                if (error.status == 400){
+                if (error.status == 400) {
 
-                }
-                else if (error.status == 401){
+                } else if (error.status == 401) {
                     navigate('/login')
                 }
             })
 
-        
+
 
     }, []);
 
