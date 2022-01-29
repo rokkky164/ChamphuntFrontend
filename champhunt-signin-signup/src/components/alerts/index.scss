@@ -108,16 +108,71 @@
 
 @media screen and (max-width: 769px) {
 
+    .alert {
+        & .create-post {
+            border: none !important;
+            width: 200px;
+            border-radius: 6px;
+            color: #ffffff;
+            background-image: linear-gradient(90deg, #DB2DEE, #F86930);
+        }
+        & .form {
+            transition: all 0.4s ease-in;
+            &.visible {
+                padding: 15px 0;
+            }
+            &.hidden {
+                height: 0;
+                overflow: hidden;
+            }
+            & .form-heading {
+                color: #cfcfcf;
+                margin: 8px 0;
+            }
+            & .post-content {
+                width: 100%;
+                border-radius: 15px;
+                padding: 5px;
+                box-sizing: border-box;
+                outline: none;
+            }
+            & .attch {
+                max-width: 100%;
+                width: 100%;
+            }
+            & .cta-container {
+                & .right-cta {
+                    display: flex;
+                    justify-content: space-around;
+
+                    & .button {
+                        & :disabled {
+                            background-color: #AAAAAA;
+                            background-image: none;
+                        }
+                    }
+
+                    & .cancel-post {
+                        background-color: transparent;
+                        border: 1px solid #DADADA;
+                    }
+                }
+                & .left-cta {
+                    margin: 15px 0;
+                }
+                & .attach {
+                    width: 100%;
+                    color: #ffffff;
+                }
+            }
+        }
+    }
+
     .alert .alert-container {
 
         background-color: #383B5A;
         border-radius: 12px;
         padding: 5px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        & .form {}
     
         & .left {
             display: flex;
