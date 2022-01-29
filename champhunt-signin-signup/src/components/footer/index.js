@@ -7,7 +7,10 @@ import ProfilePost from '../../assets/images/posts/postprofile.svg';
 
 import './index.scss';
 
-const Footer = () => {
+const Footer = ( props ) => {
+
+    const { handlePostClick } = props;
+
     return <footer className="footer">
         <div className='footer-cnt'>
             <div className='footer-nav-cnt'>
@@ -17,7 +20,7 @@ const Footer = () => {
                     icon={Lines}
                 />
             </div>
-            <div className='icon-cnt'>
+            <div onClick={handlePostClick} className='icon-cnt'>
                 <img src={CreatePost} className='icon-img' alt='' />
                 <span className='icon-text'>
                     POST

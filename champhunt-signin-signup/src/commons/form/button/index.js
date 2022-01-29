@@ -8,7 +8,9 @@ const ChampButton = (props) => {
         label,
         classes,
         onClick,
+        onChange,
         icon,
+        name,
         type='button',
         disabled = false
     } = props;
@@ -27,7 +29,7 @@ const ChampButton = (props) => {
             { 
             icon && <>
                 <img className='button-icon' src={icon} />
-                <input type='file' ref={inputRef} />
+                <input type='file' ref={inputRef} onChange={onChange} name={name} />
                 <button onClick={handleClick} className={classes}>{label}</button>
             </>
             }
