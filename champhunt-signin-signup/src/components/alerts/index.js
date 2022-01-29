@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 
 import Button from '../../commons/form/button';
@@ -27,21 +26,21 @@ const Alert = () => {
     }
 
     const handleInputChange = (event) => {
-        
+
         const { name, value } = event.target;
 
-        if(name === 'attachment') {
+        if (name === 'attachment') {
 
             const file = event.target.files[0];
 
             const reader = new FileReader();
             const url = reader.readAsDataURL(file);
-    
-            reader.onloadend = function (e) {
+
+            reader.onloadend = function(e) {
                 setFormContent({
                     ...formContent,
                     [name]: [reader.result]
-                });    
+                });
             }
         } else {
             setFormContent({
@@ -101,9 +100,10 @@ const Alert = () => {
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
     }
-
+    const profileEmail = localStorage.getItem('user_email');
+    debugger;
     return <div className="component alert">
         
         <div className='alert-container'>
