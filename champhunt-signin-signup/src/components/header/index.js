@@ -13,10 +13,11 @@ import Input from '../../commons/form/input';
 import HeaderMenu from '../header-menu';
 
 import './index.scss';
+import { Tooltip } from 'carbon-components-react';
 
 const Header = ( props ) => {
     
-    const { onlyLogo, showAdd, notification = 0 } = props;
+    const { onlyLogo, showAdd, notification = 3 } = props;
 
     const [showInput, setShowInput] = useState(false);
 
@@ -35,12 +36,14 @@ const Header = ( props ) => {
     return <header className="header">
         <div className='header-cnt'>
             <div className="logo-block">
-                <img src={Logo} alt='Champhunt' />
-                <span className='logo-text'>
-                    CHAMPHUNT
-                </span>
+                <NavLink to="/pitch">
+                    <img src={Logo} alt='Champhunt' />
+                    <span className='logo-text'>
+                        CHAMPHUNT
+                    </span>
+                </NavLink>
             </div>
-            { showAdd && <div className='add-funds'>
+            { showAdd && <div className='desktop-only add-funds'>
                     <div className='add-button'>
                         <img src={Plus} alt='' />
                     </div>
@@ -79,6 +82,19 @@ const Header = ( props ) => {
                 <div className={`bell-icon ${notification>0 ? 'notification' : ''}`}>
                     <span className='not-present'></span>
                     <img src={Bell} alt='' />
+                    <Tooltip
+                        direction='bottom'
+                    >
+                        <div className='notification-content'>
+                            <div className='heading'>
+                                <p className='title' >Notification</p>
+                                <p className='sub-title' >You have 2 notification today</p>
+                            </div>
+                            <div className='notifications'>
+
+                            </div>
+                        </div>
+                    </Tooltip>
                 </div>
                 <div className='coins-block'>
                     <img src={Coins} alt='' className='coins-img' />
