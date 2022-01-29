@@ -102,6 +102,10 @@
                     color: #FF8700;
                 }
             }
+
+            & img {
+                width: 160px;
+            }
         }
 
         & .deal-footer {
@@ -125,15 +129,17 @@
 
 @media screen and (max-width: 769px) {
     .all-deals {
+
         display: flex;
         flex-wrap: wrap;
-    
+        justify-content: center;
+
         & .deal {
             
             flex-basis: calc(50% - 25px);
-            margin-right: 25px;
             margin-bottom: 25px;
             padding: 25px;
+            margin-right: 10px;
             box-sizing: border-box;
             background-color: #ffffff;
             text-align: center;
@@ -150,7 +156,6 @@
             }
     
             &:nth-child(2n) {
-                margin-right: 0;
                 & button {
                     background-color: #D73131;
                 }
