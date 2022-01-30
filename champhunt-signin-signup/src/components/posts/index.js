@@ -18,6 +18,26 @@ const Posts = (filterPitches) => {
             url = 'http://localhost:8001/api/v0/pitches/?filter=friends';
         }
     }
+    // set profile id in localStorage
+    var getProfileOptions = {
+            method: 'get',
+            url: 'http://localhost:8001/api/v0/logged-in-profile/',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + accessToken
+            },
+            json: true
+        }
+    axios(getProfileOptions)
+        .then(response => {
+           localStorage.setItem('profile-id', response.data['profile_id']);
+        })
+        .catch(error => {
+            if (error.response.status == 401) {
+            }
+        })
+    //
     var getPostOptions = {
         method: 'get',
         url: url,
@@ -33,6 +53,7 @@ const Posts = (filterPitches) => {
         axios(getPostOptions)
             .then(response => {
                 const pitches = response.data.results;
+                localStorage.setItem('profile_id', response.data['user_email']);
                 let postArray = [];
                 pitches.forEach(function(pitch) {
                     var postDateObj = new Date(pitch.created);

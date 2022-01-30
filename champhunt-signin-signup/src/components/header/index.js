@@ -31,8 +31,8 @@ const Header = ( props ) => {
         navigate('/search');
     }
 
-
-    const userProfileName = 'Pranay Karwa';
+    const userCrickCoins = 25000;
+    const userProfileName = localStorage.getItem('user_name');
     return <header className="header">
         <div className='header-cnt'>
             <div className="logo-block">
@@ -98,7 +98,7 @@ const Header = ( props ) => {
                 </div>
                 <div className='coins-block'>
                     <img src={Coins} alt='' className='coins-img' />
-                    <span className='coins-hand'>25000</span>
+                    <span className='coins-hand'>{userCrickCoins}</span>
                 </div>
             </div>
             }
