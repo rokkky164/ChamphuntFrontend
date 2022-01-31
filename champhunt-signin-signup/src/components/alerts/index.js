@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 
 import Button from '../../commons/form/button';
@@ -9,13 +8,15 @@ import CameraWhite from '../../assets/images/posts/camera_white.svg';
 import './index.scss';
 import ChampButton from '../../commons/form/button';
 import PostContext from '../../context/post';
-
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 const Alert = () => {
 
     const [showForm, setShowForm] = useState(false);
     const [formContent, setFormContent] = useState({
-        text: '',
-        attachment: ''
+        message: '',
+        image: '',
+        userprofile: ''
     });
 
     const handleOnClick = () => {
@@ -27,21 +28,20 @@ const Alert = () => {
     }
 
     const handleInputChange = (event) => {
-        
+
         const { name, value } = event.target;
 
-        if(name === 'attachment') {
+        if (name === 'image') {
 
             const file = event.target.files[0];
 
             const reader = new FileReader();
             const url = reader.readAsDataURL(file);
-    
-            reader.onloadend = function (e) {
+            reader.onloadend = function(e) {
                 setFormContent({
                     ...formContent,
                     [name]: [reader.result]
-                });    
+                });
             }
         } else {
             setFormContent({
@@ -50,9 +50,31 @@ const Alert = () => {
             });
         }
     }
+    const formData = new FormData();
+    const handlePostSubmit = (e) => {
+        e.preventDefault();
+        
+        formData.append("message", formContent.message);
+        formData.append("image", formContent.image);
+        formData.append("userprofile", localStorage.getItem('profile-id'));
 
-    const handlePostSubmit = () => {
-
+        const accessToken = localStorage.getItem('access-token');
+        var submitPostOptions = {
+            method: 'post',
+            url: 'http://localhost:8001/api/v0/submit-pitch/',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+            },
+            data: formData,
+            json: true
+        };
+        axios(submitPostOptions)
+            .then(response => {
+                setShowForm(false);
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
 
     const getFormMarkup = (showForm, Camera, handleCancel) => {
@@ -64,15 +86,16 @@ const Alert = () => {
         <div className='post-form'>
             <textarea
                 onChange={handleInputChange}
-                name='text'
+                name='message'
                 placeholder='Start typing here'
+                id='postContent'
                 className='post-content'
-                value={formContent.text}
+                value={formContent.message}
             >
             </textarea>
         </div>
         <div className='attachment-content'>
-            { formContent.attachment && <img className='attch' src={formContent.attachment} alt='' /> }
+            { formContent.image && <img className='attch' src={formContent.image} alt='' /> }
         </div>
         <div className='post-footer'>
             <div className='cta-container'>
@@ -80,7 +103,8 @@ const Alert = () => {
                     <ChampButton
                         classes='upload primary-button attach'
                         label='Attach image/video'
-                        name='attachment'
+                        id='image'
+                        name='image'
                         icon={Camera}
                         onChange={handleInputChange}
                         type='file'
@@ -95,22 +119,22 @@ const Alert = () => {
                     <ChampButton
                         classes='upload primary-button create-post'
                         label='Submit'
-                        disabled={formContent.text === ''}
+                        disabled={formContent.message === ''}
                         onClick={handlePostSubmit}
                     />
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
     }
-
+    const profileEmail = localStorage.getItem('user_email');
     return <div className="component alert">
         
         <div className='alert-container'>
             <div className='left'>
                 <img src={Avatar} alt='' />
                 <span className='primary'>
-                    Hello, test@customer.com
+                    Hello, {profileEmail}
                 </span>
             </div>
             

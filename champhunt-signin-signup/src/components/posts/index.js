@@ -8,66 +8,85 @@ import './index.scss';
 
 const Posts = (filterPitches) => {
     const navigate = useNavigate();
-    const[posts, setPosts] = useState([]);
+    const [posts, setPosts] = useState([]);
     const accessToken = localStorage.getItem('access-token');
-    let url = 'http://127.0.0.1:8001/api/v0/pitches/';
-    if (filterPitches){
-        if (filterPitches.filter === 'my_posts'){
-           url = 'http://127.0.0.1:8001/api/v0/pitches/?filter=user'; 
-        }
-        else if (filterPitches.filter === 'friends'){
-           url = 'http://127.0.0.1:8001/api/v0/pitches/?filter=friends'; 
+    let url = 'http://localhost:8001/api/v0/pitches/';
+    if (filterPitches) {
+        if (filterPitches.filter == 'my_posts') {
+            url = 'http://localhost:8001/api/v0/pitches/?filter=user';
+        } else if (filterPitches.filter == 'friends') {
+            url = 'http://localhost:8001/api/v0/pitches/?filter=friends';
         }
     }
+    // set profile id in localStorage
+    var getProfileOptions = {
+            method: 'get',
+            url: 'http://localhost:8001/api/v0/logged-in-profile/',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + accessToken
+            },
+            json: true
+        }
+    axios(getProfileOptions)
+        .then(response => {
+           localStorage.setItem('profile-id', response.data['profile_id']);
+        })
+        .catch(error => {
+            if (error.response.status == 401) {
+            }
+        })
+    //
     var getPostOptions = {
-         method: 'get',
-         url: url,
-         headers: {
+        method: 'get',
+        url: url,
+        headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + accessToken
-         },
-         json: true
+        },
+        json: true
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         axios(getPostOptions)
             .then(response => {
                 const pitches = response.data.results;
+                localStorage.setItem('profile_id', response.data['user_email']);
                 let postArray = [];
-                for (let i = 0; i < pitches.length; i++) {
-                    var postDateObj = new Date(pitches[i].created);
+                pitches.forEach(function(pitch) {
+                    var postDateObj = new Date(pitch.created);
                     var postDate = ''
                     var postTime = '';
                     var x = "AM";
-                    if (postDateObj.getHours() > 12){
-                        x= "PM"
+                    if (postDateObj.getHours() > 12) {
+                        x = "PM"
                     }
-                    postDate = postDateObj.getDate() + "."+ parseInt(postDateObj.getMonth()+1) +"."+postDateObj.getFullYear();
-                    postTime = postDateObj.getHours() % 12 + ":"+ postDateObj.getMinutes() + ' '+ x;
+                    postDate = postDateObj.getDate() + "." + parseInt(postDateObj.getMonth() + 1) + "." + postDateObj.getFullYear();
+                    postTime = postDateObj.getHours() % 12 + ":" + postDateObj.getMinutes() + ' ' + x;
                     postArray.push({
-                    'author': {
-                        'name': pitches[i].user_data.first_name + ' '+ pitches[i].user_data.last_name,
-                        'url': '',
-                        'avatar':  "https://i.pravatar.cc/45"
-                    },
-                    'post':{
-                        'date': postDate,
-                        'time': postTime,
-                        'content': pitches[i].message,
-                        'comments': '',
-                        'runs': pitches[i].runs,
-                        'image': pitches[i].image
-                    }
-
-                  });
-                }
+                        'author': {
+                            'name': pitch.user_data.first_name + ' ' + pitch.user_data.last_name,
+                            'url': '',
+                            'avatar': "https://i.pravatar.cc/45"
+                        },
+                        'post': {
+                            'date': postDate,
+                            'time': postTime,
+                            'content': pitch.message,
+                            'comments': '',
+                            'runs': pitch.runs,
+                            'image': pitch.image
+                        }
+                    });
+                })
                 setPosts(postArray);
             })
             .catch(error => {
-                if (error.response.status === 400){
-                    
-                } else if (error.response.status === 401){
+                if (error.response.status === 400) {
+
+                } else if (error.response.status === 401) {
                     navigate('/login')
                 }
             })

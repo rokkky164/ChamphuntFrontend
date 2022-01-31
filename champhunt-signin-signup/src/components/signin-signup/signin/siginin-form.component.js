@@ -73,40 +73,45 @@ export default function SignInForm({ breakPoint }) {
     const loginSubmit = (event) => {
 
         event.preventDefault();
-        
+
         const data = {
-            'username': event.target.userid.value, 
-             'password': event.target.password.value
+            'username': event.target.userid.value,
+            'password': event.target.password.value
         };
         if (validator.isEmail(data['username'])) {
             data['email'] = data['username'];
             delete data['username'];
         }
         var loginOptions = {
-             method: 'post',
-             url: 'http://127.0.0.1:8001/api/v0/login/',
-             data: JSON.stringify(data),
-             headers: {
+            method: 'post',
+            url: 'http://localhost:8001/api/v0/login/',
+            data: JSON.stringify(data),
+            headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-             },
-             json: true
+            },
+            json: true
         };
         axios(loginOptions)
-        .then(response => {
-            localStorage.setItem('access-token', response.data['access']);
-            navigate('/onboarding')
-        })
-        .catch(error => {
-            if (error.response.status == 401){
-                setauthenticatedFailedMsg(error.response.data['detail']);
-            }
-        })
+            .then(response => {
+                localStorage.setItem('user_id', response.data['user_id']);
+                localStorage.setItem('user_email', response.data['user_email']);
+                localStorage.setItem('full_name', response.data['full_name']);
+                localStorage.setItem('user_mobile', response.data['user_mobile']);
+                localStorage.setItem('user_name', response.data['user_name']);
+                localStorage.setItem('access-token', response.data['access']);
+                navigate('/onboarding');
+            })
+            .catch(error => {
+                if (error.response.status == 401) {
+                    setauthenticatedFailedMsg(error.response.data['detail']);
+                }
+            })
     }
     // api call end
-    return (
-        <>
-            <Box component="form" onSubmit={loginSubmit} noValidate>
+    return ( <
+        >
+        <Box component="form" onSubmit={loginSubmit} noValidate>
                 <CTextField
                     margin="normal"
                     required
@@ -175,7 +180,7 @@ export default function SignInForm({ breakPoint }) {
                     <InfoLabel>Or login with</InfoLabel>
                     <CIcon src={GoogleIcon} fontSize={53} />
                 </LogInWith>
-            </Box>
-        </>
+            </Box> <
+        />
     )
 }

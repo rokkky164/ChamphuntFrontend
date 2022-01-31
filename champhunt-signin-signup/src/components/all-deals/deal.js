@@ -6,7 +6,7 @@ import ChampButton from "../../commons/form/button";
 
 const Deal = (props) => {
 
-    const { tag, src, offername,  crickcoins_required} = props;
+    const { tag, src, offername, crickcoins_required } = props;
 
     const [showModal, setShowModal] = useState(false);
 

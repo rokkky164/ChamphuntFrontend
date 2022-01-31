@@ -66,7 +66,7 @@ export default function SignUpForm(props) {
 
         var registerOptions = {
              method: 'post',
-             url: 'http://127.0.0.1:8001/api/v0/register/',
+             url: 'http://localhost:8001/api/v0/register/',
              data: JSON.stringify(
                 {'email': event.target.email.value,
                  'mobile': event.target.mobile.value,

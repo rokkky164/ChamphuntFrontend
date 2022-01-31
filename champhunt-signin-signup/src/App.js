@@ -14,8 +14,8 @@ import CollectUserInfo from './components/signin-signup/collect-userInfo/collect
 const theme = createTheme();
 
 const AllRotes = () => {
-  return (
-    <ul>
+    return (
+        <ul>
       <li><a href='/'>Home</a></li>
       <li><a href='/login'>signin</a></li>
       <li><a href='/signup'>signup</a></li>
@@ -23,23 +23,23 @@ const AllRotes = () => {
       <li><a href='/onboarding'>onboarding</a></li>
       <li><a href='/pitch'>pitch</a></li>
     </ul>
-  )
+    )
 }
 
 const Dummy = ({ label = 'No page found' }) => {
-  return (
-    <div style={{ display: 'flex', height: '100vh' }}>
+    return (
+        <div style={{ display: 'flex', height: '100vh' }}>
       <p style={{ margin: 'auto' }}>
         {label}
         <AllRotes />
       </p>
     </div>
-  )
+    )
 }
 
 function App() {
-  return (
-    <Provider store={store}>
+    return (
+        <Provider store={store}>
       <ThemeProvider theme={theme}>
         <Router>
           <div>
@@ -59,6 +59,6 @@ function App() {
         </Router>
       </ThemeProvider>
     </Provider>
-  );
+    );
 }
 export default App;

@@ -1,7 +1,7 @@
 .component.search {
     max-width: 1200px;
     margin: 20px auto;
-
+    & .hidden { display:none; }
     & .search-holder {
         background-color: #383B5A;
         padding: 45px 45px 25px 45px;

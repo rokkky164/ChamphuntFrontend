@@ -10,43 +10,43 @@ const Suggestions = () => {
     const accessToken = localStorage.getItem('access-token');
     let url = 'http://127.0.0.1:8001/api/v0/friends-suggestion/';
     var getSuggestionsOptions = {
-         method: 'get',
-         url: url,
-         headers: {
+        method: 'get',
+        url: url,
+        headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + accessToken
-         },
-         json: true
+        },
+        json: true
     };
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         axios(getSuggestionsOptions)
             .then(response => {
                 const results = response.data.results;
                 let suggestionsData = [];
-                for (let i = 0; i < results.length; i++) {
+                results.forEach(function(element) {
                     suggestionsData.push({
-                        name: results[i].first_name + ' '+ results[i].last_name,
-                        role: results[i].player_profile,
+                        name: element.first_name + ' ' + element.last_name,
+                        role: element.player_profile,
                         avatar: "https://i.pravatar.cc/75",
-                        followers: results[i].followers.length,
-                        runs: results[i].runs,
-                        id: results[i].id
+                        followers: element.followers_count,
+                        runs: element.runs,
+                        id: element.id
                     });
-                }
+
+                })
                 setSuggestions(suggestionsData);
             })
             .catch(error => {
-                if (error.response.status == 400){
+                if (error.status == 400) {
 
-                }
-                else if (error.response.status == 401){
+                } else if (error.status == 401) {
                     navigate('/login')
                 }
             })
 
-        
+
 
     }, []);
 

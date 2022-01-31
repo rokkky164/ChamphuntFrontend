@@ -18,14 +18,25 @@ import UmpireSelected from '../../assets/images/onboarding/umpire-selected.svg';
 import BowlerSelected from '../../assets/images/onboarding/bowler-selected.svg';
 
 import './index.scss';
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 const OnboardingComponent = () => {
-
+    const profileEmail = localStorage.getItem('user_email');
+    const userName = localStorage.getItem('user_name');
+    const userID = localStorage.getItem('user_id');
+    const accessToken = localStorage.getItem('access-token');
+    const profileID = localStorage.getItem('profile-id');
+    const navigate = useNavigate();
+    if (!accessToken){navigate('/login');}
+    if (profileID){navigate('/pitch');}
     const [options, setOptions] = useState([]);
     const [disabled, setDisabled] = useState(true);
     const [userInfo, setUserInfo] = useState({
-        name: '',
-        place: '',
+        first_name: '',
+        last_name: '',
+        state: '',
+        user: '',
         interests: {
             batsmen: false,
             bowler: false,
@@ -37,36 +48,36 @@ const OnboardingComponent = () => {
 
     useEffect(() => {
         const stateOptions = [
-            {id: 1, label: 'Andhra Pradesh'},
-            {id: 2, label: 'Arunachal Pradesh'},
-            {id: 3, label: 'Assam'},
-            {id: 4, label: 'Bihar'},
-            {id: 5, label: 'Chhattisgarh'},
-            {id: 6, label: 'Goa'},
-            {id: 7, label: 'Gujarat'},
-            {id: 8, label: 'Haryana'},
-            {id: 9, label: 'Himachal Pradesh'},
-            {id: 10, label: 'Jammu & Kashmir'},
-            {id: 11, label: 'Karnataka'},
-            {id: 12, label: 'Kerala'},
-            {id: 13, label: 'Madhya Pradesh'},
-            {id: 14, label: 'Maharashtra'},
-            {id: 15, label: 'Manipur'},
-            {id: 16, label: 'Meghalaya'},
-            {id: 17, label: 'Mizoram'},
-            {id: 18, label: 'Nagaland'},
-            {id: 19, label: 'Delhi'},
-            {id: 20, label: 'Odisha'},
-            {id: 21, label: 'Puducherry'},
-            {id: 22, label: 'Punjab'},
-            {id: 23, label: 'Rajasthan'},
-            {id: 24, label: 'Sikkim'},
-            {id: 25, label: 'Tamil Nadu'},
-            {id: 26, label: 'Telangana'},
-            {id: 27, label: 'Tripura'},
-            {id: 28, label: 'Uttar Pradesh'},
-            {id: 29, label: 'Uttarakhand'},
-            {id: 30, label: 'West Bengal'}
+            {id: 'Andhra Pradesh', label: 'Andhra Pradesh'},
+            {id: 'Arunachal Pradesh', label: 'Arunachal Pradesh'},
+            {id: 'Assam', label: 'Assam'},
+            {id: 'Bihar', label: 'Bihar'},
+            {id: 'Chhattisgarh', label: 'Chhattisgarh'},
+            {id: 'Goa', label: 'Goa'},
+            {id: 'Gujarat', label: 'Gujarat'},
+            {id: 'Haryana', label: 'Haryana'},
+            {id: 'Himachal Pradesh', label: 'Himachal Pradesh'},
+            {id: 'Jammu & Kashmir', label: 'Jammu & Kashmir'},
+            {id: 'Karnataka', label: 'Karnataka'},
+            {id: 'Kerala', label: 'Kerala'},
+            {id: 'Madhya Pradesh', label: 'Madhya Pradesh'},
+            {id: 'Maharashtra', label: 'Maharashtra'},
+            {id: 'Manipur', label: 'Manipur'},
+            {id: 'Meghalaya', label: 'Meghalaya'},
+            {id: 'Mizoram', label: 'Mizoram'},
+            {id: 'Nagaland', label: 'Nagaland'},
+            {id: 'Delhi', label: 'Delhi'},
+            {id: 'Odisha', label: 'Odisha'},
+            {id: 'Puducherry', label: 'Puducherry'},
+            {id: 'Punjab', label: 'Punjab'},
+            {id: 'Rajasthan', label: 'Rajasthan'},
+            {id: 'Sikkim', label: 'Sikkim'},
+            {id: 'Tamil Nadu', label: 'Tamil Nadu'},
+            {id: 'Telangana', label: 'Telangana'},
+            {id: 'Tripura', label: 'Tripura'},
+            {id: 'Uttar Pradesh', label: 'Uttar Pradesh'},
+            {id: 'Uttarakhand', label: 'Uttarakhand'},
+            {id: 'West Bengal', label: 'West Bengal'}
         ];
 
         setOptions(stateOptions);
@@ -78,7 +89,32 @@ const OnboardingComponent = () => {
 
     }
 
-    const handleNext = () => {
+    const handleNext = (event) => {
+        if (step==1){
+            userInfo.user = userID;
+            var submitUserProfileOptions = {
+                    method: 'post',
+                    url: 'http://127.0.0.1:8001/api/v0/user-profile/',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + accessToken,
+                    },
+                    data: userInfo,
+                    json: true
+                };
+            axios(submitUserProfileOptions)
+                .then(response => {
+                    debugger;
+
+                })
+                .catch(error => {
+                    if (error.status == 401){
+                        navigate('/login');
+                    }
+                })
+
+        }
+
         if( step === 2 ) {
             handleLater();
         } else {
@@ -111,20 +147,30 @@ const OnboardingComponent = () => {
         switch(step) {
             case 1:
                 markup = <>
-                <p className='center primary'>Hello , XYZ.mail.com</p>
+                <p className='center primary'>Hello , {profileEmail}</p>
                 <p className='center primary'>Let others know about you</p>
                 <div className='onboarding gtkm form'>
                     <Input
                         classes='primary gtkm-name'
                         placeholder='Type here...'
-                        label='My friends call me'
-                        name='name'
+                        label='First Name'
+                        id='first_name'
+                        name='first_name'
+                        onChange={ handleOnChange }
+                    />
+                    <Input
+                        classes='primary gtkm-name'
+                        placeholder='Type here...'
+                        label='Last Name'
+                        id='last_name'
+                        name='last_name'
                         onChange={ handleOnChange }
                     />
                     <Select
                         options = {options}
                         onChange={ handleOnChange }
-                        name = 'place'
+                        id='state'
+                        name='state'
                         titleText = 'I am from'
                         label = 'Select'
                     />
@@ -141,6 +187,8 @@ const OnboardingComponent = () => {
                                 label='Upload'
                                 icon={ Upload }
                                 type='file'
+                                id='profile_pic'
+                                name='profile_pic'
                             />
                             <ChampButton
                                 label='Do it later'
@@ -162,7 +210,7 @@ const OnboardingComponent = () => {
                 } = userInfo.interests;
 
                 markup = <>
-                <p className='center primary'>Hello , Itachi</p>
+                <p className='center primary'>Hello , {userName}</p>
                 <span className='center limit primary'>Meet new people {'&'} discover activities , news and much more of your interest. What are you interested in ?</span>
                 <form className='onboarding gtkm form'>
                     <div className='interests'>
@@ -186,7 +234,7 @@ const OnboardingComponent = () => {
     }
 
     useEffect(()=>{
-        if( (userInfo.name && userInfo.place) || step === 2 ) {
+        if( (userInfo.first_name && userInfo.last_name && userInfo.state) || step === 2 ) {
             setDisabled(false);
         }
     },[userInfo]);
