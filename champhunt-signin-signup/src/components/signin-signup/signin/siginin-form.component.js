@@ -94,12 +94,13 @@ export default function SignInForm({ breakPoint }) {
         };
         axios(loginOptions)
             .then(response => {
+                localStorage.setItem('user_id', response.data['user_id']);
                 localStorage.setItem('user_email', response.data['user_email']);
                 localStorage.setItem('full_name', response.data['full_name']);
                 localStorage.setItem('user_mobile', response.data['user_mobile']);
                 localStorage.setItem('user_name', response.data['user_name']);
                 localStorage.setItem('access-token', response.data['access']);
-                navigate('/onboarding')
+                navigate('/onboarding');
             })
             .catch(error => {
                 if (error.response.status == 401) {

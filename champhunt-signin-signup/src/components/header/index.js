@@ -54,17 +54,8 @@ const Header = ( props ) => {
                 <NavLink to='/pitch' className={isActive => `nav-link ${isActive?'active':''}`}>
                     Pitch
                 </NavLink>
-                <NavLink to='/news' className={isActive => `nav-link ${isActive?'active':''}`}>
-                    News
-                </NavLink>
                 <NavLink to='/deals' className={isActive => `nav-link ${isActive?'active':''}`}>
                     Deals
-                </NavLink>
-                <NavLink to='/support' className={isActive => `nav-link ${isActive?'active':''}`}>
-                    I Support
-                </NavLink>
-                <NavLink to='/about-us' className={isActive => `nav-link ${isActive?'active':''}`}>
-                    About Us
                 </NavLink>
             </div>
             }

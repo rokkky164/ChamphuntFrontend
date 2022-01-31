@@ -8,12 +8,12 @@ const DealsAlert = () => {
     const handleOnClick = () => {
 
     }
-
+    const profileEmail = localStorage.getItem('user_email');
     return <div className="component deals-alert">
         
         <div className='left'>
             <span className='primary'>
-                <span className='desktop-only greetings'> Hello , iamsomeone@gmail.com ,</span>
+                <span className='desktop-only greetings'> Hello , {profileEmail} ,</span>
                 <span className='info'> Redeem your virtual coins with these e vouchers</span>
             </span>
         </div>
