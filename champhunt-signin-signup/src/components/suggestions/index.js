@@ -30,7 +30,7 @@ const Suggestions = () => {
                         name: element.first_name + ' ' + element.last_name,
                         role: element.player_profile,
                         avatar: "https://i.pravatar.cc/75",
-                        followers: element.followers.length,
+                        followers: element.followers_count,
                         runs: element.runs,
                         id: element.id
                     });
