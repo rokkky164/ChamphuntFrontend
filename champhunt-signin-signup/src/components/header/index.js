@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import Logo from '../../assets/images/header/logo.png';
@@ -13,11 +13,13 @@ import Input from '../../commons/form/input';
 import HeaderMenu from '../header-menu';
 
 import './index.scss';
-import { Tooltip } from 'carbon-components-react';
+import Notification from './notification';
 
 const Header = ( props ) => {
     
     const { onlyLogo, showAdd, notification = 3 } = props;
+
+    const [notifications,setNotifications] = useState([]);
 
     const [showInput, setShowInput] = useState(false);
 
@@ -30,6 +32,47 @@ const Header = ( props ) => {
     const handleSearchIconClick = () => {
         navigate('/search');
     }
+
+    useEffect(()=>{
+        const nfs = [
+            {
+                "label": "Today",
+                "items": [
+                    {
+                        "avatar": "./avatar.png",
+                        "content": "Pranay liked your post",
+                        "time": "2hrs ago",
+                        "postimg": "./postimg.png"
+                    },{
+                        "avatar": "./avatar.png",
+                        "content": "Sikotj liked your post",
+                        "time": "2hrs ago",
+                        "postimg": "./postimg.png"
+                    },{
+                        "avatar": "./avatar.png",
+                        "content": "Pranay liked your post",
+                        "time": "2hrs ago"
+                    }
+                ]
+            },{
+                "label": "This week",
+                "items": [
+                    {
+                        "avatar": "./avatar.png",
+                        "content": "Rajatesh your post",
+                        "time": "20th Dec, 12:35AM",
+                        "postimg": "./postimg.png"
+                    },{
+                        "avatar": "./avatar.png",
+                        "content": "Pranay Shared your post",
+                        "time": "20th Dec, 12:35AM",
+                        "postimg": "./postimg.png"
+                    }
+                ]
+            }
+        ];
+        setNotifications( nfs );
+    },[]);
 
 
     const userProfileName = 'Pranay Karwa';
@@ -82,19 +125,7 @@ const Header = ( props ) => {
                 <div className={`bell-icon ${notification>0 ? 'notification' : ''}`}>
                     <span className='not-present'></span>
                     <img src={Bell} alt='' />
-                    <Tooltip
-                        direction='bottom'
-                    >
-                        <div className='notification-content'>
-                            <div className='heading'>
-                                <p className='title' >Notification</p>
-                                <p className='sub-title' >You have 2 notification today</p>
-                            </div>
-                            <div className='notifications'>
-
-                            </div>
-                        </div>
-                    </Tooltip>
+                    <Notification notifications={notifications}/>
                 </div>
                 <div className='coins-block'>
                     <img src={Coins} alt='' className='coins-img' />

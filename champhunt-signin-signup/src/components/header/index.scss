@@ -1,4 +1,4 @@
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1400px) {
     .header {
     
         background-color: #25294A;
@@ -145,9 +145,75 @@
             }
         }
     }
+    .notification-content {
+        
+        min-width: 450px;
+        border-radius: 18px;
+        overflow: hidden;
+
+        & .notifications {
+            background-color: #ffffff;
+            padding: 0 20px;
+
+            & .notification-week {
+                & .label {
+                    text-align: left;
+                    font-weight: 600;
+                    padding-top: 10px;
+                }
+            }
+        }
+
+        & .heading {
+            text-align: left;
+            background-color: #CED0FF;
+            padding: 10px 20px;
+
+            & .title {
+                font-weight: 600;
+            }
+            & .sub-title {
+                font-size: 12px;
+            }
+        }
+
+        & .item {
+
+            display: flex;
+            border-bottom: 1px solid #f1f1f1;
+            padding: 10px 0;
+
+            & .left-ntf {
+                display: flex;
+                flex-grow: 1;
+                & .item-cnt {
+                    text-align: left;
+                    margin-left: 10px;
+                }
+            }
+
+            & .post-img-block img {
+                height: 35px;
+            }
+        }
+
+        & p {
+            margin: 0;
+        }
+    }
+    .bx--tooltip--shown {
+        margin-top: 15px;
+    }
+    .caret {
+        border-left: solid 10px transparent; 
+        border-right: solid 10px transparent; 
+        border-bottom: solid 10px #CED0FF; 
+        height: 0; 
+        width: 0;
+    }
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1400px) {
     .header {
     
         background-color: #25294A;
@@ -291,5 +357,71 @@
                 }
             }
         }
+    }
+    .notification-content {
+        
+        min-width: 300px;
+        border-radius: 18px;
+        overflow: hidden;
+
+        & .notifications {
+            background-color: #ffffff;
+            padding: 0 20px;
+
+            & .notification-week {
+                & .label {
+                    text-align: left;
+                    font-weight: 600;
+                    padding-top: 10px;
+                }
+            }
+        }
+
+        & .heading {
+            text-align: left;
+            background-color: #CED0FF;
+            padding: 10px 20px;
+
+            & .title {
+                font-weight: 600;
+            }
+            & .sub-title {
+                font-size: 12px;
+            }
+        }
+
+        & .item {
+
+            display: flex;
+            border-bottom: 1px solid #f1f1f1;
+            padding: 10px 0;
+
+            & .left-ntf {
+                display: flex;
+                flex-grow: 1;
+                & .item-cnt {
+                    text-align: left;
+                    margin-left: 10px;
+                }
+            }
+
+            & .post-img-block img {
+                height: 35px;
+            }
+        }
+
+        & p {
+            margin: 0;
+        }
+    }
+    .bx--tooltip--shown {
+        margin-top: 15px;
+    }
+    .caret {
+        border-left: solid 10px transparent; 
+        border-right: solid 10px transparent; 
+        border-bottom: solid 10px #CED0FF; 
+        height: 0; 
+        width: 0;
     }
 }
