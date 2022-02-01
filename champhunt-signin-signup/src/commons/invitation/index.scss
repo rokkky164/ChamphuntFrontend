@@ -1,0 +1,99 @@
+.invite-modal {
+    
+    background-color: #ffffff;
+    border-radius: 22px;
+    transform: translate(-50%, -50%);
+    position: fixed;
+    transition: all 0.5s ease-in;
+
+    &.hidden {
+        top: -100%;
+        left: 50%;
+    }
+    &.visible {
+        top: 50%;
+        left: 50%;
+    }
+
+    & .invite-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 25px;
+        margin: auto;
+        max-width: 75%;
+        border-bottom: 1px solid #f1f1f1;
+
+        & .info {
+            color: #131639;
+        }
+        & .input-block {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        & .email-input {
+            border: 1px solid #131639;
+            width: 100%;
+            border-radius: 20px;
+            padding: 10px;
+        }
+    }
+
+    & .send-block {
+        & .send {
+            border: none;
+            border-radius: 20px;
+            padding: 6px 100px;
+            color: #ffffff;
+            font-family: inherit;
+            background-image: linear-gradient(145deg, #FBB017, #CE2127);
+        }
+    }
+
+    & .link-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 25px;
+        margin: auto;
+        max-width: 75%;
+        border-bottom: 1px solid #f1f1f1;
+
+        & .info {
+            color: #131639;
+        }
+        & .copy-link-cnt {
+            display: flex;
+            width: 100%;
+            & .copy-text-cnt {
+                display: flex;
+                flex-grow: 1;
+                & .refer-id {
+                    font-family: inherit;
+                    width: 100%;
+                    padding-left: 25px;
+                    outline: none;
+                    border: 1px solid #131639;
+                    border-radius: 0 10px 10px 0;
+                }
+            }
+        }
+        & .copy-btn-cnt {
+            
+            background-color: #131639;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 13px 16px;
+            border-radius: 10px 0 0 10px;
+
+            & .copy {
+                background-color: transparent;
+                cursor: pointer;
+                border: none;
+                color: #ffffff;
+                font-family: inherit;
+            }
+        }
+    }
+}

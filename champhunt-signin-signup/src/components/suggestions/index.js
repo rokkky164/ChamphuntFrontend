@@ -1,15 +1,26 @@
 import { useEffect, useState } from 'react';
-import './index.scss';
-import Suggestion from './suggestion';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
+import Suggestion from './suggestion';
+import InviteModal from '../../commons/invitation';
+
+import Friend from '../../assets/images/home/friend.svg';
+
+import './index.scss';
+
 const Suggestions = () => {
+
     const navigate = useNavigate();
+
+    const [showModal, setShowModal] = useState(false);
     const [suggestions, setSuggestions] = useState([]);
+    
     const accessToken = localStorage.getItem('access-token');
-    let url = 'http://127.0.0.1:8001/api/v0/friends-suggestion/';
-    var getSuggestionsOptions = {
+    
+    const url = 'http://127.0.0.1:8001/api/v0/friends-suggestion/';
+    
+    const getSuggestionsOptions = {
         method: 'get',
         url: url,
         headers: {
@@ -50,10 +61,22 @@ const Suggestions = () => {
 
     }, []);
 
+    const handleInviteModal = () => {
+        setShowModal(!showModal);
+    }
+
     return <div className="component suggestions">
-        <p className='suggest-heading'>
-            Suggestions
-        </p>
+        <InviteModal
+            open={showModal}
+            onClose={handleInviteModal}
+        />
+        <div className='suggest-heading'>
+            <p>Suggestions</p>
+            <div className='invite'>
+                <img src={Friend} alt='' />
+                <button className='invite-button' onClick={handleInviteModal} >Invite your friends</button>
+            </div>
+        </div>
         { suggestions.map( suggestion => <Suggestion key={suggestion.id} {...suggestion} /> ) }
     </div>
 }

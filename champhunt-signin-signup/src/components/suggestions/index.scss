@@ -13,6 +13,34 @@
         margin-bottom: 10px;
         padding-bottom: 5px;
         border-bottom: 1px solid;
+        display: flex;
+        justify-content: space-between;
+        
+        & p {
+            margin: 0;
+        }
+
+        & .invite {
+            background-image: linear-gradient(45DEG, #ffea9a, #edc2ff);
+            position: relative;
+            padding-right: 55px;
+            border-radius: 10px;
+
+            & img {
+                position: absolute;
+                right: 10px;
+                top: 5px;
+            }
+            & .invite-button {
+                cursor: pointer;
+                border: none;
+                background-color: transparent;
+                border-radius: 10px;
+                color: #131639;
+                font-family: inherit;
+                padding: 5px;
+            }
+        }
     }
 
     & .suggestion {

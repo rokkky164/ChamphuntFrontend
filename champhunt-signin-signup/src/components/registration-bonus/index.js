@@ -22,7 +22,7 @@ const RegistrationBonus = ( props ) => {
     }
 
     useEffect(() => {
-        setHasClaimed(false);
+        setHasClaimed(true);
     }, []);
 
     return !hasClaimed && <div className="component registration-bonus">
