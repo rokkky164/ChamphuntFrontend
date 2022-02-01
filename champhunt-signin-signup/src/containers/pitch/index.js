@@ -1,9 +1,11 @@
 import { useState } from "react";
+
 import Feeds from "../../components/feeds";
 import Footer from "../../components/footer";
 import Header from "../../components/header";
 import Suggestions from "../../components/suggestions";
 import PostContext from "../../context/post";
+import RegistrationBonus from "../../components/registration-bonus";
 
 import './index.scss';
 
@@ -27,6 +29,7 @@ const PitchPage = () => {
     }>
 
         <div className="page pitch">
+            <RegistrationBonus />
             <Header />
             <main className="pitch-main">
                 <Feeds />
