@@ -12,6 +12,7 @@ const ChampButton = (props) => {
         icon,
         name,
         type='button',
+        parentClass = '',
         disabled = false
     } = props;
 
@@ -21,7 +22,7 @@ const ChampButton = (props) => {
         inputRef.current.click();
     }
 
-    return <div className="form-element button">
+    return <div className={`form-element button ${parentClass}`}>
         { 
         type === 'file'
         ?
