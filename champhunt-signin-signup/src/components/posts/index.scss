@@ -221,6 +221,63 @@
                     }
                 } 
             }
+            & .comments-holder {
+                transition: all 0.5s ease-in;
+                &.visible {
+                    height: unset;
+                }
+                &.hidden {
+                    height: 0;
+                    overflow: hidden;
+                }
+                & .text-block {
+                    & textarea {
+                        width: 98%;
+                        resize: none;
+                        padding: 10px;
+                        font-family: inherit;
+                        border: 1px solid #C2C2C2;
+                        border-radius: 12px;
+                        outline: none;
+                        height: 90px;
+                    }
+                }
+                & .action-block {
+                    
+                    display: flex;
+                    justify-content: flex-end;
+                    margin: 10px 0;
+
+                    & .cancel {
+                        color: #131639;
+                        background-color: transparent;
+                        border: 1px solid #131639;
+                        margin-right: 10px;
+                    }
+                    & .share {
+                        color: #ffffff;
+                        background-color: #131639;
+                        border: 1px solid #131639;
+                    }
+                }
+                & .view-comments {
+                    flex-direction: column;
+                    & .comments-heading {
+                        font-family: inherit;
+                        color: #727171;
+                        padding-bottom: 12px;
+                        border-bottom: 1px solid #727171;
+                    }
+                    & .all-comments {
+                        & .comment-content {
+                            margin: 10px 0;
+                            background-color: #F1EFEF;
+                            padding: 6px 10px;
+                            border-radius: 8px;
+                        }
+                    }
+                }
+            }
         }
     
     }
@@ -475,6 +532,63 @@
                         right: -8px;
                         border-radius: 4px;
                         color: #cfcfcf;
+                    }
+                }
+            }
+            & .comments-holder {
+                transition: all 0.5s ease-in;
+                &.visible {
+                    height: unset;
+                }
+                &.hidden {
+                    height: 0;
+                    overflow: hidden;
+                }
+                & .text-block {
+                    & textarea {
+                        width: 90%;
+                        resize: none;
+                        padding: 10px;
+                        font-family: inherit;
+                        border: 1px solid #C2C2C2;
+                        border-radius: 12px;
+                        outline: none;
+                        height: 90px;
+                    }
+                }
+                & .action-block {
+                    
+                    display: flex;
+                    justify-content: flex-end;
+                    margin: 10px 0;
+
+                    & .cancel {
+                        color: #131639;
+                        background-color: transparent;
+                        border: 1px solid #131639;
+                        margin-right: 10px;
+                    }
+                    & .share {
+                        color: #ffffff;
+                        background-color: #131639;
+                        border: 1px solid #131639;
+                    }
+                }
+                & .view-comments {
+                    flex-direction: column;
+                    & .comments-heading {
+                        font-family: inherit;
+                        color: #727171;
+                        padding-bottom: 12px;
+                        border-bottom: 1px solid #727171;
+                    }
+                    & .all-comments {
+                        & .comment-content {
+                            margin: 10px 0;
+                            background-color: #F1EFEF;
+                            padding: 6px 10px;
+                            border-radius: 8px;
+                        }
                     }
                 }
             }

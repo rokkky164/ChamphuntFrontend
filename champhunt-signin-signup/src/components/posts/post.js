@@ -27,13 +27,14 @@ const Post = ( props ) => {
             time,
             content,
             image,
-            comments,
+            comments=[],
             runs
         }
     } = props;
 
     const [showRuns, setShowRuns] = useState(false);
     const [sharing, setSharing] = useState(false);
+    const [showComments, setShowComments] = useState(false);
 
     const toggleRuns = () => {
         setShowRuns(!showRuns);
@@ -54,6 +55,10 @@ const Post = ( props ) => {
         closeModal();
     }
 
+    const handleComment = () => {
+        setShowComments(true);
+    }
+
     const closeModal = () => {
         setSharing(false);
     }
@@ -61,6 +66,12 @@ const Post = ( props ) => {
     const sharePost = () => {
         console.log('CLOSING MODAL');
     }
+
+    const closeComment = () => {
+        setShowComments(false);
+    };
+
+    const postComment = () => {};
 
     return <div className="post">
         <div className="post-header">
@@ -90,8 +101,8 @@ const Post = ( props ) => {
         </div>
         <div className="post-footer post-header">
             <div className="comments-hld">
-                {comments > 0 && <span className='info-box'>{comments}</span> }
-                <img src={Comments} alt='' />
+                {comments.length > 0 && <span className='info-box'>{comments.length}</span> }
+                <img src={Comments} alt='' role='button' onClick={handleComment}/>
             </div>
             <div className="share-hld">
                 <img src={Share} alt='' role='button' onClick={showModal} />
@@ -146,6 +157,45 @@ const Post = ( props ) => {
                     <div className='runs-container'>
                         { [2,4,6].map( run => <div role='button' onClick={() => scorePost(run)} className='run' key={run}>{run}</div> ) }
                     </div>
+                </div>
+            </div>
+        </div>
+        <div className={`comments-holder ${showComments?'visible':'hidden'}`}>
+            <div className='post-comment'>
+                <div className='text-block'>
+                    <textarea placeholder='Write a comment'></textarea>
+                </div>
+                <div className='action-block'>
+                    <ChampButton onClick={closeComment} classes='cancel' label='Cancel' />
+                    <ChampButton onClick={postComment} classes='share' label='Post' />
+                </div>
+            </div>
+            <div className='post-header view-comments'>
+                <p className='comments-heading'>{ `${comments.length} Comments` }</p>
+                <div className='all-comments'>
+                { 
+                comments.map( (comment, index) => {
+
+                    const { author, comment: postComment } = comment;
+
+                    return <div key={index} className='comment'>
+                        <div className="left">
+                            <div className="avatar">
+                                <img className="avatar-image" src={author.avatar} alt={author.name} />
+                            </div>
+                            <div className="avatar-cnt">
+                                <p>
+                                    { author.name }
+                                </p>
+                                <p className='date-time'>{ postComment.date } {postComment.time}</p>
+                            </div>
+                        </div>
+                        <div className='comment-content'>
+                            {postComment.content}
+                        </div>
+                    </div>
+                })
+                }
                 </div>
             </div>
         </div>
