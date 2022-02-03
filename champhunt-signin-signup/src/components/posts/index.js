@@ -10,18 +10,18 @@ const Posts = (filterPitches) => {
     const navigate = useNavigate();
     const [posts, setPosts] = useState([]);
     const accessToken = localStorage.getItem('access-token');
-    let url = 'http://localhost:8001/api/v0/pitches/';
+    let url = 'http://champhuntsm-env.eba-zezpix24.us-west-1.elasticbeanstalk.com/api/v0/pitches/';
     if (filterPitches) {
         if (filterPitches.filter == 'my_posts') {
-            url = 'http://localhost:8001/api/v0/pitches/?filter=user';
+            url = 'http://champhuntsm-env.eba-zezpix24.us-west-1.elasticbeanstalk.com/api/v0/pitches/?filter=user';
         } else if (filterPitches.filter == 'friends') {
-            url = 'http://localhost:8001/api/v0/pitches/?filter=friends';
+            url = 'http://champhuntsm-env.eba-zezpix24.us-west-1.elasticbeanstalk.com/api/v0/pitches/?filter=friends';
         }
     }
     // set profile id in localStorage
     var getProfileOptions = {
             method: 'get',
-            url: 'http://localhost:8001/api/v0/logged-in-profile/',
+            url: 'http://champhuntsm-env.eba-zezpix24.us-west-1.elasticbeanstalk.com/api/v0/logged-in-profile/',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
