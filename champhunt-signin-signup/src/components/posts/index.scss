@@ -86,6 +86,7 @@
                 & .comments-hld {
 
                     position: relative;
+                    cursor: pointer;
                     
                     & .info-box {
                         position: absolute;
@@ -98,6 +99,127 @@
                         color: #ffffff;
                     }
                 }
+
+                & .share-hld {
+                    cursor: pointer;
+                    & .share-modal {
+                        border-radius: 20px;
+                        padding: 20px;
+                        box-sizing: border-box;
+                        max-width: 650px;
+                        position: fixed;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        background-color: #ffffff;
+                        width: 75vw;
+                        height: 75vh;
+                        z-index: 2;
+                        transition: all 0.5s;
+
+                        & .link-block {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            padding-bottom: 25px;
+                            margin: auto;
+                            border-top: 1px solid #707070;
+                    
+                            & .info {
+                                color: #131639;
+                            }
+                            & .copy-link-cnt {
+                                display: flex;
+                                width: 100%;
+                                & .copy-text-cnt {
+                                    display: flex;
+                                    flex-grow: 1;
+                                    & .refer-id {
+                                        font-family: inherit;
+                                        width: 100%;
+                                        padding-left: 25px;
+                                        outline: none;
+                                        border: 1px solid #131639;
+                                        border-radius: 0 10px 10px 0;
+                                    }
+                                }
+                            }
+                            & .copy-btn-cnt {
+                                
+                                background-color: #131639;
+                                cursor: pointer;
+                                display: flex;
+                                align-items: center;
+                                padding: 13px 16px;
+                                border-radius: 10px 0 0 10px;
+                    
+                                & .copy {
+                                    background-color: transparent;
+                                    cursor: pointer;
+                                    border: none;
+                                    color: #ffffff;
+                                    font-family: inherit;
+                                }
+                            }
+                        }
+
+                        &.hidden {
+                            top: -100%;
+                        }
+                        &.visible {
+                            top: 50%;
+                        }
+
+                        &__container__form {
+                            border: 1px solid #707070;
+                            padding: 10px;
+                            border-radius: 8px;
+
+                            & .content {
+                                flex-direction: column;
+                                align-items: baseline;
+                                & .avatar {
+                                    display: flex;
+                                    align-items: center;
+                                    margin-bottom: 15px;
+                                }
+                            }
+                        }
+
+                        &__container__actions {
+                            
+                            display: flex;
+                            justify-content: flex-end;
+                            margin: 25px 0;
+
+
+                            & .button {
+                                & .cancel {
+                                    color: #131639;
+                                    background-color: transparent;
+                                    border: 1px solid #131639;
+                                }
+                                & .share {
+                                    color: #ffffff;
+                                    background-color: #131639;
+                                    border: 1px solid #131639;
+                                }
+                                &:not(:last-child) {
+                                    margin-right: 10px;
+                                }
+                            }
+                        }
+
+                        & textarea {
+                            width: 100%;
+                            font-family: inherit;
+                            border: none;
+                            resize: none;
+                            outline: none;
+                            height: 150px;
+                            border-bottom: 1px solid #707070;
+                        }
+                    }
+                } 
             }
         }
     
@@ -187,6 +309,128 @@
                 display: flex;
                 justify-content: space-between;
                 padding-top: 15px;
+                & .share-hld {
+                    cursor: pointer;
+                    & .share-modal {
+                        border-radius: 20px;
+                        padding: 20px;
+                        box-sizing: border-box;
+                        max-width: 650px;
+                        position: fixed;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        background-color: #ffffff;
+                        width: 75vw;
+                        height: 95vh;
+                        z-index: 2;
+                        transition: all 0.5s;
+
+                        & .link-block {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            padding-bottom: 25px;
+                            margin: auto;
+                            border-top: 1px solid #707070;
+                    
+                            & .info {
+                                color: #131639;
+                            }
+                            & .copy-link-cnt {
+                                display: flex;
+                                width: 100%;
+                                & .copy-text-cnt {
+                                    display: flex;
+                                    flex-grow: 1;
+                                    & .refer-id {
+                                        font-family: inherit;
+                                        width: 100%;
+                                        padding-left: 25px;
+                                        outline: none;
+                                        border: 1px solid #131639;
+                                        border-radius: 0 10px 10px 0;
+                                    }
+                                }
+                            }
+                            & .copy-btn-cnt {
+                                
+                                background-color: #131639;
+                                cursor: pointer;
+                                display: flex;
+                                align-items: center;
+                                padding: 13px 16px;
+                                border-radius: 10px 0 0 10px;
+                    
+                                & .copy {
+                                    background-color: transparent;
+                                    cursor: pointer;
+                                    border: none;
+                                    color: #ffffff;
+                                    font-family: inherit;
+                                }
+                            }
+                        }
+
+                        &.hidden {
+                            top: -100%;
+                        }
+                        &.visible {
+                            top: 50%;
+                        }
+
+                        &__container__form {
+                            border: 1px solid #707070;
+                            padding: 10px;
+                            border-radius: 8px;
+
+                            & .content {
+                                flex-direction: column;
+                                align-items: baseline;
+                                & .avatar {
+                                    display: flex;
+                                    align-items: center;
+                                    margin-bottom: 15px;
+                                }
+                            }
+                        }
+
+                        &__container__actions {
+                            
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: flex-end;
+                            margin: 25px 0;
+
+
+                            & .button {
+                                & .cancel {
+                                    color: #131639;
+                                    background-color: transparent;
+                                    border: 1px solid #131639;
+                                }
+                                & .share {
+                                    color: #ffffff;
+                                    background-color: #131639;
+                                    border: 1px solid #131639;
+                                }
+                                &:not(:last-child) {
+                                    margin-bottom: 10px;
+                                }
+                            }
+                        }
+
+                        & textarea {
+                            width: 100%;
+                            font-family: inherit;
+                            border: none;
+                            resize: none;
+                            outline: none;
+                            height: 150px;
+                            border-bottom: 1px solid #707070;
+                        }
+                    }
+                } 
                 
                 & .runs-hld {
                     cursor: pointer;
