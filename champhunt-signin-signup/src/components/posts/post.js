@@ -6,6 +6,7 @@ import Runs from '../../assets/images/posts/runs.svg';
 import InfoIcon from '../../assets/images/posts/info.svg';
 
 import './index.scss';
+import { useState } from 'react';
 
 const Post = ( props ) => {
 
@@ -28,6 +29,16 @@ const Post = ( props ) => {
             runs
         }
     } = props;
+
+    const [showRuns, setShowRuns] = useState(false);
+
+    const toggleRuns = () => {
+        setShowRuns(!showRuns);
+    }
+
+    const scorePost = (run) => {
+        console.log( run );
+    }
 
     return <div className="post">
         <div className="post-header">
@@ -64,7 +75,12 @@ const Post = ( props ) => {
                 <img src={Share} alt='' />
             </div>
             <div className="runs-hld">
-                <img src={Runs} alt='' />
+                <img src={Runs} alt='' role='button' onClick={toggleRuns} />
+                <div className={`tip ${showRuns?'visible':'hidden'}`}>
+                    <div className='runs-container'>
+                        { [2,4,6].map( run => <div role='button' onClick={() => scorePost(run)} className='run' key={run}>{run}</div> ) }
+                    </div>
+                </div>
             </div>
         </div>
     </div>
