@@ -61,7 +61,7 @@ const Alert = () => {
         const accessToken = localStorage.getItem('access-token');
         var submitPostOptions = {
             method: 'post',
-            url: 'http://localhost:8001/api/v0/submit-pitch/',
+            url: 'http://champhuntsm-env.eba-zezpix24.us-west-1.elasticbeanstalk.com/api/v0/submit-pitch/',
             headers: {
                 'Authorization': 'Bearer ' + accessToken,
             },

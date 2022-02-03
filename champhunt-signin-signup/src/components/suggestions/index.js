@@ -18,7 +18,7 @@ const Suggestions = () => {
     
     const accessToken = localStorage.getItem('access-token');
     
-    const url = 'http://127.0.0.1:8001/api/v0/friends-suggestion/';
+    const url = 'http://champhuntsm-env.eba-zezpix24.us-west-1.elasticbeanstalk.com/api/v0/friends-suggestion/';
     
     const getSuggestionsOptions = {
         method: 'get',
