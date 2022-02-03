@@ -14,6 +14,7 @@ import HeaderMenu from '../header-menu';
 
 import './index.scss';
 import Notification from './notification';
+import { Tooltip } from 'carbon-components-react';
 
 const Header = ( props ) => {
     
@@ -132,6 +133,18 @@ const Header = ( props ) => {
                 <p className='primary'>
                     {userProfileName}
                     <i className='arrow down'></i>
+                    <Tooltip
+                        direction='bottom'
+                        className='header-options'
+                    >
+                        <div className='caret'></div>
+                        <div className='options'>
+                            <ul>
+                                <li>Profile</li>
+                                <li>Sign Out</li>
+                            </ul>
+                        </div>
+                    </Tooltip>
                 </p>
             </div>
             }
