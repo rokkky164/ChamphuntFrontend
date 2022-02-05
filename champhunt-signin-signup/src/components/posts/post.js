@@ -1,17 +1,17 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
-
+import { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import ChampButton from '../../commons/form/button';
 
 import Comments from '../../assets/images/posts/comments.svg';
 import Share from '../../assets/images/posts/share.svg';
 import Runs from '../../assets/images/posts/runs.svg';
 import InfoIcon from '../../assets/images/posts/info.svg';
+import axios from "axios";
 
 import './index.scss';
 
 const Post = ( props ) => {
-
     const { 
         author: {
             name,
@@ -23,6 +23,7 @@ const Post = ( props ) => {
             url: coAuthorURL
         } = {},
         post: {
+            post_id,
             date,
             time,
             content,
@@ -34,14 +35,47 @@ const Post = ( props ) => {
 
     const [showRuns, setShowRuns] = useState(false);
     const [sharing, setSharing] = useState(false);
+    const [comment, setComment] = useState('')
     const [showComments, setShowComments] = useState(false);
+    const [commentData, setCommentData] = useState({
+        pitch: '',
+        comment: '',
+        userprofile: ''
+    });
+
+    const getCommentData = (comment) => {
+        commentData.comment = comment.target.value;
+    }
 
     const toggleRuns = () => {
         setShowRuns(!showRuns);
     }
 
     const scorePost = (run) => {
-        console.log( run );
+        const pitch = document.getElementById('pitchID').value;
+        const userprofile = localStorage.getItem('profile-id');
+        const scorePostData = {
+            pitch: pitch,
+            runs_awarded: run,
+            userprofile: userprofile
+        };
+        const accessToken = localStorage.getItem('access-token');
+        var scorePostOptions = {
+            method: 'post',
+            url: 'http://localhost:8001/api/v0/user-score-pitch/',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+            },
+            data: scorePostData,
+            json: true
+        };
+        axios(scorePostOptions)
+            .then(response => {
+                setShowRuns(false);
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
 
     const showModal = () => {
@@ -70,10 +104,33 @@ const Post = ( props ) => {
     const closeComment = () => {
         setShowComments(false);
     };
-
-    const postComment = () => {};
+    const componentRef = React.useRef();
+    const postComment = (event) => {
+        event.preventDefault();
+        
+        commentData.userprofile = localStorage.getItem('profile-id');
+        commentData.pitch = document.getElementById('pitchID').value;
+        const accessToken = localStorage.getItem('access-token');
+        var submitPostCommentOptions = {
+            method: 'post',
+            url: 'http://localhost:8001/api/v0/submit-comment/',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+            },
+            data: commentData,
+            json: true
+        };
+        axios(submitPostCommentOptions)
+            .then(response => {
+                closeComment();
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    };
 
     return <div className="post">
+        <input type="hidden" id="pitchID" value={post_id} />
         <div className="post-header">
             <div className="left">
                 <div className="avatar">
@@ -110,7 +167,7 @@ const Post = ( props ) => {
                     <div className='share-modal__container'>
                         <div className='share-modal__container__form'>
                             <div className='input-textarea'>
-                                <textarea placeholder='Write Something'></textarea>
+                                <textarea placeholder='Write Something' ></textarea>
                             </div>
                             <div className="content left">
                                 <div className="avatar">
@@ -163,7 +220,7 @@ const Post = ( props ) => {
         <div className={`comments-holder ${showComments?'visible':'hidden'}`}>
             <div className='post-comment'>
                 <div className='text-block'>
-                    <textarea placeholder='Write a comment'></textarea>
+                    <textarea placeholder='Write a comment' onChange={getCommentData} ></textarea>
                 </div>
                 <div className='action-block'>
                     <ChampButton onClick={closeComment} classes='cancel' label='Cancel' />
@@ -181,17 +238,17 @@ const Post = ( props ) => {
                     return <div key={index} className='comment'>
                         <div className="left">
                             <div className="avatar">
-                                <img className="avatar-image" src={author.avatar} alt={author.name} />
+                                <img className="avatar-image" src={avatar} alt={author.name} />
                             </div>
                             <div className="avatar-cnt">
                                 <p>
-                                    { author.name }
+                                    { author.first_name } {author.last_name}
                                 </p>
-                                <p className='date-time'>{ postComment.date } {postComment.time}</p>
+                                <p className='date-time'>{ comment.date } {comment.time}</p>
                             </div>
                         </div>
                         <div className='comment-content'>
-                            {postComment.content}
+                            {comment.comment}
                         </div>
                     </div>
                 })

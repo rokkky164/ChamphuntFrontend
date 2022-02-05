@@ -10,6 +10,8 @@ import ChampButton from '../../commons/form/button';
 import PostContext from '../../context/post';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+
+
 const Alert = () => {
 
     const [showForm, setShowForm] = useState(false);
@@ -55,13 +57,13 @@ const Alert = () => {
         e.preventDefault();
         
         formData.append("message", formContent.message);
-        formData.append("image", formContent.image);
         formData.append("userprofile", localStorage.getItem('profile-id'));
+        if (formContent.image){formData.append("image", formContent.image);}
 
         const accessToken = localStorage.getItem('access-token');
         var submitPostOptions = {
             method: 'post',
-            url: 'http://champhuntsm-env.eba-zezpix24.us-west-1.elasticbeanstalk.com/api/v0/submit-pitch/',
+            url: 'http://localhost:8001/api/v0/submit-pitch/',
             headers: {
                 'Authorization': 'Bearer ' + accessToken,
             },

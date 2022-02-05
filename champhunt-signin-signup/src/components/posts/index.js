@@ -10,25 +10,25 @@ const Posts = (filterPitches) => {
     const navigate = useNavigate();
     const [posts, setPosts] = useState([]);
     const accessToken = localStorage.getItem('access-token');
-    let url = 'http://champhuntsm-env.eba-zezpix24.us-west-1.elasticbeanstalk.com/api/v0/pitches/';
+    let url = 'http://localhost:8001/api/v0/pitches/';
     if (filterPitches) {
         if (filterPitches.filter == 'my_posts') {
-            url = 'http://champhuntsm-env.eba-zezpix24.us-west-1.elasticbeanstalk.com/api/v0/pitches/?filter=user';
+            url = 'http://localhost:8001/api/v0/pitches/?filter=user';
         } else if (filterPitches.filter == 'friends') {
-            url = 'http://champhuntsm-env.eba-zezpix24.us-west-1.elasticbeanstalk.com/api/v0/pitches/?filter=friends';
+            url = 'http://localhost:8001/api/v0/pitches/?filter=friends';
         }
     }
     // set profile id in localStorage
     var getProfileOptions = {
-            method: 'get',
-            url: 'http://champhuntsm-env.eba-zezpix24.us-west-1.elasticbeanstalk.com/api/v0/logged-in-profile/',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + accessToken
-            },
-            json: true
-        }
+        method: 'get',
+        url: 'http://localhost:8001/api/v0/logged-in-profile/',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + accessToken
+        },
+        json: true
+    }
     axios(getProfileOptions)
         .then(response => {
            localStorage.setItem('profile-id', response.data['profile_id']);
@@ -72,10 +72,11 @@ const Posts = (filterPitches) => {
                             'avatar': "https://i.pravatar.cc/45"
                         },
                         'post': {
+                            'post_id': pitch.id,
                             'date': postDate,
                             'time': postTime,
                             'content': pitch.message,
-                            'comments': '',
+                            'comments': pitch.comments,
                             'runs': pitch.runs,
                             'image': pitch.image
                         }

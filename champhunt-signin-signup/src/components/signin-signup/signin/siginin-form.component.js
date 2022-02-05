@@ -84,7 +84,7 @@ export default function SignInForm({ breakPoint }) {
         }
         var loginOptions = {
             method: 'post',
-            url: 'http://champhuntsm-env.eba-zezpix24.us-west-1.elasticbeanstalk.com/api/v0/login/',
+            url: 'http://localhost:8001/api/v0/login/',
             data: JSON.stringify(data),
             headers: {
                 'Accept': 'application/json',

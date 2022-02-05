@@ -94,7 +94,7 @@ const OnboardingComponent = () => {
             userInfo.user = userID;
             var submitUserProfileOptions = {
                     method: 'post',
-                    url: 'http://champhuntsm-env.eba-zezpix24.us-west-1.elasticbeanstalk.com/api/v0/user-profile/',
+                    url: 'http://localhost:8001/api/v0/user-profile/',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + accessToken,

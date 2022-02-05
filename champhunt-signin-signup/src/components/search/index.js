@@ -19,7 +19,7 @@ const Search = () => {
     const handleOnChange = (event) => {
         const searchTerm = event.target.value;
         setSearchTerm(searchTerm);
-        let url = 'http://champhuntsm-env.eba-zezpix24.us-west-1.elasticbeanstalk.com/api/v0/search/?search_term=' + searchTerm;
+        let url = 'http://localhost:8001/api/v0/search/?search_term=' + searchTerm;
         var getSearchOptions = {
             method: 'get',
             url: url,

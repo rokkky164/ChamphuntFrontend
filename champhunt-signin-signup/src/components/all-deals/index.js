@@ -7,7 +7,7 @@ import './index.scss';
 const AllDeals = () => {
 
     const [deals, setDeals] = useState([]);
-    let url = 'http://champhuntsm-env.eba-zezpix24.us-west-1.elasticbeanstalk.com/api/v0/offers/';
+    let url = 'http://localhost:8001/api/v0/offers/';
     const accessToken = localStorage.getItem('access-token');
     var getDealsOptions = {
         method: 'get',
@@ -27,7 +27,7 @@ const AllDeals = () => {
                 for (let i = 0; i < results.length; i++) {
                     offers.push({
                         tag: "HOT",
-                        src: 'http://champhuntsm-env.eba-zezpix24.us-west-1.elasticbeanstalk.com' + results[i].brand.logo,
+                        src: 'http://localhost:8001' + results[i].brand.logo,
                         crickcoins_required: results[i].crickcoins_required,
                         offername: results[i].name
                     });
