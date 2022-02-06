@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import Invite from '../../assets/images/home/invite.svg';
 import Link from '../../assets/images/home/link.svg';
+import axios from "axios";
 
 import './index.scss';
 
@@ -23,6 +24,29 @@ const InviteModal = (props) => {
         onClose();
     }
 
+    const handleSendInvitation = () => {
+        const accessToken = localStorage.getItem('access-token');
+        var sendInvitationOptions = {
+            method: 'post',
+            url: 'http://localhost:8001/api/v0/invite-friends/',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+            },
+            data: {
+                "email": email,
+                "mobile": null,
+                "source": "Invitiation from friend",
+            },
+            json: true
+        };
+        axios(sendInvitationOptions)
+            .then(response => {
+                onClose();
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
     return <div className={`component invite-modal ${open?'visible':'hidden'}`}>
         <div className="invite-container">
             <div className="image-block">
@@ -36,7 +60,7 @@ const InviteModal = (props) => {
                     <input onChange={handleEmailChange} name='email' className='email-input' placeholder='' value={email} />
                 </div>
                 <div className='send-block'>
-                    <button className='send'>
+                    <button className='send' onClick={handleSendInvitation}>
                         Send
                     </button>
                 </div>
