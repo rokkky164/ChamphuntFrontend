@@ -64,9 +64,10 @@ const Posts = (filterPitches) => {
                     if (postDateObj.getHours() > 12) {
                         x = "PM"
                     }
+
                     postDate = postDateObj.getDate() + "." + parseInt(postDateObj.getMonth() + 1) + "." + postDateObj.getFullYear();
                     postTime = postDateObj.getHours() % 12 + ":" + postDateObj.getMinutes() + ' ' + x;
-                    postArray.push({
+                    var pitchData = {
                         'author': {
                             'name': pitch.user_data.first_name + ' ' + pitch.user_data.last_name,
                             'url': '',
@@ -80,8 +81,16 @@ const Posts = (filterPitches) => {
                             'comments': pitch.comments,
                             'runs': pitch.runs,
                             'image': pitch.image
+                        },
+                    }
+                    if (pitch.shared_user){
+                        var shared_user_name = pitch.shared_user.name;
+                        pitchData['coAuthor'] = {
+                            'name': shared_user_name,
+                            'url': ''
                         }
-                    });
+                    }
+                    postArray.push(pitchData);
                 })
                 setPosts(postArray);
             })
