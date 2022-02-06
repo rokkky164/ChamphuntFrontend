@@ -178,10 +178,7 @@ export default function SignInForm({ breakPoint }) {
                 {!breakPoint ? (<FgPassContainer>
                     <FgPass href="/forget-password" align={'center'}>Forgot password ?</FgPass>
                 </FgPassContainer>) : null}
-                <LogInWith>
-                    <InfoLabel>Or login with</InfoLabel>
-                    <CIcon src={GoogleIcon} fontSize={53} />
-                </LogInWith>
+
             </Box> <
         />
     )
