@@ -98,7 +98,29 @@ const Post = ( props ) => {
     }
 
     const sharePost = () => {
-        console.log('CLOSING MODAL');
+        const pitchID = document.getElementById('pitchID').value;
+        const userprofile = localStorage.getItem('profile-id');
+        const sharePostData = {
+            pitch_id: pitchID,
+            shared_user: userprofile,
+            shared_body: document.getElementById('sharedBody').value
+        };
+        const accessToken = localStorage.getItem('access-token');
+        var sharePostOptions = {
+            method: 'post',
+            url: 'http://localhost:8001/api/v0/share-pitch/',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+            },
+            data: sharePostData,
+            json: true
+        };
+        axios(sharePostOptions)
+            .then(response => {
+                closeModal();
+            })
+            .catch(error => {
+            })
     }
 
     const closeComment = () => {
@@ -167,7 +189,7 @@ const Post = ( props ) => {
                     <div className='share-modal__container'>
                         <div className='share-modal__container__form'>
                             <div className='input-textarea'>
-                                <textarea placeholder='Write Something' ></textarea>
+                                <textarea placeholder='Write Something' id="sharedBody"></textarea>
                             </div>
                             <div className="content left">
                                 <div className="avatar">

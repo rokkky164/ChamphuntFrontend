@@ -32,6 +32,7 @@ const Posts = (filterPitches) => {
     axios(getProfileOptions)
         .then(response => {
            localStorage.setItem('profile-id', response.data['profile_id']);
+           localStorage.setItem('profile-crickcoins', response.data['profile_crickcoins']);
         })
         .catch(error => {
             if (error.response.status == 401) {

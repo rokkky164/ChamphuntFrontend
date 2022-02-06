@@ -1,7 +1,8 @@
 import { Tooltip } from 'carbon-components-react';
+import { useEffect, useState } from 'react';
 
 const Notification = ( { notifications }) => {
-
+    const todayNotificationsCount = localStorage.getItem('todayNotificationCount');
     return <Tooltip
         direction='bottom'
     >
@@ -9,12 +10,12 @@ const Notification = ( { notifications }) => {
         <div className='notification-content'>
             <div className='heading'>
                 <p className='title' >Notifications</p>
-                <p className='sub-title' >You have 2 notification today</p>
+                <p className='sub-title'>You have {todayNotificationsCount}  notification today</p>
             </div>
             <div className='notifications'>
                 { notifications.map( (notification,index) => {
                     const { label, items } = notification;
-
+                    
                     return <div key={index} className='notification-week'>
                         <p className='label'>
                             {label}

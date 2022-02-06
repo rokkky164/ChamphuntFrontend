@@ -12,6 +12,7 @@ const Hero = () => {
                 Virat Kohli becomes the 3rd Indian skipper to hit three consecutive world cup fifties.
                 Mohd. Azaruddin was the first in the 1992 world cup. 
             </p>
+            
         </div>
     </div>
 }

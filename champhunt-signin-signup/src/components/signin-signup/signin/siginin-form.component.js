@@ -100,6 +100,8 @@ export default function SignInForm({ breakPoint }) {
                 localStorage.setItem('user_mobile', response.data['user_mobile']);
                 localStorage.setItem('user_name', response.data['user_name']);
                 localStorage.setItem('access-token', response.data['access']);
+                localStorage.setItem('refresh-token', response.data['refresh']);
+
                 navigate('/onboarding');
             })
             .catch(error => {

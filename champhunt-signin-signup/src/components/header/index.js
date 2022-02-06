@@ -16,6 +16,8 @@ import './index.scss';
 import Notification from './notification';
 import { Tooltip } from 'carbon-components-react';
 
+import axios from "axios";
+
 const Header = ( props ) => {
     
     const { onlyLogo, showAdd, notification = 3 } = props;
@@ -23,6 +25,8 @@ const Header = ( props ) => {
     const [notifications,setNotifications] = useState([]);
 
     const [showInput, setShowInput] = useState(false);
+
+    const [userCrickCoins, setUserCrickCoins] = useState(1000);
 
     const navigate = useNavigate();
 
@@ -34,48 +38,56 @@ const Header = ( props ) => {
         navigate('/search');
     }
 
+    const handleLogout = () => {
+        const accessToken = localStorage.getItem('access-token');
+        const refreshToken = localStorage.getItem('refresh-token');
+        var logOutOptions = {
+            method: 'post',
+            url: 'http://localhost:8001/api/v0/logout/',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+            },
+            data: {'refresh_token': refreshToken}
+        };
+        axios(logOutOptions)
+            .then(response => {
+                localStorage.removeItem('access-token');
+                localStorage.removeItem('refresh-token');
+                navigate('/login');
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
     useEffect(()=>{
-        const nfs = [
-            {
-                "label": "Today",
-                "items": [
-                    {
-                        "avatar": "./avatar.png",
-                        "content": "Pranay liked your post",
-                        "time": "2hrs ago",
-                        "postimg": "./postimg.png"
-                    },{
-                        "avatar": "./avatar.png",
-                        "content": "Sikotj liked your post",
-                        "time": "2hrs ago",
-                        "postimg": "./postimg.png"
-                    },{
-                        "avatar": "./avatar.png",
-                        "content": "Pranay liked your post",
-                        "time": "2hrs ago"
+        const accessToken = localStorage.getItem('access-token');
+        const userprofile = localStorage.getItem('profile-id');
+        var notificationsOptions = {
+            method: 'get',
+            url: 'http://localhost:8001/api/v0/get-notifications/' + userprofile + '/',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+            },
+        };
+        setUserCrickCoins(localStorage.getItem('profile-crickcoins'));
+        axios(notificationsOptions)
+            .then(response => {
+                const nfs = response.data;
+                nfs.forEach(function(n){
+                    if (n.label === 'Today'){
+                        localStorage.setItem('todayNotificationCount', n.items.length);
                     }
-                ]
-            },{
-                "label": "This week",
-                "items": [
-                    {
-                        "avatar": "./avatar.png",
-                        "content": "Rajatesh your post",
-                        "time": "20th Dec, 12:35AM",
-                        "postimg": "./postimg.png"
-                    },{
-                        "avatar": "./avatar.png",
-                        "content": "Pranay Shared your post",
-                        "time": "20th Dec, 12:35AM",
-                        "postimg": "./postimg.png"
-                    }
-                ]
-            }
-        ];
-        setNotifications( nfs );
+                })
+                setNotifications( nfs );
+            })
+            .catch(error => {
+                console.log(error);
+            })
+
     },[]);
 
-    const userCrickCoins = 25000;
+    
     const userProfileName = localStorage.getItem('user_name');
     return <header className="header">
         <div className='header-cnt'>
@@ -140,8 +152,7 @@ const Header = ( props ) => {
                         <div className='caret'></div>
                         <div className='options'>
                             <ul>
-                                <li>Profile</li>
-                                <li>Sign Out</li>
+                                <li onClick={handleLogout}>Sign Out</li>
                             </ul>
                         </div>
                     </Tooltip>
