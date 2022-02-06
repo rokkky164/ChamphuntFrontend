@@ -32,7 +32,7 @@ const Post = ( props ) => {
             runs
         }
     } = props;
-
+    const [posts, setPosts] = useState([]);
     const [showRuns, setShowRuns] = useState(false);
     const [sharing, setSharing] = useState(false);
     const [comment, setComment] = useState('')
@@ -42,7 +42,11 @@ const Post = ( props ) => {
         comment: '',
         userprofile: ''
     });
+    const [sharedBody, setSharedBody] = useState('');
 
+    const getSharedBody = (event) => {
+        setSharedBody(event.target.value);
+    }
     const getCommentData = (comment) => {
         commentData.comment = comment.target.value;
     }
@@ -97,13 +101,12 @@ const Post = ( props ) => {
         setSharing(false);
     }
 
-    const sharePost = () => {
-        const pitchID = document.getElementById('pitchID').value;
+    const sharePost = (post_id) => {
         const userprofile = localStorage.getItem('profile-id');
         const sharePostData = {
-            pitch_id: pitchID,
+            pitch_id: post_id,
             shared_user: userprofile,
-            shared_body: document.getElementById('sharedBody').value
+            shared_body: sharedBody
         };
         const accessToken = localStorage.getItem('access-token');
         var sharePostOptions = {
@@ -117,6 +120,8 @@ const Post = ( props ) => {
         };
         axios(sharePostOptions)
             .then(response => {
+                debugger;
+                setPosts([response.data]);
                 closeModal();
             })
             .catch(error => {
@@ -189,7 +194,7 @@ const Post = ( props ) => {
                     <div className='share-modal__container'>
                         <div className='share-modal__container__form'>
                             <div className='input-textarea'>
-                                <textarea placeholder='Write Something' id="sharedBody"></textarea>
+                                <textarea placeholder='Write Something' id="sharedBody" onChange={getSharedBody}></textarea>
                             </div>
                             <div className="content left">
                                 <div className="avatar">
@@ -207,7 +212,7 @@ const Post = ( props ) => {
                         </div>
                         <div className='share-modal__container__actions'>
                             <ChampButton onClick = {closeModal} classes='cancel secondary' label='Cancel' />
-                            <ChampButton onClick = {sharePost} classes='share primary' label='Share' />
+                            <ChampButton onClick={() => sharePost(post_id)} classes='share primary' label='Share' />
                         </div>
                         <div className='share-modal__container__more'>
                             <div className="link-block">
