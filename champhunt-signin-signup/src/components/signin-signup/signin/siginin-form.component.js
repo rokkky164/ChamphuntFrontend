@@ -84,7 +84,7 @@ export default function SignInForm({ breakPoint }) {
         }
         var loginOptions = {
             method: 'post',
-            url: global.config.ROOTURL.prod + '/api/v0/login/',
+            url: global.config.ROOTURL.local + '/api/v0/login/',
             data: JSON.stringify(data),
             headers: {
                 'Accept': 'application/json',

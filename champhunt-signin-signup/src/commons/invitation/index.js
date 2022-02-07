@@ -28,7 +28,7 @@ const InviteModal = (props) => {
         const accessToken = localStorage.getItem('access-token');
         var sendInvitationOptions = {
             method: 'post',
-            url: 'http://localhost:8001/api/v0/invite-friends/',
+            url: global.config.ROOTURL.prod + '/api/v0/invite-friends/',
             headers: {
                 'Authorization': 'Bearer ' + accessToken,
             },
