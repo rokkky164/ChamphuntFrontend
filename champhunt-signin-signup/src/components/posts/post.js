@@ -66,7 +66,7 @@ const Post = ( props ) => {
         const accessToken = localStorage.getItem('access-token');
         var scorePostOptions = {
             method: 'post',
-            url: 'http://localhost:8001/api/v0/user-score-pitch/',
+            url: global.config.ROOTURL.prod + '/api/v0/user-score-pitch/',
             headers: {
                 'Authorization': 'Bearer ' + accessToken,
             },
@@ -111,7 +111,7 @@ const Post = ( props ) => {
         const accessToken = localStorage.getItem('access-token');
         var sharePostOptions = {
             method: 'post',
-            url: 'http://localhost:8001/api/v0/share-pitch/',
+            url: global.config.ROOTURL.prod + '/api/v0/share-pitch/',
             headers: {
                 'Authorization': 'Bearer ' + accessToken,
             },
@@ -140,7 +140,7 @@ const Post = ( props ) => {
         const accessToken = localStorage.getItem('access-token');
         var submitPostCommentOptions = {
             method: 'post',
-            url: 'http://localhost:8001/api/v0/submit-comment/',
+            url: global.config.ROOTURL.prod + '/api/v0/submit-comment/',
             headers: {
                 'Authorization': 'Bearer ' + accessToken,
             },

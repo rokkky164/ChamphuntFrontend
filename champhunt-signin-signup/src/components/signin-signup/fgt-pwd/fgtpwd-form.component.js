@@ -64,7 +64,7 @@ export default function ForgotPasswordForm(props) {
 
         var fgtPwdOptions = {
              method: 'post',
-             url: 'http://localhost:8001/api/v0/register/',
+             url: global.config.ROOTURL.prod + '/api/v0/register/',
              data: JSON.stringify(
                 {'email': event.target.email.value,
                  'mobile': event.target.mobile.value,

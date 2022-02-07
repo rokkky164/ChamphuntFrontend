@@ -18,7 +18,7 @@ const Suggestions = () => {
     
     const accessToken = localStorage.getItem('access-token');
     
-    const url = 'http://localhost:8001/api/v0/friends-suggestion/';
+    const url = global.config.ROOTURL.prod + '/api/v0/friends-suggestion/';
     
     const getSuggestionsOptions = {
         method: 'get',

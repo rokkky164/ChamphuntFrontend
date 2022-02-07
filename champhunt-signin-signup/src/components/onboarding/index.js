@@ -94,7 +94,7 @@ const OnboardingComponent = () => {
             userInfo.user = userID;
             var submitUserProfileOptions = {
                     method: 'post',
-                    url: 'http://localhost:8001/api/v0/user-profile/',
+                    url: global.config.ROOTURL.prod + '/api/v0/user-profile/',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + accessToken,

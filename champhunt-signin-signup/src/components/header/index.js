@@ -43,7 +43,7 @@ const Header = ( props ) => {
         const refreshToken = localStorage.getItem('refresh-token');
         var logOutOptions = {
             method: 'post',
-            url: 'http://localhost:8001/api/v0/logout/',
+            url: global.config.ROOTURL.prod + '/api/v0/logout/',
             headers: {
                 'Authorization': 'Bearer ' + accessToken,
             },
@@ -65,7 +65,7 @@ const Header = ( props ) => {
         const userprofile = localStorage.getItem('profile-id');
         var notificationsOptions = {
             method: 'get',
-            url: 'http://localhost:8001/api/v0/get-notifications/' + userprofile + '/',
+            url: global.config.ROOTURL.prod + '/api/v0/get-notifications/' + userprofile + '/',
             headers: {
                 'Authorization': 'Bearer ' + accessToken,
             },
