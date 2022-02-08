@@ -11,33 +11,9 @@ import SearchPage from './containers/search';
 import DealsPage from './containers/deals';
 import SignUp from './components/signin-signup/signup/signup.component';
 import CollectUserInfo from './components/signin-signup/collect-userInfo/collect-userInfo.component';
+import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme();
-
-const AllRotes = () => {
-    return (
-        <ul>
-      <li><a href='/'>Home</a></li>
-      <li><a href='/login'>signin</a></li>
-      <li><a href='/signup'>signup</a></li>
-      <li><a href='/userinfo'>userinfo</a></li>
-      <li><a href='/onboarding'>onboarding</a></li>
-      <li><a href='/pitch'>pitch</a></li>
-      <li><a href='/confirmation'>confirmation</a></li>
-    </ul>
-    )
-}
-
-const Dummy = ({ label = 'No page found' }) => {
-    return (
-        <div style={{ display: 'flex', height: '100vh' }}>
-      <p style={{ margin: 'auto' }}>
-        {label}
-        <AllRotes />
-      </p>
-    </div>
-    )
-}
 
 function App() {
     return (
@@ -47,7 +23,6 @@ function App() {
           <div>
             {/* <HomePageSection /> */}
             <Routes>
-              
               <Route path={'/confirmation'} element={<ConfirmationPage />} />
               <Route path={'/search'} element={<SearchPage />} />
               <Route path={'/pitch'} element={<PitchPage />} />
@@ -56,8 +31,8 @@ function App() {
               <Route path={'/login'} element={<SignIn />} />
               <Route path={'/signup'} element={<SignUp />} />
               <Route path={'/userinfo'} element={<CollectUserInfo />} />
-              <Route path={'/'} exact element={<Dummy label='Home' />} />
-              <Route path={'*'} element={<Dummy />} />
+              <Route path={'/'} exact element={<SignIn />} />
+              <Route path={'*'} element={<SignIn />} />
             </Routes>
           </div>
         </Router>
