@@ -2,7 +2,7 @@ import { Tooltip } from 'carbon-components-react';
 import { useEffect, useState } from 'react';
 
 const Notification = ( { notifications }) => {
-    const todayNotificationsCount = localStorage.getItem('todayNotificationCount');
+    const todayNotificationsCount = localStorage.getItem('todayNotificationCount') || 0;
     return <Tooltip
         direction='bottom'
     >

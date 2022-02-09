@@ -19,8 +19,8 @@ const Post = ( props ) => {
             avatar
         },
         coAuthor: {
-            name: coAuthorName,
-            url: coAuthorURL
+            coAuthorName,
+            coAuthorURL
         } = {},
         post: {
             post_id,
@@ -163,7 +163,7 @@ const Post = ( props ) => {
                 <div className="avatar-cnt">
                     <p>
                         { name }
-                        { coAuthorName && <> shared <Link className='shared-link' to={coAuthorURL}> {coAuthorName} </Link> post</> }
+                        { coAuthorName && <> shared<Link className='shared-link' to={coAuthorURL}> {name} </Link> post</> }
                     </p>
                     <p className='date-time'>{ date } {time}</p>
                 </div>

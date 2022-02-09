@@ -9,6 +9,7 @@ const DealsAlert = () => {
 
     }
     const profileEmail = localStorage.getItem('user_email');
+    const profileCrickCoins = localStorage.getItem('profile-crickcoins');
     return <div className="component deals-alert">
         
         <div className='left'>
@@ -19,15 +20,9 @@ const DealsAlert = () => {
         </div>
         
         <div className='right'>
-            <div className='desktop-only add'>
-                <span className='rupee primary'>&#8377; 00.00</span>
-            </div>
-            <div className='desktop-only separator'>
-
-            </div>
             <div className='coins'>
                 <img src={Coins} alt=''/>
-                <span className='primary' > 245 </span>
+                <span className='primary' > {profileCrickCoins} </span>
             </div>
         </div>        
     </div>
