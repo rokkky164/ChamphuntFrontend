@@ -50,7 +50,7 @@ const Search = () => {
                         'name': profile.first_name + ' ' + profile.last_name,
                         'avatar': "https://i.pravatar.cc/45",
                         'role': '',
-                        'followers': profile.followers.length,
+                        'followers': profile.followers_count,
                         'runs': profile.runs,
                         'id': profile.id
                     })
