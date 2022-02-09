@@ -55,11 +55,10 @@ const Post = ( props ) => {
         setShowRuns(!showRuns);
     }
 
-    const scorePost = (run) => {
-        const pitch = document.getElementById('pitchID').value;
+    const scorePost = (post_id, run) => {
         const userprofile = localStorage.getItem('profile-id');
         const scorePostData = {
-            pitch: pitch,
+            pitch: post_id,
             runs_awarded: run,
             userprofile: userprofile
         };
@@ -75,10 +74,11 @@ const Post = ( props ) => {
         };
         axios(scorePostOptions)
             .then(response => {
-                setShowRuns(false);
+                setShowRuns(!showRuns);
             })
             .catch(error => {
                 console.log(error);
+                setShowRuns(!showRuns);
             })
     }
 
@@ -120,7 +120,6 @@ const Post = ( props ) => {
         };
         axios(sharePostOptions)
             .then(response => {
-                debugger;
                 setPosts([response.data]);
                 closeModal();
             })
@@ -132,11 +131,9 @@ const Post = ( props ) => {
         setShowComments(false);
     };
     const componentRef = React.useRef();
-    const postComment = (event) => {
-        event.preventDefault();
-        
+    const postComment = (post_id) => {
         commentData.userprofile = localStorage.getItem('profile-id');
-        commentData.pitch = document.getElementById('pitchID').value;
+        commentData.pitch = post_id;
         const accessToken = localStorage.getItem('access-token');
         var submitPostCommentOptions = {
             method: 'post',
@@ -214,24 +211,6 @@ const Post = ( props ) => {
                             <ChampButton onClick = {closeModal} classes='cancel secondary' label='Cancel' />
                             <ChampButton onClick={() => sharePost(post_id)} classes='share primary' label='Share' />
                         </div>
-                        <div className='share-modal__container__more'>
-                            <div className="link-block">
-                                <p className='info'>
-                                More ways to invite your friends
-                                </p>
-                                <div className='copy-link-cnt'>
-                                    <div className='copy-btn-cnt'>
-                                        <img className='link' src={Link} alt='' />
-                                        <button onClick={copyToClipboard} className='copy'>
-                                            Copy link
-                                        </button>
-                                    </div>
-                                    <div className='copy-text-cnt'>
-                                        <input className='refer-id' id='referId' value='https://ch.tt/LC9652T' readOnly={true} />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -239,7 +218,7 @@ const Post = ( props ) => {
                 <img src={Runs} alt='' role='button' onClick={toggleRuns} />
                 <div className={`tip ${showRuns?'visible':'hidden'}`}>
                     <div className='runs-container'>
-                        { [2,4,6].map( run => <div role='button' onClick={() => scorePost(run)} className='run' key={run}>{run}</div> ) }
+                        { [2,4,6].map( run => <div role='button' onClick={() => scorePost(post_id, run)} className='run' key={run}>{run}</div> ) }
                     </div>
                 </div>
             </div>
@@ -251,7 +230,7 @@ const Post = ( props ) => {
                 </div>
                 <div className='action-block'>
                     <ChampButton onClick={closeComment} classes='cancel' label='Cancel' />
-                    <ChampButton onClick={postComment} classes='share' label='Post' />
+                    <ChampButton onClick={() => postComment(post_id)} classes='share' label='Post' />
                 </div>
             </div>
             <div className='post-header view-comments'>
