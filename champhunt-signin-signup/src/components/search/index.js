@@ -77,7 +77,7 @@ const Search = () => {
                             'date': postDate,
                             'time': postTime,
                             'content': pitch.message,
-                            'comments': '',
+                            'comments': [],
                             'runs': pitch.runs,
                             'image': pitch.image
                         }
