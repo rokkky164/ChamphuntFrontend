@@ -1,0 +1,19 @@
+.profile-card-block {
+    background-color: #FFFFFF;
+    border-radius: 120px;
+    padding: 150px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+
+    & .profile-info {
+        position: absolute;
+        width: 120.364px;
+        height: 119.881px;
+        left: 281.938px;
+        top: 123.447px;
+        overflow: visible;
+    }
+

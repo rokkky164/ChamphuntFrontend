@@ -179,6 +179,7 @@ const Post = ( props ) => {
         </div>
         <div className="post-content">
             {content}
+            <img className='post-image' src={image} alt=''/>
         </div>
         <div className="post-footer post-header">
             <div className="comments-hld">

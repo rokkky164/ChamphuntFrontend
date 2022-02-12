@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Invite from '../../assets/images/home/invite.svg';
 import Link from '../../assets/images/home/link.svg';
 import axios from "axios";
-
+import { Button } from 'carbon-components-react';
 import './index.scss';
 
 const InviteModal = (props) => {
@@ -11,10 +11,11 @@ const InviteModal = (props) => {
     const { open, onClose } = props;
 
     const [email, setEmail] = useState('');
-
+    const [inviteEmailErrorMsg, setInviteEmailErrorMsg] = useState('');
     const handleEmailChange = ( event ) => {
         const { value } = event.target;
         setEmail(value);
+        setInviteEmailErrorMsg('');
     }
 
     const copyToClipboard = () => {
@@ -44,11 +45,25 @@ const InviteModal = (props) => {
                 onClose();
             })
             .catch(error => {
-                console.log(error);
+                if ('email' in error.response.data){
+                    setInviteEmailErrorMsg(error.response.data['email'].join(', '))
+                }
             })
     }
+    const closeModal = () => {
+        onClose();
+    }
     return <div className={`component invite-modal ${open?'visible':'hidden'}`}>
-        <div className="invite-container">
+        <div className="invite-container" >
+            <div style={{position: 'absolute', right: 0}}>
+                <button
+                    type="button"
+                    className="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                    onClick={closeModal}
+                  >X</button>
+            </div>
             <div className="image-block">
                 <img className='invite-image' src={Invite} alt='' />
             </div>
@@ -59,6 +74,9 @@ const InviteModal = (props) => {
                 <div className='input-block'>
                     <input onChange={handleEmailChange} name='email' className='email-input' placeholder='' value={email} />
                 </div>
+                {inviteEmailErrorMsg && (
+                      <p style={{ color: 'red' }}> {inviteEmailErrorMsg} </p>
+                )}
                 <div className='send-block'>
                     <button className='send' onClick={handleSendInvitation}>
                         Send

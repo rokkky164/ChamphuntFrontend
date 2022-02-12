@@ -9,7 +9,9 @@ import Onboarding from './containers/onboarding';
 import PitchPage from './containers/pitch';
 import SearchPage from './containers/search';
 import DealsPage from './containers/deals';
+import ProfileDetailsPage from './containers/profile';
 import SignUp from './components/signin-signup/signup/signup.component';
+import NotFound from './components/notfound';
 import CollectUserInfo from './components/signin-signup/collect-userInfo/collect-userInfo.component';
 import { useNavigate } from 'react-router-dom';
 
@@ -27,12 +29,13 @@ function App() {
               <Route path={'/search'} element={<SearchPage />} />
               <Route path={'/pitch'} element={<PitchPage />} />
               <Route path={'/deals'} element={<DealsPage />} />
+              <Route path={'/profile'} element={<ProfileDetailsPage />} />
               <Route path={'/onboarding'} element={<Onboarding />} />
               <Route path={'/login'} element={<SignIn />} />
               <Route path={'/signup'} element={<SignUp />} />
               <Route path={'/userinfo'} element={<CollectUserInfo />} />
               <Route path={'/'} exact element={<SignIn />} />
-              <Route path={'*'} element={<SignIn />} />
+              <Route path={'*'} element={<NotFound />} />
             </Routes>
           </div>
         </Router>

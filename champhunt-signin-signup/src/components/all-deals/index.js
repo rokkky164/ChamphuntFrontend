@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Deal from './deal';
+import { useNavigate } from 'react-router-dom';
 
 import './index.scss';
 
 const AllDeals = () => {
-
+    const navigate = useNavigate();
     const [deals, setDeals] = useState([]);
     let url = global.config.ROOTURL.prod + '/api/v0/offers/';
     const accessToken = localStorage.getItem('access-token');
@@ -34,7 +35,9 @@ const AllDeals = () => {
                 }
                 setDeals(offers);
             })
-            .catch(error => {})
+            .catch(error => {
+                if (error.status == 401){navigate('/login');}
+            })
     }, [])
 
     return <div className="component all-deals">

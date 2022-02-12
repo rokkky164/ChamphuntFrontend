@@ -7,8 +7,6 @@ import IconButton from '@mui/material/IconButton';
 import { CTextField } from '../../../commons/components/mui-c-components'
 import { CIcon } from "../../../commons/components/Icon";
 import LockIcon from '../../../assets/images/signin-signup/password.svg';
-import GoogleIcon from '../../../assets/images/signin-signup/google.svg';
-import MailIcon from '../../../assets/images/signin-signup/mail-icon.svg';
 import MobileIcon from '../../../assets/images/signin-signup/mobile-icon.svg';
 import VisibilityIcon from '../../../assets/images/signin-signup/visibility-on-icon.svg';
 import VisibilityOffIcon from '../../../assets/images/signin-signup/visibility-off-icon.svg';
@@ -17,7 +15,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const pageFontColor = '#FFFFFF'
-
 
 const LogInWith = Styled.div(`
     display: flex;

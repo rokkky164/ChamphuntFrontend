@@ -20,7 +20,7 @@ const Alert = () => {
         image: '',
         userprofile: ''
     });
-
+    const navigate = useNavigate();
     const handleOnClick = () => {
         setShowForm(!showForm);
     }
@@ -73,9 +73,9 @@ const Alert = () => {
         axios(submitPostOptions)
             .then(response => {
                 setShowForm(false);
+                window.location.href = global.config.ROOTURL_FOR_REACT.prod + '/pitch';
             })
             .catch(error => {
-                console.log(error);
             })
     }
 

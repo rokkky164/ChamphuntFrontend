@@ -28,11 +28,9 @@ const Feeds = () => {
                 <Posts />
             </TabPanel>
             <TabPanel>
-                <Hero />
                 <Posts filter={'my_posts'}/>
             </TabPanel>
             <TabPanel>
-                <Hero />
                 <Posts filter={'friends'}/>
             </TabPanel>
         </Tabs>

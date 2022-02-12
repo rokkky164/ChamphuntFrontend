@@ -44,13 +44,6 @@ const Suggestion = (props) => {
                     <p className="label primary">Runs</p>
                 </div>
             </div>
-            <div className="button-block">
-            <Button
-                    label = 'Message'
-                    classes = 'message'
-                    onClick = { handleFollow }
-                />
-            </div>
         </div>
     </div>
 }

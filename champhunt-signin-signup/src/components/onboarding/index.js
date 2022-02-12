@@ -104,7 +104,6 @@ const OnboardingComponent = () => {
                 };
             axios(submitUserProfileOptions)
                 .then(response => {
-                    debugger;
 
                 })
                 .catch(error => {
@@ -112,7 +111,6 @@ const OnboardingComponent = () => {
                         navigate('/login');
                     }
                 })
-
         }
 
         if( step === 2 ) {

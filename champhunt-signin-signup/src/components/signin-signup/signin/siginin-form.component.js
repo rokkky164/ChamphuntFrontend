@@ -10,6 +10,7 @@ import { CIcon } from "../../../commons/components/Icon";
 import UserIcon from '../../../assets/images/signin-signup/user.svg'
 import LockIcon from '../../../assets/images/signin-signup/password.svg';
 import GoogleIcon from '../../../assets/images/signin-signup/google.svg';
+import { useCookies } from 'react-cookie';
 
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
@@ -68,16 +69,36 @@ const SubmitButton = styled(Button)({
 export default function SignInForm({ breakPoint }) {
     const classes = useStyles();
     const [authenticatedFailedMsg, setauthenticatedFailedMsg] = useState('');
+    const [cookies, setCookie] = useCookies(['user']);
     // call login api
     const navigate = useNavigate();
+    var initialValues = {
+        'userid': '',
+        'password': ''
+    }
+    if (cookies.hasOwnProperty('username') && cookies.hasOwnProperty('password')){
+        initialValues = {
+            'userid': cookies['username'],
+            'password': cookies['password']
+        }
+    }
     const loginSubmit = (event) => {
 
         event.preventDefault();
+        const isRemember = event.target.remember.checked;
 
         const data = {
             'username': event.target.userid.value,
             'password': event.target.password.value
         };
+        const handle = () => {
+          setCookie('username', data['username'], { path: '/' });
+          setCookie('password', data['password'], { path: '/' });
+        };
+        if (isRemember){
+            handle();
+        }
+
         if (validator.isEmail(data['username'])) {
             data['email'] = data['username'];
             delete data['username'];
@@ -115,6 +136,7 @@ export default function SignInForm({ breakPoint }) {
         >
         <Box component="form" onSubmit={loginSubmit} noValidate>
                 <CTextField
+                    defaultValue={initialValues.userid}
                     margin="normal"
                     required
                     fullWidth
@@ -133,6 +155,7 @@ export default function SignInForm({ breakPoint }) {
                     }}
                 />
                 <CTextField
+                    defaultValue={initialValues.password}
                     margin="normal"
                     required
                     fullWidth

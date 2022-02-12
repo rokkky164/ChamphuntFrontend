@@ -56,10 +56,8 @@ export default function SignUpForm(props) {
     const [mobileErrorMsg, setmobileErrorMsg] = useState('');
     const [passwordErrorMsg, setpasswordErrorMsg] = useState('');
     const [confirmpasswordErrorMsg, setconfirmpasswordErrorMsg] = useState('');
-    
     const classes = useStyles();
     const navigate = useNavigate();
-    // call register api
     const signUpSubmit = (event) => {
 
         event.preventDefault();
@@ -82,7 +80,7 @@ export default function SignUpForm(props) {
         };
         axios(registerOptions)
         .then(response => {
-            navigate('/login')
+            navigate('/onboarding')
         })
         .catch(error => {
             if ('email' in error.response.data){
@@ -99,9 +97,13 @@ export default function SignUpForm(props) {
             }
         })
     }
-    // api call ends
-
+    const [passwordShown, setPasswordShown] = useState(false);
     const values = { showPassword: false }
+
+    const handleClickShowPassword = () => {
+        setPasswordShown(!passwordShown);
+    }
+    
     return (
         <>
             <Box component="form" onSubmit={signUpSubmit} noValidate>
@@ -153,7 +155,7 @@ export default function SignUpForm(props) {
                     fullWidth
                     name="password"
                     placeholder="Password"
-                    type={values.showPassword ? 'text' : 'password'}
+                    type={passwordShown? 'text' : 'password'}
                     id="password"
                     autoComplete="current-password"
                     className={classes.root}
@@ -172,7 +174,7 @@ export default function SignUpForm(props) {
                                     // onMouseDown={handleMouseDownPassword}
                                     edge="end"
                                 >
-                                    <CIcon src={values.showPassword ? VisibilityOffIcon : VisibilityIcon} fontSize={24} />
+                                    <CIcon src={passwordShown ? VisibilityOffIcon : VisibilityIcon} fontSize={24} onClick={handleClickShowPassword}/>
                                 </IconButton>
                             </InputAdornment>
                         ),
@@ -187,7 +189,7 @@ export default function SignUpForm(props) {
                     fullWidth
                     name="password2"
                     placeholder="Confirm password"
-                    type={values.showPassword ? 'text' : 'password'}
+                    type={passwordShown? 'text' : 'password'}
                     id="password2"
                     autoComplete="current-password"
                     className={classes.root}
@@ -202,11 +204,11 @@ export default function SignUpForm(props) {
                             <InputAdornment position="end">
                                 <IconButton
                                     aria-label="toggle password visibility"
-                                    // onClick={handleClickShowPassword}
+                                    onClick={handleClickShowPassword}
                                     // onMouseDown={handleMouseDownPassword}
                                     edge="end"
                                 >
-                                    <CIcon src={values.showPassword ? VisibilityOffIcon : VisibilityIcon} fontSize={24} />
+                                    <CIcon src={passwordShown ? VisibilityOffIcon : VisibilityIcon} fontSize={24} />
                                 </IconButton>
                             </InputAdornment>
                         ),
@@ -223,10 +225,6 @@ export default function SignUpForm(props) {
                 >
                     Register
                 </SubmitButton>
-                <LogInWith>
-                    <InfoLabel>Or signup with</InfoLabel>
-                    <CIcon src={GoogleIcon} fontSize={53} />
-                </LogInWith>
             </Box>
         </>
     )
