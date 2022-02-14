@@ -12,6 +12,8 @@ import DealsPage from './containers/deals';
 import ProfileDetailsPage from './containers/profile';
 import SignUp from './components/signin-signup/signup/signup.component';
 import NotFound from './components/notfound';
+import ResetPassword from './components/signin-signup/fgt-pwd/resetpwd.component'
+import ForgotPassword from './components/signin-signup/fgt-pwd/fgtpwd.component'
 import CollectUserInfo from './components/signin-signup/collect-userInfo/collect-userInfo.component';
 import { useNavigate } from 'react-router-dom';
 
@@ -34,7 +36,9 @@ function App() {
               <Route path={'/login'} element={<SignIn />} />
               <Route path={'/signup'} element={<SignUp />} />
               <Route path={'/userinfo'} element={<CollectUserInfo />} />
-              <Route path={'/'} exact element={<SignIn />} />
+              <Route path={'/reset-pwd'} element={<ResetPassword />} />
+              <Route path={'/reset-pwd/:activation_token'} element={<ForgotPassword />} />
+              <Route path={'/'} exact element={<PitchPage />} />
               <Route path={'*'} element={<NotFound />} />
             </Routes>
           </div>

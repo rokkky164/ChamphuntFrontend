@@ -185,7 +185,7 @@ export default function SignInForm({ breakPoint }) {
                         label="Remember me"
                         name="remember"
                     />
-                    {breakPoint ? <FgPass href="/forget-password">Forgot password ?</FgPass> : null}
+                    {breakPoint ? <FgPass href="/reset-pwd">Forgot password ?</FgPass> : null}
                 </div>
                 {authenticatedFailedMsg && (
                   <p style={{ color: 'red' }}> {authenticatedFailedMsg} </p>
@@ -199,7 +199,7 @@ export default function SignInForm({ breakPoint }) {
                     Login
                 </SubmitButton>
                 {!breakPoint ? (<FgPassContainer>
-                    <FgPass href="/forget-password" align={'center'}>Forgot password ?</FgPass>
+                    <FgPass href="/reset-pwd" align={'center'}>Forgot password ?</FgPass>
                 </FgPassContainer>) : null}
 
             </Box> <

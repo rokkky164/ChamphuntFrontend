@@ -3,11 +3,10 @@ import { makeStyles, styled } from '@mui/styles';
 import Styled from "@emotion/styled";
 import { InputAdornment, Button, Box } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
+import { CIcon } from "../../../commons/components/Icon";
 
 import { CTextField } from '../../../commons/components/mui-c-components'
-import { CIcon } from "../../../commons/components/Icon";
 import LockIcon from '../../../assets/images/signin-signup/password.svg';
-import MobileIcon from '../../../assets/images/signin-signup/mobile-icon.svg';
 import VisibilityIcon from '../../../assets/images/signin-signup/visibility-on-icon.svg';
 import VisibilityOffIcon from '../../../assets/images/signin-signup/visibility-off-icon.svg';
 
@@ -46,6 +45,10 @@ const SubmitButton = styled(Button)({
     height: 45,
 });
 
+const forgotPasswordSubmit = () => {
+
+
+}
 
 export default function ForgotPasswordForm(props) {
     // initialize form error messages
@@ -61,12 +64,10 @@ export default function ForgotPasswordForm(props) {
 
         var fgtPwdOptions = {
              method: 'post',
-             url: global.config.ROOTURL.prod + '/api/v0/register/',
+             url: global.config.ROOTURL.prod + '/api/v0/reset-password/',
              data: JSON.stringify(
-                {'email': event.target.email.value,
-                 'mobile': event.target.mobile.value,
-                 'password': event.target.password.value,
-                 'password2': event.target.password2.value
+                {
+                 'email': event.target.password.value,
                 }
              ),
              headers: {
@@ -75,17 +76,11 @@ export default function ForgotPasswordForm(props) {
              },
              json: true
         };
-        axios(registerOptions)
+        axios(fgtPwdOptions)
         .then(response => {
             navigate('/login')
         })
         .catch(error => {
-            if ('email' in error.response.data){
-                setemailErrorMsg(error.response.data['email'].join(', '))
-            }
-            if ('mobile' in error.response.data){
-                setmobileErrorMsg(error.response.data['mobile'].join(', '))
-            }
             if ('password' in error.response.data){
                 setpasswordErrorMsg(error.response.data['password'].join(', '))
             }
@@ -99,49 +94,7 @@ export default function ForgotPasswordForm(props) {
     const values = { showPassword: false }
     return (
         <>
-            <Box component="form" onSubmit={signUpSubmit} noValidate>
-                <CTextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="Email"
-                    autoFocus
-                    className={classes.root}
-                    InputProps={{
-                        className: classes.inputProps,
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <CIcon src={MailIcon} fontSize={24} />
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-                {emailErrorMsg && (
-                  <p style={{ color: 'red' }}> {emailErrorMsg} </p>
-                )}
-                <CTextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="mobile"
-                    name="mobile"
-                    placeholder="Mobile No"
-                    className={classes.root}
-                    InputProps={{
-                        className: classes.inputProps,
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <CIcon src={MobileIcon} fontSize={24} />
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-                {mobileErrorMsg && (
-                  <p style={{ color: 'red' }}> {mobileErrorMsg} </p>
-                )}
+            <Box component="form" onSubmit={forgotPasswordSubmit} noValidate>
                 <CTextField
                     margin="normal"
                     required
@@ -150,7 +103,6 @@ export default function ForgotPasswordForm(props) {
                     placeholder="Password"
                     type={values.showPassword ? 'text' : 'password'}
                     id="password"
-                    autoComplete="current-password"
                     className={classes.root}
                     InputProps={{
                         className: classes.inputProps,
@@ -184,7 +136,6 @@ export default function ForgotPasswordForm(props) {
                     placeholder="Confirm password"
                     type={values.showPassword ? 'text' : 'password'}
                     id="password2"
-                    autoComplete="current-password"
                     className={classes.root}
                     InputProps={{
                         className: classes.inputProps,
@@ -216,12 +167,8 @@ export default function ForgotPasswordForm(props) {
                     variant="contained"
                     sx={{ mt: 3, mb: 2, textTransform: 'none', fontSize: 18 }}
                 >
-                    Register
+                    Reset Password
                 </SubmitButton>
-                <LogInWith>
-                    <InfoLabel>Or signup with</InfoLabel>
-                    <CIcon src={GoogleIcon} fontSize={53} />
-                </LogInWith>
             </Box>
         </>
     )

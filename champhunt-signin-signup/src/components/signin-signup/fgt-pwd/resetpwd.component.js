@@ -6,7 +6,7 @@ import { Link } from '@mui/material';
 
 import LogoWithTitle from '../logo.component';
 
-import ForgotPasswordForm from './fgtpwd-form.component';
+import ResetPasswordForm from './resetpwd-form.component';
 
 import SignInSignUpPageHOC from '../signin-signup-page-hoc'
 
@@ -39,7 +39,7 @@ const InfoLabel = Styled.p(({ align }) => `
 `);
 
 
-export default function ForgotPassword() {
+export default function ResetPassword() {
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('sm'));
     return (
@@ -47,7 +47,7 @@ export default function ForgotPassword() {
             <>
                 <LogoWithTitle />
                 <HeaderLabel align={matches ? 'center' : 'left'}>Reset Password</HeaderLabel>
-                <ForgotPasswordForm breakPoint={matches} />
+                <ResetPasswordForm breakPoint={matches} />
             </>
         </SignInSignUpPageHOC>
     );
