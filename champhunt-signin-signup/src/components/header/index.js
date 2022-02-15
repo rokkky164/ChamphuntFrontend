@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
@@ -112,6 +111,12 @@ const Header = ( props ) => {
                 </NavLink>
                 <NavLink to='/deals' className={isActive => `nav-link ${isActive?'active':''}`}>
                     Deals
+                </NavLink>
+                <NavLink to='/news' className={isActive => `nav-link ${isActive?'active':''}`}>
+                    News
+                </NavLink>
+                <NavLink to='/about-us' className={isActive => `nav-link ${isActive?'active':''}`}>
+                    About Us
                 </NavLink>
             </div>
             }

@@ -1,0 +1,13 @@
+.news-main {
+    display: flex;
+    flex-direction: column;
+    max-width: 90%;
+    margin: auto;
+    margin-top: 40px;
+    padding-bottom: 100px;
+}
+
+.page.news {
+    background-color: #131639;
+    min-height: 100vh;
+}

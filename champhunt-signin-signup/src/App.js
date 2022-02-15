@@ -9,6 +9,8 @@ import Onboarding from './containers/onboarding';
 import PitchPage from './containers/pitch';
 import SearchPage from './containers/search';
 import DealsPage from './containers/deals';
+import NewsPage from './containers/news';
+import ArticlePage from './components/news/articles';
 import ProfileDetailsPage from './containers/profile';
 import SignUp from './components/signin-signup/signup/signup.component';
 import NotFound from './components/notfound';
@@ -31,6 +33,8 @@ function App() {
               <Route path={'/search'} element={<SearchPage />} />
               <Route path={'/pitch'} element={<PitchPage />} />
               <Route path={'/deals'} element={<DealsPage />} />
+              <Route path={'/news'} element={<NewsPage />} />
+              <Route path={'/news/:article_id'} element={<ArticlePage />} />
               <Route path={'/profile'} element={<ProfileDetailsPage />} />
               <Route path={'/onboarding'} element={<Onboarding />} />
               <Route path={'/login'} element={<SignIn />} />

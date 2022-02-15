@@ -1,0 +1,40 @@
+@media screen and (min-width: 769px) {
+    .component.livewire-alert{
+
+        background-color: #383B5A;
+        border-radius: 12px 12px 0 0;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 125px;
+        max-height: 125px;
+        & .topleft {
+              position: relative;
+              top: 5px;
+              left: 10px;
+              font-size: 16px;
+              margin-bottom: 120px;
+              margin-top: 10px; 
+              width: 6%
+        }
+        .column {
+          float: left;
+          width: 30%;
+        }
+            & .news-block {
+                font-weight: bold;
+                color: white;
+                margin-right: 10px;
+                width:60%;
+                float: left;
+                word-wrap: break-word;
+                align-items: flex-end;
+                & .img {
+                    width: 40%;
+                    float: right;
+                }   
+            }
+
+    }
+}
