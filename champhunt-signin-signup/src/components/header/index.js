@@ -27,6 +27,8 @@ const Header = ( props ) => {
 
     const [userCrickCoins, setUserCrickCoins] = useState(1000);
 
+    const [todayNotificationsCount, setTodayNotificationsCount] = useState(0);
+
     const navigate = useNavigate();
 
     const handleOnChange = () => {
@@ -76,6 +78,7 @@ const Header = ( props ) => {
                 nfs.forEach(function(n){
                     if (n.label === 'Today'){
                         localStorage.setItem('todayNotificationCount', n.items.length);
+                        setTodayNotificationsCount(n.items.length);
                     }
                 })
                 setNotifications( nfs );
@@ -132,7 +135,16 @@ const Header = ( props ) => {
                     <img src={SearchIcon} alt='' />
                 </div>
                 <div className={`bell-icon ${notification>0 ? 'notification' : ''}`}>
-                    <span className='not-present'></span>
+                    {(() => {
+                          if (todayNotificationsCount != 0){
+                              return (
+                                  <span className='not-present'></span>
+                              )
+                          }
+                          
+                          return null;
+                    })()}
+                    
                     <img src={Bell} alt='' />
                     <Notification notifications={notifications}/>
                 </div>
