@@ -10,6 +10,7 @@ import PitchPage from './containers/pitch';
 import SearchPage from './containers/search';
 import DealsPage from './containers/deals';
 import NewsPage from './containers/news';
+import AboutUs from './containers/aboutus';
 import ArticlePage from './components/news/articles';
 import ProfileDetailsPage from './containers/profile';
 import SignUp from './components/signin-signup/signup/signup.component';
@@ -42,6 +43,7 @@ function App() {
               <Route path={'/userinfo'} element={<CollectUserInfo />} />
               <Route path={'/reset-pwd'} element={<ResetPassword />} />
               <Route path={'/reset-pwd/:activation_token'} element={<ForgotPassword />} />
+              <Route path={'/about-us'} element={<AboutUs />} />
               <Route path={'/'} exact element={<PitchPage />} />
               <Route path={'*'} element={<NotFound />} />
             </Routes>

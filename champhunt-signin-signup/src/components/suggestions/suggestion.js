@@ -5,7 +5,8 @@ import './index.scss';
 const Suggestion = (props) => {
 
     const handleFollow = () => {
-
+        console.log('follow');
+        
     }
 
     const { avatar, runs, followers, name, role } = props;

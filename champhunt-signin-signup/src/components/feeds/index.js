@@ -4,6 +4,7 @@ import 'react-tabs/style/react-tabs.css';
 import Alert from "../alerts";
 import Hero from "../hero";
 import Posts from "../posts";
+import MyCarousel from "../carousel";
 
 import './index.scss';
 

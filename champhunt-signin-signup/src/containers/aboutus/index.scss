@@ -1,0 +1,26 @@
+.news-main {
+    display: flex;
+    flex-direction: column;
+    max-width: 90%;
+    margin: auto;
+    margin-top: 40px;
+    padding-bottom: 100px;
+}
+
+.page.aboutus {
+    background-color: #131639;
+    min-height: 100vh;
+}
+    .component.aboutus-alert{
+        margin-top: 150px;
+        background-color: #383B5A;
+        border-radius: 12px 12px 0 0;
+        padding: 15px;
+        justify-content: space-between;
+        align-items: flex-start;
+        min-height: 300px;
+        max-height: 300px;
+        color: white;
+        text-align: 'center',
+
+    }

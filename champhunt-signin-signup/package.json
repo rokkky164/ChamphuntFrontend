@@ -25,6 +25,7 @@
     "carbon-icons": "^7.0.7",
     "firebase-admin": "^5.12.1",
     "firebase-functions": "^3.16.0",
+    "flat-carousel": "0.0.1",
     "path-to-regexp": "^6.2.0",
     "react": "^17.0.2",
     "react-cookie": "^4.1.1",
