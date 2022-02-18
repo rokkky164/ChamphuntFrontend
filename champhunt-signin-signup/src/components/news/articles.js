@@ -1,50 +1,61 @@
+import NewsLeadImage from '../../assets/images/news/LeadNewsImage.png';
+import reporter from '../../assets/images/news/reporter.png';
+import hayden from '../../assets/images/news/hayden-kerr-scored-an-unbeaten.png';
+import { Divider } from '@mui/material';
+import Comments from '../../assets/images/posts/comments.svg';
+import Share from '../../assets/images/posts/share.svg';
+import Header from "../../components/header";
+
 import Button from "../../commons/form/button";
 
 import './index.scss';
 
 const ArticlePage = (props) => {
 
-    const handleFollow = () => {
+    const handleComment = () => {
 
     }
+    
+    const handleShare = () => {
+        
+    }
 
-    const { avatar, runs, followers, name, role } = props;
+    return <div className="page news-article">
+    <Header showAdd={true} />
+    <div className="component news-article-screen">
+            <div className='author-details'>
+                    <img src={reporter} className='reporterimg'/>
+                     <p className='author-name'>By Sameer Kanva</p>
+            </div>
+            <p className='title'>Hayden Kerr 87* leads NSW's recovery</p>
+            <div className='news-article-body'>
+                <div className='news-article-image'>
+                    <img src={hayden} />
+                </div>
+                <div className='news-details'>
+                    <div className='news-body'>
+                        
+                        <p className='news-article'>
+                            Sachin Tendulkar has won his first ICC award, the Sir Garfield Sobers Trophy,
+                            by being named the Cricketer of the Year during the 2010 ICC Award ceremony in
+                            Bangalore. Tendulkar, however, lost out in the other major categories he was 
+                            nominated in, with Virender Sehwag winning the Test Cricketer of the Year award
+                            and AB de Villiers claiming the ODI prize.
+                        </p>
+                    </div>
 
-    return <div className="suggestion">
-        <div className="left-block">
-            <div className="profile-info">
-                <img src={avatar} alt={name} className="avatar" />
-                <p className="name primary">
-                    { name }
-                    <span className="role">
-                        { role }
-                    </span>
-                </p>
-            </div>
-            <div className="button-block">
-                <Button
-                    label = 'Follow'
-                    classes = 'follow'
-                    onClick = { handleFollow }
-                />
-            </div>
-        </div>
-        <div className="right-block">
-            <div className="stats-block">
-                <div className="stat">
-                    <div className="number followers">
-                        {followers}
-                    </div>
-                    <p className="label primary">Followers</p>
                 </div>
-                <div className="stat">
-                    <div className="number runs">
-                        {runs}
-                    </div>
-                    <p className="label primary">Runs</p>
+
+                <Divider flexItem sx={{ borderBottomWidth: 2 }} />
+                <div className='post-footer'>
+                    <img className='comment-icon' src={Comments} alt='' role='button' onClick={handleComment}/>
+                    <img className='share-icon' src={Share} alt='' role='button' onClick={handleShare}/>
                 </div>
+
             </div>
-        </div>
+
+  
+    </div>
     </div>
 }
 
