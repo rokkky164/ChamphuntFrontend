@@ -13,14 +13,21 @@
 }
     .component.aboutus-alert{
         margin-top: 150px;
+        margin-left: 50px;
+        margin-right: 50px;
         background-color: #383B5A;
         border-radius: 12px 12px 0 0;
         padding: 15px;
         justify-content: space-between;
         align-items: flex-start;
-        min-height: 300px;
-        max-height: 300px;
+        min-height: 350px;
+        max-height: 400px;
         color: white;
-        text-align: 'center',
+        text-align: 'center';
+        & .aboutus-text{
+            margin-left: 100px;
+            margin-right: 100px;
+            
+        }
 
     }

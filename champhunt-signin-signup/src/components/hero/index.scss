@@ -1,11 +1,84 @@
 @media screen and (min-width: 769px) {
     .hero-cnt {
+        & .lead-image-01 {
+            width: 75%;
+            float: left;
+            & .news-image-block {
+                & img {
+                    margin-top: 35px;
+                    width: 100%;
+                    height: 620px;
+                }
+            }
+            & .news-image-content {
+                & .reporterimg {
+                    top: 10px;
+                }
+                & .author-name {
+                    margin-left: 20px;
+                    font-size: 10px;
+                }
+                color: #cfcfcf;
+                position: absolute;
+                top: 100px;
+                font-size: 30px;
+                font-weight: 1000;
+                margin-left: 30px;
+
+                & .title {
+                    color: #3385D6;
+                    font-size: 20px;
+                }
+                & .news-heading {
+                    bottom: 300px;
+                }
+                & .date-time {
+                    color: #cfcfcf;
+                    font-size: 10px;
+                }
+            }
+        }
+        & .recommended-news {
+            margin-top: 35px;
+            width: 25%;
+            float: right;
+            background-color: #FFFFFF;
+            border-radius: 5px;
+            max-height: 100%;
+            & .header {
+                top: 10px;
+                font-weight: 600;
+                font-size: 12px;
+                background-color: #FFFFFF;
+                text-align: center;
+            }
+            & .articles {
+                & .author-name {
+                    font-size: 10px;
+                    font-weight: 300;
+                    float: right;
+                    margin-right: 120px;
+                }
+                & .date-time {
+                    font-size: 10px;
+                    font-weight: 300;
+                }
+                align-items: flex-start; 
+                margin-right: 25px;
+                margin-left: 25px;
+                top: 10px;
+                font-weight: 600;
+                font-size: 12px;
+                background-color: #FFFFFF;
+            }
+        }
         position: relative;
         & .image-block {
             & img {
                 width: 100%;
             }
         }
+
         .hero-content {
             background-color: #000;
             color: #cfcfcf;

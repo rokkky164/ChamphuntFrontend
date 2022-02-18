@@ -1,8 +1,11 @@
 import LiveWire from "../../components/news/livewire";
+import NewsLead from "../../components/hero/newslead";
+import NewsColumns from "../../components/news/newscolumns";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
+import { TabPanel } from 'react-tabs';
 
 import './index.scss';
 
@@ -18,6 +21,8 @@ const NewsPage = () => {
         <Header showAdd={true} />
         <main className="news-main">
             <LiveWire />
+            <NewsLead />
+            <NewsColumns />
         </main>
         <Footer />
     </div>

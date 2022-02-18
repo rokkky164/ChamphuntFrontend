@@ -16,7 +16,7 @@ const LiveWire = (props) => {
 
     return  <div className="component livewire-alert">
         <div className='topleft'>
-            <p style={{ color: '#3385D6' }}> LIVE WIRE</p>
+            <p> LIVE WIRE</p>
         </div>
         <div className="column">
             <div className="news-block ">

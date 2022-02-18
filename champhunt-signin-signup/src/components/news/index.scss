@@ -1,7 +1,7 @@
 @media screen and (min-width: 769px) {
     .component.livewire-alert{
 
-        background-color: #383B5A;
+        background-color: #292C4E;
         border-radius: 12px 12px 0 0;
         padding: 15px;
         display: flex;
@@ -16,7 +16,8 @@
               font-size: 16px;
               margin-bottom: 120px;
               margin-top: 10px; 
-              width: 6%
+              width: 6%;
+              color: #3385D6
         }
         .column {
           float: left;
@@ -35,6 +36,91 @@
                     float: right;
                 }   
             }
+    }
 
+    .news-columns {
+        & .columns-left {
+            width: 67%;
+            float: left;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            margin-top: 30px;
+            & .news-image-content {
+                margin-top: 10px;
+            }
+            & .news-type {
+                color: #EE00CE;
+                margin-left: 30px;
+                margin-top: 20px;
+                font-size: 15px;
+                font-weight: 501;
+                width: 50%;
+            }
+            & .news-body {
+                float: left;
+                text-align: center;
+                width: 50%;
+                & .title {
+                    margin-left: 10px;
+                    margin-top: 20px;
+                    font-size: 25px;
+                    font-weight: bold;
+                }
+                & .news-article {
+                    font-size: 15px;
+                    font-weight: 500;
+                    margin-left: 10px;
+                }
+
+            }
+            & .news-image {
+                margin-right: 160px;
+                float: right;
+                width: 30%;
+                margin-bottom: 30px;
+            }
+            & .author-details {
+                margin-top: 220px;
+                & img {
+                    margin-left: 20px;
+                }
+                & .author-name {
+                    float: right;
+                    margin-right: 380px;
+                }
+            }
+        }
+        & .columns-right {
+            width: 30%;
+            background-color: #656DE2;
+            float: right;
+            border-radius: 20px;
+            margin-top: 30px;
+            color: white;
+            & .header {
+                background-color: #656DE2;
+                border-radius: 20px;
+                text-align: center;
+            }
+            & .articles {
+                & .article-header{
+                    font-size: 20px;
+                    font-weight: 600;
+                    margin-left: 20px;
+                }
+                & .author-details {
+                    margin-left: -10px;
+                    margin-bottom: 50px;
+                    & img {
+                        margin-left: 30px;
+                    }
+                    & .author-name {
+                        float: right;
+                        margin-right: 170px;
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
     }
 }
