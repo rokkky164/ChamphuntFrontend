@@ -80,7 +80,8 @@
                 margin-bottom: 30px;
             }
             & .author-details {
-                margin-top: 220px;
+                margin-top: 350px;
+                bottom: 10px;
                 & img {
                     margin-left: 20px;
                 }
@@ -88,6 +89,13 @@
                     float: right;
                     margin-right: 380px;
                 }
+            }
+            & .post-footer {
+                border-top: 1px solid #6d6a6a;
+                display: flex;
+                justify-content: space-between;
+                padding-top: 12px;
+                
             }
         }
         & .columns-right {
