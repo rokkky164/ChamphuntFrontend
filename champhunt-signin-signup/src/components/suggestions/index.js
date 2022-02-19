@@ -43,7 +43,7 @@ const Suggestions = () => {
                         avatar: "https://i.pravatar.cc/75",
                         followers: element.followers_count,
                         runs: element.runs,
-                        id: element.id
+                        following_id: element.id
                     });
 
                 })

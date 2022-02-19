@@ -8,6 +8,7 @@ import Share from '../../assets/images/posts/share.svg';
 import Runs from '../../assets/images/posts/runs.svg';
 import InfoIcon from '../../assets/images/posts/info.svg';
 import axios from "axios";
+import { w3cwebsocket as W3CWebSocket } from "websocket";
 
 import './index.scss';
 
@@ -43,7 +44,8 @@ const Post = ( props ) => {
         userprofile: ''
     });
     const [sharedBody, setSharedBody] = useState('');
-
+    const [liverun, setRuns] = useState(0);
+    
     const getSharedBody = (event) => {
         setSharedBody(event.target.value);
     }
@@ -72,12 +74,12 @@ const Post = ( props ) => {
             data: scorePostData,
             json: true
         };
+
         axios(scorePostOptions)
             .then(response => {
                 setShowRuns(!showRuns);
             })
             .catch(error => {
-                console.log(error);
                 setShowRuns(!showRuns);
             })
     }
@@ -130,7 +132,7 @@ const Post = ( props ) => {
     const closeComment = () => {
         setShowComments(false);
     };
-    const componentRef = React.useRef();
+
     const postComment = (post_id) => {
         commentData.userprofile = localStorage.getItem('profile-id');
         commentData.pitch = post_id;
@@ -152,7 +154,19 @@ const Post = ( props ) => {
                 console.log(error);
             })
     };
-
+    useEffect(() => {
+        const clientScore = new W3CWebSocket(global.config.WSURLS.local + '/ws/api/score-pitch/' + post_id + '/');
+        clientScore.onmessage = (message) => {
+            var data = JSON.parse(JSON.parse(message.data));
+            setRuns(data.runs_awarded);
+        };
+        // comment 
+        const clientComment = new W3CWebSocket(global.config.WSURLS.local + '/ws/api/comment-pitch/' + post_id + '/');
+        clientComment.onmessage = (message) => {
+            var data = JSON.parse(JSON.parse(message.data));
+            setRuns(data.runs_awarded);
+        };
+    }, [])
     return <div className="post">
         <input type="hidden" id="pitchID" value={post_id} />
         <div className="post-header">
@@ -173,7 +187,7 @@ const Post = ( props ) => {
                     <img className='info-icon' src={InfoIcon} alt=''/>
                 </div>
                 <div className="runs-cnt">
-                    <span className='runs-info'>{runs} runs</span>
+                    <span className='runs-info'>{liverun ? liverun:runs} runs</span>
                 </div>
             </div>
         </div>
