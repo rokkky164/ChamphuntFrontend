@@ -1,0 +1,114 @@
+.followers {
+  min-width: 250px;
+  flex-grow: 1;
+
+  & .follower {
+    background-color: #25294a;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    & .avatar {
+      border-radius: 50%;
+      height: 45px;
+    }
+    & .left-block {
+      max-width: 75px;
+    }
+    & .right-block {
+      margin-left: auto;
+    }
+
+    & .btn-block {
+      display: flex;
+      align-items: flex-start;
+      min-width: 136px;
+
+      & .follow {
+        background-color: transparent;
+        border: 1px solid;
+        margin-top: 18px;
+        color: #ffffff;
+      }
+      & .message {
+        background-color: #00062c;
+        border: 0px;
+        color: #ffffff;
+        margin-top: 18px;
+        margin-left: auto;
+      }
+    }
+
+    & .profile-info {
+      display: flex;
+      align-items: flex-start;
+
+      & .name {
+        margin-top: 0;
+        margin-left: 5px;
+        display: flex;
+        flex-direction: column;
+        & .role {
+          font-weight: 100;
+          font-size: 12px;
+        }
+      }
+    }
+
+    & .stats-block {
+      display: flex;
+      justify-content: center;
+
+      & .stat {
+        width: 45px;
+        height: 45px;
+        position: relative;
+        &:first-child {
+          margin-right: 25px;
+        }
+
+        & .number {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate3d(-50%, -50%, 0);
+          font-weight: 500;
+        }
+
+        & .label {
+          position: absolute;
+          bottom: -35px;
+          font-size: 12px;
+          width: 100%;
+          text-align: center;
+        }
+      }
+      & .runs {
+        background: -webkit-linear-gradient(
+          to bottom,
+          #ffaf7b,
+          #d76d77,
+          #3a1c71
+        ); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(
+          to bottom,
+          #ffaf7b,
+          #d76d77,
+          #3a1c71
+        ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        border-radius: 50%;
+      }
+
+      & .followers-value {
+        background: linear-gradient(
+          to bottom,
+          rgba(219, 183, 255, 1) 0%,
+          rgba(215, 158, 255, 1) 71%
+        );
+        border-radius: 50%;
+      }
+    }
+  }
+}

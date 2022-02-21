@@ -1,0 +1,39 @@
+.preferences {
+  & .preferences-heading {
+    color: #cfcfcf;
+    margin: 0;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid;
+    display: flex;
+    justify-content: space-between;
+
+    & p {
+      margin: 0;
+    }
+  }
+  .preference-option {
+    position: relative;
+    bottom: 50px;
+  }
+}
+.btn-block-preferences {
+  display: flex;
+}
+.btn-preferences {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: relative;
+
+  & p {
+    color: white;
+    font-size: calc(0.5rem + 0.5vw);
+    font-weight: 550;
+  }
+
+  .responsive {
+    width: 100%;
+    height: auto;
+  }
+}
