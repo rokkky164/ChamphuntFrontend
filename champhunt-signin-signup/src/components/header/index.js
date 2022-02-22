@@ -39,6 +39,10 @@ const Header = ( props ) => {
         navigate('/search');
     }
 
+    const handleMyProfile = () => {
+        navigate('/profile');
+    }
+
     const handleLogout = () => {
         const accessToken = localStorage.getItem('access-token');
         const refreshToken = localStorage.getItem('refresh-token');
@@ -168,6 +172,9 @@ const Header = ( props ) => {
                     >
                         <div className='caret'></div>
                         <div className='options'>
+                            <ul>
+                                <li onClick={handleMyProfile}>My Profile</li>
+                            </ul>
                             <ul>
                                 <li onClick={handleLogout}>Sign Out</li>
                             </ul>

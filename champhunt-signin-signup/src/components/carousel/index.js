@@ -1,4 +1,6 @@
 import Carousel from 'flat-carousel';
+import Virat from '../../assets/images/header/virat.png';
+
 
 const images = [
     { src: 'some image' },

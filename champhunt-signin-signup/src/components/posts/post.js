@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import React from 'react';
 import ChampButton from '../../commons/form/button';
+import { connect, useSelector } from 'react-redux';
 
 import Comments from '../../assets/images/posts/comments.svg';
 import Share from '../../assets/images/posts/share.svg';
@@ -33,10 +34,12 @@ const Post = ( props ) => {
             runs
         }
     } = props;
-    const [posts, setPosts] = useState([]);
+
+    const [newComments, setNewComments] = useState({});
+    const [posts, setPosts] = useState([props]);
     const [showRuns, setShowRuns] = useState(false);
     const [sharing, setSharing] = useState(false);
-    const [comment, setComment] = useState('')
+    const [comment, setComment] = useState('');
     const [showComments, setShowComments] = useState(false);
     const [commentData, setCommentData] = useState({
         pitch: '',
@@ -45,7 +48,15 @@ const Post = ( props ) => {
     });
     const [sharedBody, setSharedBody] = useState('');
     const [liverun, setRuns] = useState(0);
-    
+
+    const postCommentsData = (post) => {
+        var postComments = post.comments;
+        if (newComments){
+            postComments.push(newComments);
+            console.log(postComments);
+        }
+    }
+
     const getSharedBody = (event) => {
         setSharedBody(event.target.value);
     }
@@ -133,7 +144,7 @@ const Post = ( props ) => {
         setShowComments(false);
     };
 
-    const postComment = (post_id) => {
+    const postComment = (post_id, post) => {
         commentData.userprofile = localStorage.getItem('profile-id');
         commentData.pitch = post_id;
         const accessToken = localStorage.getItem('access-token');
@@ -148,27 +159,40 @@ const Post = ( props ) => {
         };
         axios(submitPostCommentOptions)
             .then(response => {
+                debugger;
+                setNewComments(response.data);
                 closeComment();
             })
             .catch(error => {
                 console.log(error);
             })
     };
-    useEffect(() => {
-        const clientScore = new W3CWebSocket(global.config.WSURLS.prod + '/ws/api/score-pitch/' + post_id + '/');
+
+    useEffect((props) => {
+        const clientScore = new W3CWebSocket(global.config.WSURLS.local + '/ws/api/score-pitch/' + post_id + '/');
         clientScore.onmessage = (message) => {
             var data = JSON.parse(JSON.parse(message.data));
             setRuns(data.runs_awarded);
         };
-        // comment 
-        const clientComment = new W3CWebSocket(global.config.WSURLS.prod + '/ws/api/comment-pitch/' + post_id + '/');
+        const clientComment = new W3CWebSocket(global.config.WSURLS.local + '/ws/api/comment-pitch/' + post_id + '/');
         clientComment.onmessage = (message) => {
             var data = JSON.parse(JSON.parse(message.data));
-            setRuns(data.runs_awarded);
+            // setNewComments(
+            //     {
+            //         pitch: data.pitch,
+            //         comment: data.comment,
+            //         userprofile: data.userprofile,
+            //         date: data.date,
+            //         time: data.time,
+            //         author: {
+            //             first_name: data.first_name,
+            //             last_name: data.last_name
+            //         }
+            // })
+            
         };
     }, [])
     return <div className="post">
-        <input type="hidden" id="pitchID" value={post_id} />
         <div className="post-header">
             <div className="left">
                 <div className="avatar">
@@ -187,7 +211,7 @@ const Post = ( props ) => {
                     <img className='info-icon' src={InfoIcon} alt=''/>
                 </div>
                 <div className="runs-cnt">
-                    <span className='runs-info'>{liverun ? liverun:runs} runs</span>
+                    <span className='runs-info'>{liverun ? runs+liverun:runs} runs</span>
                 </div>
             </div>
         </div>
@@ -251,7 +275,9 @@ const Post = ( props ) => {
             <div className='post-header view-comments'>
                 <p className='comments-heading'>{ `${comments.length} Comments` }</p>
                 <div className='all-comments'>
+
                 { 
+
                 comments.map( (comment, index) => {
 
                     const { author, comment: postComment } = comment;
@@ -263,7 +289,7 @@ const Post = ( props ) => {
                             </div>
                             <div className="avatar-cnt">
                                 <p>
-                                    { author.first_name } {author.last_name}
+                                { author.first_name } {author.last_name}
                                 </p>
                                 <p className='date-time'>{ comment.date } {comment.time}</p>
                             </div>

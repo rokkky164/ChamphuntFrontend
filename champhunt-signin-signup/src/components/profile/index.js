@@ -1,6 +1,3 @@
-import * as React from "react";
-import "./index.scss";
-
 import profileAvatar from "../../assets/images/header/Ellipse_73@2x.png";
 import editIcon from "../../assets/images/profile/edit_icon.svg";
 import Followers from "../followers/followers";
@@ -15,6 +12,11 @@ import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Input } from "@mui/material";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
+
+import "./index.scss";
 
 const style = {
   position: "absolute",
@@ -30,10 +32,40 @@ const style = {
   px: 4,
 };
 
-const ProfileCard = () => {
-  const [open, setOpen] = React.useState(false);
+const ProfileCard = (props) => {
+
+  const [open, setOpen] = useState(false);
+  const [profileName, setProfileName] = useState('');
+  const [profileRole, setProfileRole] = useState('');
+  const [profileAbout, setProfileAbout] = useState('');
+
+  const navigate = useNavigate();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+      const accessToken = localStorage.getItem('access-token');
+      const profileID = localStorage.getItem('profile-id');
+      const getProfileDetailsOptions = {
+          method: 'get',
+          url:  global.config.ROOTURL.prod + '/api/v0/users/' + profileID  + '/',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + accessToken
+          },
+          json: true
+      };
+      axios(getProfileDetailsOptions)
+          .then(response => {
+              setProfileName(response.data['first_name'] + ' ' + response.data['last_name']);
+              setProfileRole(response.data['player_profile']);
+              setProfileAbout('');
+          })
+          .catch(error => {
+              if (error.status == 401){navigate('/login');}
+          })
+    }, [])
 
   return (
     <div className="profile">
@@ -97,9 +129,9 @@ const ProfileCard = () => {
         <div>
           <div>
             <p className="name primary">
-              <span className="user-name">{`Vishnu Aggarwal`}</span>
+              <span className="user-name">{profileName}</span>
               <br />
-              <span className="role">{`Trade profile 1`}</span>
+              <span className="role">{profileRole}</span>
             </p>
           </div>
         </div>
@@ -107,8 +139,7 @@ const ProfileCard = () => {
       <div className="about-me primary">
         <p className="title">About Me</p>
         <p>
-          About me some statements which people will find interesting to read
-          and explore, may be achievements
+          {profileAbout}
         </p>
       </div>
       <div className="tabs">
@@ -117,6 +148,25 @@ const ProfileCard = () => {
             <Tab>Followers</Tab>
             <Tab>Following</Tab>
           </TabList>
+          <TabPanel>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={12} lg={6}>
+                <Followers />
+              </Grid>
+              <Grid item xs={12} sm={12} lg={6}>
+                <Followers />
+              </Grid>
+              <Grid item xs={12} sm={12} lg={6}>
+                <Followers />
+              </Grid>
+              <Grid item xs={12} sm={12} lg={6}>
+                <Followers />
+              </Grid>
+              <Grid item xs={12} sm={12} lg={6}>
+                <Followers />
+              </Grid>
+            </Grid>
+          </TabPanel>
           <TabPanel>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12} lg={6}>

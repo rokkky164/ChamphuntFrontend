@@ -4,10 +4,7 @@ import { Button } from "@mui/material";
 import "./index.scss";
 
 const Followers = (props) => {
-  const runs = 300;
-  const followers = 55;
-  const name = "Vishnu Aggarwal";
-  const role = "Bowler";
+  const { runs, followers, name, role } = props;
 
   return (
     <div className="followers">
@@ -34,24 +31,6 @@ const Followers = (props) => {
               </div>
             </div>
           </div>
-        </div>
-        <div className="btn-block">
-          <Button
-            type="submit"
-            variant="outlined"
-            className="btn follow"
-            sx={{ borderRadius: 2, width: "45%", height: "35px", m: "2.5%" }}
-          >
-            Follow
-          </Button>
-          <Button
-            type="submit"
-            variant="contained"
-            className="btn message"
-            sx={{ borderRadius: 2, width: "45%", height: "35px", m: "2.5%" }}
-          >
-            Message
-          </Button>
         </div>
       </div>
     </div>
