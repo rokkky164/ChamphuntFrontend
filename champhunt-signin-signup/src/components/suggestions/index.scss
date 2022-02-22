@@ -51,10 +51,10 @@
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        &.visible {
+        & .visible {
             height: unset;
         }
-        &.hidden {
+        & .hidden {
             display: none;
         }
         & .avatar {
