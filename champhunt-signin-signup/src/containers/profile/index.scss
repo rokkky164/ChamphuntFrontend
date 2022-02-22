@@ -1,13 +1,22 @@
 .profile-main {
-    display: flex;
-    max-width: 70%;
-    margin: auto;
-    margin-top: 15px;
-    padding-bottom: 100px;
-
+  display: flex;
+  max-width: 70%;
+  margin: auto;
+  margin-top: 15px;
+  padding-bottom: 100px;
 }
 
 .page.profile {
-    background-color: #131639;
-    min-height: 100vh;
+  background-color: #131639;
+  min-height: 100vh;
+}
+
+.side-panel {
+  width: 40%;
+  margin-left: auto;
+  padding-left: 20px;
+
+  @media screen and (max-width: 769px) {
+    display: none;
+  }
 }

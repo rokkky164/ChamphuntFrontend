@@ -1,0 +1,36 @@
+.activities {
+  & .activities-heading {
+    color: #cfcfcf;
+    margin: 0;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid;
+    display: flex;
+    justify-content: space-between;
+
+    & p {
+      margin: 0;
+    }
+  }
+
+  & .btn {
+    @media screen and (max-width: 1200px) {
+      width: 90%;
+    }
+  }
+
+  & .new-post {
+    background-color: transparent;
+    border: 1px solid;
+    color: #ffffff;
+  }
+  & .my-pitch {
+    background: linear-gradient(
+      to bottom,
+      rgba(219, 183, 255, 1) 0%,
+      rgba(215, 158, 255, 1) 71%
+    );
+    border: 0px;
+    color: black;
+  }
+}

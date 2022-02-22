@@ -1,19 +1,69 @@
+.profile {
+  width: 100%;
+}
+
 .profile-card-block {
-    background-color: #FFFFFF;
-    border-radius: 120px;
-    padding: 150px;
-    margin-bottom: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+  display: flex;
 
+  & .profile-info {
+    padding-right: 40px;
+  }
+}
 
-    & .profile-info {
-        position: absolute;
-        width: 120.364px;
-        height: 119.881px;
-        left: 281.938px;
-        top: 123.447px;
-        overflow: visible;
-    }
+.wrapper {
+  position: relative;
+  border-radius: 50%;
+  border: 4px solid white;
+  height: 135px;
+  width: 135px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
+.user-name {
+  top: 125px;
+  left: 439px;
+  width: 213px;
+  height: 35px;
+  opacity: 1;
+  font-weight: 500;
+  font-size: 25px;
+}
+
+.tabs {
+  & .react-tabs__tab {
+    color: #cfcfcf;
+    margin-right: 10px;
+  }
+  & .react-tabs__tab--selected {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #fe560e;
+  }
+}
+
+.about-me {
+  padding-left: 20px;
+  padding-bottom: 50px;
+
+  & p {
+    font-size: 24px;
+    margin: auto;
+  }
+
+  & .title {
+    font-size: 20px;
+    font-weight: 400;
+    margin-top: 30px;
+  }
+}
+
+.edit-btn {
+  position: absolute;
+  right: -10px;
+  bottom: -7px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
