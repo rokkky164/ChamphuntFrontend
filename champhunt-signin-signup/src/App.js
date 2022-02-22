@@ -20,7 +20,14 @@ import ForgotPassword from './components/signin-signup/fgt-pwd/fgtpwd.component'
 import CollectUserInfo from './components/signin-signup/collect-userInfo/collect-userInfo.component';
 import { useNavigate } from 'react-router-dom';
 
-const theme = createTheme();
+const theme = createTheme({
+  typography: {
+    fontFamily: [
+      "Poppins", 
+      "sans-serif",
+    ].join(","),
+  },
+});
 
 function App() {
     return (

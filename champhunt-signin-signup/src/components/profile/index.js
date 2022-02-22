@@ -1,22 +1,24 @@
 import profileAvatar from "../../assets/images/header/Ellipse_73@2x.png";
 import editIcon from "../../assets/images/profile/edit_icon.svg";
 import Followers from "../followers/followers";
-import Grid from "@mui/material/Grid";
 import CityDowndown from "../city-dropdown/cityDowndown";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-
-import Backdrop from "@mui/material/Backdrop";
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
-import Fade from "@mui/material/Fade";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { Input } from "@mui/material";
+import {
+  TextField,
+  Input,
+  Typography,
+  Button,
+  Fade,
+  Modal,
+  Box,
+  Backdrop,
+  Grid,
+} from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
 import "./index.scss";
+import UploadBtn from "../upload-button/uploadBtn";
 
 const style = {
   position: "absolute",
@@ -33,39 +35,42 @@ const style = {
 };
 
 const ProfileCard = (props) => {
-
   const [open, setOpen] = useState(false);
-  const [profileName, setProfileName] = useState('');
-  const [profileRole, setProfileRole] = useState('');
-  const [profileAbout, setProfileAbout] = useState('');
+  const [profileName, setProfileName] = useState("");
+  const [profileRole, setProfileRole] = useState("");
+  const [profileAbout, setProfileAbout] = useState("");
 
   const navigate = useNavigate();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   useEffect(() => {
-      const accessToken = localStorage.getItem('access-token');
-      const profileID = localStorage.getItem('profile-id');
-      const getProfileDetailsOptions = {
-          method: 'get',
-          url:  global.config.ROOTURL.prod + '/api/v0/users/' + profileID  + '/',
-          headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + accessToken
-          },
-          json: true
-      };
-      axios(getProfileDetailsOptions)
-          .then(response => {
-              setProfileName(response.data['first_name'] + ' ' + response.data['last_name']);
-              setProfileRole(response.data['player_profile']);
-              setProfileAbout('');
-          })
-          .catch(error => {
-              if (error.status == 401){navigate('/login');}
-          })
-    }, [])
+    const accessToken = localStorage.getItem("access-token");
+    const profileID = localStorage.getItem("profile-id");
+    const getProfileDetailsOptions = {
+      method: "get",
+      url: global.config.ROOTURL.prod + "/api/v0/users/" + profileID + "/",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + accessToken,
+      },
+      json: true,
+    };
+    axios(getProfileDetailsOptions)
+      .then((response) => {
+        setProfileName(
+          response.data["first_name"] + " " + response.data["last_name"]
+        );
+        setProfileRole(response.data["player_profile"]);
+        setProfileAbout("");
+      })
+      .catch((error) => {
+        if (error.status == 401) {
+          navigate("/login");
+        }
+      });
+  }, []);
 
   return (
     <div className="profile">
@@ -100,27 +105,58 @@ const ProfileCard = (props) => {
                     id="transition-modal-title"
                     variant="h6"
                     // component="h2"
-                    sx={{ borderBottom: 1 }}
+                    sx={{ borderBottom: 1, py: 1 }}
                   >
                     Edit Profile
                   </Typography>
-                  <Typography sx={{ mt: 2 }}>My friends call me</Typography>
-                  <Input type="dropdown" />
-                  <Typography sx={{ mt: 2 }}>I am from</Typography>
+                  <Typography sx={{ mt: 2, fontWeight: 500 }}>
+                    My friends call me
+                  </Typography>
+                  <Input type="dropdown" sx={{ width: "100%" }} />
+                  <Typography sx={{ mt: 2, fontWeight: 500 }}>
+                    I am from
+                  </Typography>
                   <CityDowndown />
                   <Typography sx={{ mt: 2 }}>
                     Add a photo to better connect with people
                   </Typography>
-                  <div style={{ display: "flex" }}>
-                    <div>img</div>
+                  <div style={{ display: "flex", paddingTop: "15px" }}>
+                    <UploadBtn />
                     <Button
                       variant="outlined"
-                      sx={{ borderRadius: 50, px: 4, ml: "auto" }}
+                      sx={{
+                        borderRadius: 10,
+                        my:4,
+                        ml: "auto",
+                        width: "150px",
+                      }}
                     >
                       Upload
                     </Button>
                   </div>
-                  <Typography sx={{ mt: 2 }}>About me</Typography>
+                  <Typography sx={{ mt: 2, fontWeight: 500 }}>
+                    About me
+                  </Typography>
+                  <Box textAlign="center">
+                    <TextField
+                      multiline
+                      rows={3}
+                      id="about-me"
+                      variant="outlined"
+                      sx={{ width: "100%", py: 2 }}
+                    />{" "}
+                    <Button
+                      variant="contained"
+                      sx={{
+                        borderRadius: 50,
+                        // px: 0,
+                        // my: 2,
+                        width: "200px",
+                      }}
+                    >
+                      Submit
+                    </Button>
+                  </Box>
                 </Box>
               </Fade>
             </Modal>
@@ -138,9 +174,7 @@ const ProfileCard = (props) => {
       </div>
       <div className="about-me primary">
         <p className="title">About Me</p>
-        <p>
-          {profileAbout}
-        </p>
+        <p>{profileAbout}</p>
       </div>
       <div className="tabs">
         <Tabs>
