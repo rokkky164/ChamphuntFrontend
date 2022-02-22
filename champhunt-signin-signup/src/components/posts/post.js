@@ -169,12 +169,12 @@ const Post = ( props ) => {
     };
 
     useEffect((props) => {
-        const clientScore = new W3CWebSocket(global.config.WSURLS.local + '/ws/api/score-pitch/' + post_id + '/');
+        const clientScore = new W3CWebSocket(global.config.WSURLS.prod + '/ws/api/score-pitch/' + post_id + '/');
         clientScore.onmessage = (message) => {
             var data = JSON.parse(JSON.parse(message.data));
             setRuns(data.runs_awarded);
         };
-        const clientComment = new W3CWebSocket(global.config.WSURLS.local + '/ws/api/comment-pitch/' + post_id + '/');
+        const clientComment = new W3CWebSocket(global.config.WSURLS.prod + '/ws/api/comment-pitch/' + post_id + '/');
         clientComment.onmessage = (message) => {
             var data = JSON.parse(JSON.parse(message.data));
             // setNewComments(
