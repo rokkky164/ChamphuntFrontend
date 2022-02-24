@@ -50,6 +50,7 @@ const ProfileCard = (props) => {
   const handleClose = () => setOpen(false);
   const saveProfile = (event) => {
     event.preventDefault();
+    console.log(test);
 
     const data = {
       profile_pic: null,
@@ -184,65 +185,68 @@ const ProfileCard = (props) => {
               }}
             >
               <Fade in={open}>
-                <Box sx={style} onSubmit={saveProfile} component="form">
-                  <Typography
-                    id="transition-modal-title"
-                    variant="h6"
-                    // component="h2"
-                    sx={{ borderBottom: 1, py: 1 }}
-                  >
-                    Edit Profile
-                  </Typography>
-                  <Typography sx={{ mt: 2, fontWeight: 500 }}>
-                    My friends call me
-                  </Typography>
-                  <Input
-                    type="dropdown"
-                    sx={{ width: "100%" }}
-                    defaultValue={profileName}
-                  />
-                  <Typography sx={{ mt: 2, fontWeight: 500 }}>
-                    I am from
-                  </Typography>
-                  <StateDropDown />
-                  <Typography sx={{ mt: 2 }}>
-                    Add a photo to better connect with people
-                  </Typography>
-                  <div style={{ display: "flex", paddingTop: "15px" }}>
-                    <UploadBtn />
-                    <Button
-                      variant="outlined"
-                      sx={{
-                        borderRadius: 10,
-                        my: 4,
-                        ml: "auto",
-                        width: "150px",
-                      }}
+                <Box sx={style}>
+                  <form onSubmit={saveProfile}>
+                    <Typography
+                      id="transition-modal-title"
+                      variant="h6"
+                      // component="h2"
+                      sx={{ borderBottom: 1, py: 1 }}
                     >
-                      Upload
-                    </Button>
-                  </div>
-                  <Typography sx={{ mt: 2, fontWeight: 500 }}>
-                    About me
-                  </Typography>
-                  <Box textAlign="center">
-                    <TextField
-                      multiline
-                      rows={3}
-                      id="about-me"
-                      variant="outlined"
-                      sx={{ width: "100%", py: 2 }}
-                    />{" "}
-                    <Button
-                      variant="contained"
-                      sx={{
-                        borderRadius: 50,
-                        width: "200px",
-                      }}
-                    >
-                      Save Profile Data
-                    </Button>
-                  </Box>
+                      Edit Profile
+                    </Typography>
+                    <Typography sx={{ mt: 2, fontWeight: 500 }}>
+                      My friends call me
+                    </Typography>
+                    <Input
+                      type="dropdown"
+                      sx={{ width: "100%" }}
+                      defaultValue={profileName}
+                    />
+                    <Typography sx={{ mt: 2, fontWeight: 500 }}>
+                      I am from
+                    </Typography>
+                    <StateDropDown />
+                    <Typography sx={{ mt: 2 }}>
+                      Add a photo to better connect with people
+                    </Typography>
+                    <div style={{ display: "flex", paddingTop: "15px" }}>
+                      <UploadBtn />
+                      <Button
+                        variant="outlined"
+                        sx={{
+                          borderRadius: 10,
+                          my: 4,
+                          ml: "auto",
+                          width: "150px",
+                        }}
+                      >
+                        Upload
+                      </Button>
+                    </div>
+                    <Typography sx={{ mt: 2, fontWeight: 500 }}>
+                      About me
+                    </Typography>
+                    <Box textAlign="center">
+                      <TextField
+                        multiline
+                        rows={3}
+                        id="about-me"
+                        variant="outlined"
+                        sx={{ width: "100%", py: 2 }}
+                      />{" "}
+                      <Button
+                        variant="contained"
+                        type="submit"
+                        sx={{
+                          borderRadius: 50,
+                          width: "200px",
+                        }}
+                      >
+                        Save Profile Data
+                      </Button>
+                    </Box>
+                  </form>
                 </Box>
               </Fade>
             </Modal>
