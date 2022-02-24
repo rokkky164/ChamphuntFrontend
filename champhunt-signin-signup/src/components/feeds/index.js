@@ -10,19 +10,13 @@ import './index.scss';
 
 const Feeds = () => {
 
-    const value = 1;
-
-    const handleChange = () => {
-
-    }
-
     return <div className="component feeds">
         <Alert />
         <Tabs className="tabs">
             <TabList>
                 <Tab>All</Tab>
                 <Tab>My posts</Tab>
-                <Tab>By friends</Tab>
+                <Tab>By followers</Tab>
             </TabList>
             <TabPanel>
                 <Hero />
