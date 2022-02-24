@@ -20,7 +20,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./index.scss";
 import UploadBtn from "../upload-button/uploadBtn";
-import validator from 'validator';
+import validator from "validator";
 
 const style = {
   position: "absolute",
@@ -49,109 +49,111 @@ const ProfileCard = (props) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const saveProfile = (event) => {
-      event.preventDefault();
+    event.preventDefault();
 
-      const data = {
-        "profile_pic": null,
-        "gender": null,
-        "first_name": "",
-        "last_name": "",
-        "address": "",
-        "address2": "",
-        "city": "",
-        "state": "",
-        "zip_code": "",
-        "is_player": false,
-        "player_profile": null,
-        "runs": null,
-      };
+    const data = {
+      profile_pic: null,
+      gender: null,
+      first_name: "",
+      last_name: "",
+      address: "",
+      address2: "",
+      city: "",
+      state: "",
+      zip_code: "",
+      is_player: false,
+      player_profile: null,
+      runs: null,
+    };
 
-      var saveProfileOptions = {
-          method: 'post',
-          url: global.config.ROOTURL.prod + '/api/v0/user-profile/',
-          data: JSON.stringify(data),
-          headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-          },
-          json: true
-      };
-      axios(saveProfileOptions)
-          .then(response => {
-          })
-          .catch(error => {
-          })
-
-  }
+    var saveProfileOptions = {
+      method: "post",
+      url: global.config.ROOTURL.prod + "/api/v0/user-profile/",
+      data: JSON.stringify(data),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      json: true,
+    };
+    axios(saveProfileOptions)
+      .then((response) => {})
+      .catch((error) => {});
+  };
   useEffect(() => {
-      const accessToken = localStorage.getItem("access-token");
-      const profileID = localStorage.getItem("profile-id");
-      const getProfileDetailsOptions = {
-        method: "get",
-        url: global.config.ROOTURL.prod + "/api/v0/users/" + profileID + "/",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + accessToken,
-        },
-        json: true,
-      };
+    const accessToken = localStorage.getItem("access-token");
+    const profileID = localStorage.getItem("profile-id");
+    const getProfileDetailsOptions = {
+      method: "get",
+      url: global.config.ROOTURL.prod + "/api/v0/users/" + profileID + "/",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + accessToken,
+      },
+      json: true,
+    };
 
-      axios(getProfileDetailsOptions)
-        .then((response) => {
-          setProfileName(
-            response.data["first_name"] + " " + response.data["last_name"]
-          );
-          setProfileRole(response.data["player_profile"]);
-          setProfileAbout("");
-          setState(response.data["state"]);
-        })
-        .catch((error) => {
-          if (error.status == 401) {
-            navigate("/login");
-          }
-        });
-      const getFollowersOptions = {
-          method: "get",
-          url: global.config.ROOTURL.prod + "/api/v0/get-followers/?profile_id=" + profileID,
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + accessToken,
-          },
-          json: true,
-      };
-      axios(getFollowersOptions)
-        .then((response) => {
-            setFollowers(response.data);
-        })
-        .catch((error) => {
-          if (error.status == 401) {
-            navigate("/login");
-          }
-        });
+    axios(getProfileDetailsOptions)
+      .then((response) => {
+        setProfileName(
+          response.data["first_name"] + " " + response.data["last_name"]
+        );
+        setProfileRole(response.data["player_profile"]);
+        setProfileAbout("");
+        setState(response.data["state"]);
+      })
+      .catch((error) => {
+        if (error.status == 401) {
+          navigate("/login");
+        }
+      });
+    const getFollowersOptions = {
+      method: "get",
+      url:
+        global.config.ROOTURL.prod +
+        "/api/v0/get-followers/?profile_id=" +
+        profileID,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + accessToken,
+      },
+      json: true,
+    };
+    axios(getFollowersOptions)
+      .then((response) => {
+        setFollowers(response.data);
+      })
+      .catch((error) => {
+        if (error.status == 401) {
+          navigate("/login");
+        }
+      });
 
-      const getFollowingOptions = {
-          method: "get",
-          url: global.config.ROOTURL.prod + "/api/v0/get-following/?profile_id=" + profileID,
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + accessToken,
-          },
-          json: true,
-      };
-      
-      axios(getFollowingOptions)
-        .then((response) => {
-            setFollowings(response.data);
-        })
-        .catch((error) => {
-          if (error.status == 401) {
-            navigate("/login");
-          }
-        });
+    const getFollowingOptions = {
+      method: "get",
+      url:
+        global.config.ROOTURL.prod +
+        "/api/v0/get-following/?profile_id=" +
+        profileID,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + accessToken,
+      },
+      json: true,
+    };
 
+    axios(getFollowingOptions)
+      .then((response) => {
+        setFollowings(response.data);
+      })
+      .catch((error) => {
+        if (error.status == 401) {
+          navigate("/login");
+        }
+      });
   }, []);
 
   return (
@@ -194,7 +196,11 @@ const ProfileCard = (props) => {
                   <Typography sx={{ mt: 2, fontWeight: 500 }}>
                     My friends call me
                   </Typography>
-                  <Input type="dropdown" sx={{ width: "100%" }} defaultValue={profileName} />
+                  <Input
+                    type="dropdown"
+                    sx={{ width: "100%" }}
+                    defaultValue={profileName}
+                  />
                   <Typography sx={{ mt: 2, fontWeight: 500 }}>
                     I am from
                   </Typography>
@@ -208,7 +214,7 @@ const ProfileCard = (props) => {
                       variant="outlined"
                       sx={{
                         borderRadius: 10,
-                        my:4,
+                        my: 4,
                         ml: "auto",
                         width: "150px",
                       }}
@@ -264,23 +270,16 @@ const ProfileCard = (props) => {
           </TabList>
           <TabPanel>
             <Grid container spacing={2}>
-
-              <Grid item xs={12} sm={12} lg={6}>
-                {
-                    followers.map((follower, index) => <Followers
-                      key={index} {...follower} />)
-                }
-              </Grid>
+              {followers.map((follower, index) => (
+                <Followers key={index} {...follower} />
+              ))}
             </Grid>
           </TabPanel>
           <TabPanel>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={12} lg={6}>
-                {
-                    followings.map((following, index) => <Followers
-                      key={index} {...following} />)
-                }
-              </Grid>
+              {followings.map((following, index) => (
+                <Followers key={index} {...following} />
+              ))}
             </Grid>
           </TabPanel>
         </Tabs>
