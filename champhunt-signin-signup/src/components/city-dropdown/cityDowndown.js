@@ -19,7 +19,6 @@ const cities = [
 
 const CityDowndown = () => {
   const [city, setCity] = React.useState("");
-
   const handleChange = (event) => {
     setCity(event.target.value);
   };

@@ -2,6 +2,7 @@ import profileAvatar from "../../assets/images/header/Ellipse_73@2x.png";
 import editIcon from "../../assets/images/profile/edit_icon.svg";
 import Followers from "../followers/followers";
 import CityDowndown from "../city-dropdown/cityDowndown";
+import StateDropDown from "../state-dropdown/stateDropDown";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import {
   TextField,
@@ -19,6 +20,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./index.scss";
 import UploadBtn from "../upload-button/uploadBtn";
+import validator from 'validator';
 
 const style = {
   position: "absolute",
@@ -39,37 +41,117 @@ const ProfileCard = (props) => {
   const [profileName, setProfileName] = useState("");
   const [profileRole, setProfileRole] = useState("");
   const [profileAbout, setProfileAbout] = useState("");
+  const [state, setState] = useState("");
+  const [followers, setFollowers] = useState([]);
+  const [followings, setFollowings] = useState([]);
 
   const navigate = useNavigate();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const saveProfile = (event) => {
+      event.preventDefault();
 
+      const data = {
+        "profile_pic": null,
+        "gender": null,
+        "first_name": "",
+        "last_name": "",
+        "address": "",
+        "address2": "",
+        "city": "",
+        "state": "",
+        "zip_code": "",
+        "is_player": false,
+        "player_profile": null,
+        "runs": null,
+      };
+
+      var saveProfileOptions = {
+          method: 'post',
+          url: global.config.ROOTURL.prod + '/api/v0/user-profile/',
+          data: JSON.stringify(data),
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+          },
+          json: true
+      };
+      axios(saveProfileOptions)
+          .then(response => {
+          })
+          .catch(error => {
+          })
+
+  }
   useEffect(() => {
-    const accessToken = localStorage.getItem("access-token");
-    const profileID = localStorage.getItem("profile-id");
-    const getProfileDetailsOptions = {
-      method: "get",
-      url: global.config.ROOTURL.prod + "/api/v0/users/" + profileID + "/",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + accessToken,
-      },
-      json: true,
-    };
-    axios(getProfileDetailsOptions)
-      .then((response) => {
-        setProfileName(
-          response.data["first_name"] + " " + response.data["last_name"]
-        );
-        setProfileRole(response.data["player_profile"]);
-        setProfileAbout("");
-      })
-      .catch((error) => {
-        if (error.status == 401) {
-          navigate("/login");
-        }
-      });
+      const accessToken = localStorage.getItem("access-token");
+      const profileID = localStorage.getItem("profile-id");
+      const getProfileDetailsOptions = {
+        method: "get",
+        url: global.config.ROOTURL.prod + "/api/v0/users/" + profileID + "/",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + accessToken,
+        },
+        json: true,
+      };
+
+      axios(getProfileDetailsOptions)
+        .then((response) => {
+          setProfileName(
+            response.data["first_name"] + " " + response.data["last_name"]
+          );
+          setProfileRole(response.data["player_profile"]);
+          setProfileAbout("");
+          setState(response.data["state"]);
+        })
+        .catch((error) => {
+          if (error.status == 401) {
+            navigate("/login");
+          }
+        });
+      const getFollowersOptions = {
+          method: "get",
+          url: global.config.ROOTURL.prod + "/api/v0/get-followers/?profile_id=" + profileID,
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + accessToken,
+          },
+          json: true,
+      };
+      axios(getFollowersOptions)
+        .then((response) => {
+            setFollowers(response.data);
+        })
+        .catch((error) => {
+          if (error.status == 401) {
+            navigate("/login");
+          }
+        });
+
+      const getFollowingOptions = {
+          method: "get",
+          url: global.config.ROOTURL.prod + "/api/v0/get-following/?profile_id=" + profileID,
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + accessToken,
+          },
+          json: true,
+      };
+      
+      axios(getFollowingOptions)
+        .then((response) => {
+            setFollowings(response.data);
+        })
+        .catch((error) => {
+          if (error.status == 401) {
+            navigate("/login");
+          }
+        });
+
   }, []);
 
   return (
@@ -100,7 +182,7 @@ const ProfileCard = (props) => {
               }}
             >
               <Fade in={open}>
-                <Box sx={style}>
+                <Box sx={style} onSubmit={saveProfile} component="form">
                   <Typography
                     id="transition-modal-title"
                     variant="h6"
@@ -112,11 +194,11 @@ const ProfileCard = (props) => {
                   <Typography sx={{ mt: 2, fontWeight: 500 }}>
                     My friends call me
                   </Typography>
-                  <Input type="dropdown" sx={{ width: "100%" }} />
+                  <Input type="dropdown" sx={{ width: "100%" }} defaultValue={profileName} />
                   <Typography sx={{ mt: 2, fontWeight: 500 }}>
                     I am from
                   </Typography>
-                  <CityDowndown />
+                  <StateDropDown />
                   <Typography sx={{ mt: 2 }}>
                     Add a photo to better connect with people
                   </Typography>
@@ -149,12 +231,10 @@ const ProfileCard = (props) => {
                       variant="contained"
                       sx={{
                         borderRadius: 50,
-                        // px: 0,
-                        // my: 2,
                         width: "200px",
                       }}
                     >
-                      Submit
+                      Save Profile Data
                     </Button>
                   </Box>
                 </Box>
@@ -184,39 +264,22 @@ const ProfileCard = (props) => {
           </TabList>
           <TabPanel>
             <Grid container spacing={2}>
+
               <Grid item xs={12} sm={12} lg={6}>
-                <Followers />
-              </Grid>
-              <Grid item xs={12} sm={12} lg={6}>
-                <Followers />
-              </Grid>
-              <Grid item xs={12} sm={12} lg={6}>
-                <Followers />
-              </Grid>
-              <Grid item xs={12} sm={12} lg={6}>
-                <Followers />
-              </Grid>
-              <Grid item xs={12} sm={12} lg={6}>
-                <Followers />
+                {
+                    followers.map((follower, index) => <Followers
+                      key={index} {...follower} />)
+                }
               </Grid>
             </Grid>
           </TabPanel>
           <TabPanel>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12} lg={6}>
-                <Followers />
-              </Grid>
-              <Grid item xs={12} sm={12} lg={6}>
-                <Followers />
-              </Grid>
-              <Grid item xs={12} sm={12} lg={6}>
-                <Followers />
-              </Grid>
-              <Grid item xs={12} sm={12} lg={6}>
-                <Followers />
-              </Grid>
-              <Grid item xs={12} sm={12} lg={6}>
-                <Followers />
+                {
+                    followings.map((following, index) => <Followers
+                      key={index} {...following} />)
+                }
               </Grid>
             </Grid>
           </TabPanel>

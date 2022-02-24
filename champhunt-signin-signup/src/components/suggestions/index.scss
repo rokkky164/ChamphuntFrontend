@@ -43,6 +43,14 @@
         }
     }
 
+    & .suggestion.hidden {
+        display: none;
+    }
+    
+    & .suggestion.visible {
+        height: unset;
+    }
+    
     & .suggestion {
         background-color: #383B5A;
         border-radius: 12px;
@@ -51,12 +59,7 @@
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        & .visible {
-            height: unset;
-        }
-        & .hidden {
-            display: none;
-        }
+
         & .avatar {
             border-radius: 50%;
             height: 45px;

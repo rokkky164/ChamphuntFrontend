@@ -5,7 +5,10 @@ import { useState } from 'react';
 import './index.scss';
 
 const Suggestion = (props) => {
+        const { avatar, runs, followers, name, role, following_id } = props;
 
+    const [showSugestionBox, setShowSuggestionBox] = useState(true);
+    const [changeTextToFollowing, setchangeTextToFollowing] = useState(false);
     const handleFollow = (following_id) => {
         const accessToken = localStorage.getItem('access-token');
         var followOptions = {
@@ -34,12 +37,7 @@ const Suggestion = (props) => {
         
     }
     
-    const { avatar, runs, followers, name, role, following_id } = props;
-
-    const [showSugestionBox, setShowSuggestionBox] = useState(true);
-    const [changeTextToFollowing, setchangeTextToFollowing] = useState(false);
-
-    return <div className={`suggestion ${showSugestionBox?'visible':'hidden'}`}>
+    return <div className={`suggestion ${showSugestionBox ? 'visible':'hidden'}`}>
         <div className="left-block">
             <div className="profile-info">
                 <img src={avatar} alt={name} className="avatar" />

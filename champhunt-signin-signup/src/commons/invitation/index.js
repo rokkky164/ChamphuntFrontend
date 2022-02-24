@@ -12,6 +12,7 @@ const InviteModal = (props) => {
 
     const [email, setEmail] = useState('');
     const [inviteEmailErrorMsg, setInviteEmailErrorMsg] = useState('');
+    const [inviteEmailSuccessMsg, setInviteEmailSuccessMsg] = useState('');
     const handleEmailChange = ( event ) => {
         const { value } = event.target;
         setEmail(value);
@@ -42,7 +43,11 @@ const InviteModal = (props) => {
         };
         axios(sendInvitationOptions)
             .then(response => {
-                onClose();
+                setInviteEmailSuccessMsg('Mail has been sent!');
+                const timer = setTimeout(() => {
+                    onClose();
+                }, 2000);
+                return () => clearTimeout(timer);
             })
             .catch(error => {
                 if ('email' in error.response.data){
@@ -74,6 +79,9 @@ const InviteModal = (props) => {
                 <div className='input-block'>
                     <input onChange={handleEmailChange} name='email' className='email-input' placeholder='' value={email} />
                 </div>
+                {inviteEmailSuccessMsg && (
+                      <p style={{ color: 'green' }}> {inviteEmailSuccessMsg} </p>
+                )}
                 {inviteEmailErrorMsg && (
                       <p style={{ color: 'red' }}> {inviteEmailErrorMsg} </p>
                 )}
