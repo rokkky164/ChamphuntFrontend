@@ -50,7 +50,6 @@ const ProfileCard = (props) => {
   const handleClose = () => setOpen(false);
   const saveProfile = (event) => {
     event.preventDefault();
-    console.log(test);
 
     const data = {
       profile_pic: null,
