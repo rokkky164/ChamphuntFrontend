@@ -41,6 +41,16 @@ const ProfileCard = (props) => {
   const [profileName, setProfileName] = useState("");
   const [profileRole, setProfileRole] = useState("");
   const [profileAbout, setProfileAbout] = useState("");
+  const [profileInitialData, setProfileInitialData] = useState({
+      'first_name': '',
+      'last_name': '',
+      'address': '',
+      'address2': '',
+      'zip_code': '',
+      'state': '',
+      'about_me': '',
+      
+  });
   const [state, setState] = useState("");
   const [followers, setFollowers] = useState([]);
   const [followings, setFollowings] = useState([]);
@@ -48,41 +58,39 @@ const ProfileCard = (props) => {
   const navigate = useNavigate();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const accessToken = localStorage.getItem("access-token");
+  const profileID = localStorage.getItem("profile-id");
   const saveProfile = (event) => {
     event.preventDefault();
-
-    const data = {
-      profile_pic: null,
-      gender: null,
-      first_name: "",
-      last_name: "",
-      address: "",
-      address2: "",
-      city: "",
-      state: "",
-      zip_code: "",
-      is_player: false,
-      player_profile: null,
-      runs: null,
+    
+    const profileData = {
+      'first_name': event.target.first_name.value,
+      'last_name': event.target.last_name.value,
+      'address': event.target.address.value,
+      'address2': event.target.address2.value,
+      'zip_code': event.target.zip_code.value,
+      'state': event.target.state.value,
+      'about_me': event.target.about_me.value,
+      'user': localStorage.getItem('user_id')
     };
 
     var saveProfileOptions = {
-      method: "post",
-      url: global.config.ROOTURL.prod + "/api/v0/user-profile/",
-      data: JSON.stringify(data),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      json: true,
+        method: "put",
+        url: global.config.ROOTURL.prod + "/api/v0/user-profile/" + profileID + "/",
+        data: JSON.stringify(profileData),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + accessToken,
+        },
+        json: true,
     };
     axios(saveProfileOptions)
-      .then((response) => {})
+      .then((response) => {handleClose();})
       .catch((error) => {});
   };
   useEffect(() => {
-    const accessToken = localStorage.getItem("access-token");
-    const profileID = localStorage.getItem("profile-id");
+    
     const getProfileDetailsOptions = {
       method: "get",
       url: global.config.ROOTURL.prod + "/api/v0/users/" + profileID + "/",
@@ -96,12 +104,9 @@ const ProfileCard = (props) => {
 
     axios(getProfileDetailsOptions)
       .then((response) => {
-        setProfileName(
-          response.data["first_name"] + " " + response.data["last_name"]
-        );
-        setProfileRole(response.data["player_profile"]);
-        setProfileAbout("");
-        setState(response.data["state"]);
+        setProfileName(response.data['first_name'] + ' ' + response.data['last_name'])
+        setProfileAbout(response.data['about_me'])
+        setProfileInitialData(response.data);
       })
       .catch((error) => {
         if (error.status == 401) {
@@ -195,15 +200,52 @@ const ProfileCard = (props) => {
                       Edit Profile
                     </Typography>
                     <Typography sx={{ mt: 2, fontWeight: 500 }}>
-                      My friends call me
+                      First Name
                     </Typography>
                     <Input
                       type="dropdown"
                       sx={{ width: "100%" }}
-                      defaultValue={profileName}
+                      defaultValue={profileInitialData.first_name}
+                      id="first_name"
                     />
                     <Typography sx={{ mt: 2, fontWeight: 500 }}>
-                      I am from
+                      Last Name
+                    </Typography>
+                    <Input
+                      type="dropdown"
+                      sx={{ width: "100%" }}
+                      defaultValue={profileInitialData.last_name}
+                      id="last_name"
+                    />
+                    <Typography sx={{ mt: 2, fontWeight: 500 }}>
+                      Address Line 1
+                    </Typography>
+                    <Input
+                      type="dropdown"
+                      sx={{ width: "100%" }}
+                      defaultValue={profileInitialData.address}
+                      id="address"
+                    />
+                    <Typography sx={{ mt: 2, fontWeight: 500 }}>
+                      Address Line 2
+                    </Typography>
+                    <Input
+                      type="dropdown"
+                      sx={{ width: "100%" }}
+                      defaultValue={profileInitialData.address2}
+                      id="address2"
+                    />
+                    <Typography sx={{ mt: 2, fontWeight: 500 }}>
+                      Zip Code
+                    </Typography>
+                    <Input
+                      type="dropdown"
+                      sx={{ width: "100%" }}
+                      defaultValue={profileInitialData.zip_code}
+                      id="zip_code"
+                    />
+                    <Typography sx={{ mt: 2, fontWeight: 500 }}>
+                      State
                     </Typography>
                     <StateDropDown />
                     <Typography sx={{ mt: 2 }}>
@@ -230,8 +272,9 @@ const ProfileCard = (props) => {
                       <TextField
                         multiline
                         rows={3}
-                        id="about-me"
+                        id="about_me"
                         variant="outlined"
+                        defaultValue={profileInitialData.about_me}
                         sx={{ width: "100%", py: 2 }}
                       />{" "}
                       <Button

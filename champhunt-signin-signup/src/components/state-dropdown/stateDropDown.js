@@ -46,21 +46,15 @@ const StateDropDown = () => {
   };
 
   return (
-    <Box
-      component="form"
-      sx={{
-        "& .MuiTextField-root": { width: "100%" },
-      }}
-      noValidate
-      autoComplete="off"
-    >
       <TextField
-        id="standard-select-state"
         select
+        defaultValue={state}
         value={state}
         onChange={handleChange}
         helperText="Please select your state"
         variant="standard"
+        sx={{ width: "100%" }}
+        name="state"
       >
         {stateOptions.map((state) => (
           <MenuItem key={state.value} value={state.value}>
@@ -68,7 +62,6 @@ const StateDropDown = () => {
           </MenuItem>
         ))}
       </TextField>
-    </Box>
   );
 };
 
