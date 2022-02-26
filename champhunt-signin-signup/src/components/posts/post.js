@@ -10,6 +10,8 @@ import Runs from '../../assets/images/posts/runs.svg';
 import InfoIcon from '../../assets/images/posts/info.svg';
 import axios from "axios";
 import { w3cwebsocket as W3CWebSocket } from "websocket";
+import { ToastContainer, toast } from 'react-toastify';
+import Avatar from '../../assets/images/header/avatar.png';
 
 import './index.scss';
 
@@ -34,7 +36,7 @@ const Post = ( props ) => {
             runs
         }
     } = props;
-
+    
     const [newComments, setNewComments] = useState({});
     const [posts, setPosts] = useState([props]);
     const [showRuns, setShowRuns] = useState(false);
@@ -53,7 +55,6 @@ const Post = ( props ) => {
         var postComments = post.comments;
         if (newComments){
             postComments.push(newComments);
-            console.log(postComments);
         }
     }
 
@@ -89,6 +90,7 @@ const Post = ( props ) => {
         axios(scorePostOptions)
             .then(response => {
                 setShowRuns(!showRuns);
+                 toast("Wow so easy !");
             })
             .catch(error => {
                 setShowRuns(!showRuns);
@@ -159,7 +161,6 @@ const Post = ( props ) => {
         };
         axios(submitPostCommentOptions)
             .then(response => {
-                debugger;
                 setNewComments(response.data);
                 closeComment();
             })
@@ -168,7 +169,7 @@ const Post = ( props ) => {
             })
     };
 
-    useEffect((props) => {
+    useEffect(() => {
         const clientScore = new W3CWebSocket(global.config.WSURLS.prod + '/ws/api/score-pitch/' + post_id + '/');
         clientScore.onmessage = (message) => {
             var data = JSON.parse(JSON.parse(message.data));
@@ -196,7 +197,7 @@ const Post = ( props ) => {
         <div className="post-header">
             <div className="left">
                 <div className="avatar">
-                    <img className="avatar-image" src={avatar} alt={name} />
+                    <img className="avatar-image" src={Avatar} alt={name} />
                 </div>
                 <div className="avatar-cnt">
                     <p>

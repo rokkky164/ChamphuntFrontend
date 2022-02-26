@@ -1,11 +1,12 @@
 import Button from "../../commons/form/button";
 import axios from "axios";
 import { useState } from 'react';
+import Avatar from '../../assets/images/header/avatar.png';
 
 import './index.scss';
 
 const Suggestion = (props) => {
-        const { avatar, runs, followers, name, role, following_id } = props;
+    const { avatar, runs, followers, name, role, following_id } = props;
 
     const [showSugestionBox, setShowSuggestionBox] = useState(true);
     const [changeTextToFollowing, setchangeTextToFollowing] = useState(false);
@@ -40,7 +41,7 @@ const Suggestion = (props) => {
     return <div className={`suggestion ${showSugestionBox ? 'visible':'hidden'}`}>
         <div className="left-block">
             <div className="profile-info">
-                <img src={avatar} alt={name} className="avatar" />
+                <img src={Avatar} alt={name} className="avatar" />
                 <p className="name primary">
                     { name }
                     <span className="role">

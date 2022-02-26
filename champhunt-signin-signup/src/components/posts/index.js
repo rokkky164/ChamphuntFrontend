@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback  } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-
 import Post from './post';
-
+import { BallTriangle } from  'react-loader-spinner'
 import './index.scss';
 
 const Posts = (filterPitches) => {
     const navigate = useNavigate();
     const [posts, setPosts] = useState([]);
+    const [pageNumber, setPageNumber] = useState(0);
+    const [prevY, setPrevY] = useState(0);
+    const [loading, setLoading] = useState(true);
+    const [hasMore, setHasMore] = useState(false);
     const accessToken = localStorage.getItem('access-token');
     let url = global.config.ROOTURL.prod + '/api/v0/pitches/';
     if (filterPitches) {
@@ -18,81 +21,41 @@ const Posts = (filterPitches) => {
             url = global.config.ROOTURL.prod + '/api/v0/pitches/?filter=friends';
         }
     }
+    const postRef = useRef(null)
+    let prevYRef = useRef({});
+    let pageRef = useRef({});
+    prevYRef.current = prevY;
+
     // set profile id in localStorage
-    var getProfileOptions = {
-        method: 'get',
-        url: global.config.ROOTURL.prod + '/api/v0/logged-in-profile/',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + accessToken
-        },
-        json: true
-    }
+    var getProfileOptions = 
     axios(getProfileOptions)
         .then(response => {
-           localStorage.setItem('profile-id', response.data['profile_id']);
-           localStorage.setItem('profile-crickcoins', response.data['profile_crickcoins']);
+            localStorage.setItem('profile-id', response.data['profile_id']);
+            localStorage.setItem('profile-runs', response.data['profile_runs']);
         })
         .catch(error => {
-            if (error.response.status == 401) {
-            }
+            if (error.response.status == 401) {}
         })
     //
-    var getPostOptions = {
-        method: 'get',
-        url: url,
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + accessToken
-        },
-        json: true
-    };
-
-    useEffect(() => {
-        axios(getPostOptions)
+    const fetchPitches = () => {
+        axios({
+            method: 'get',
+            url: url,
+            params: { offset: pageNumber },
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + accessToken
+            },
+            json: true
+        })
             .then(response => {
-                const pitches = response.data.results;
                 localStorage.setItem('profile_id', response.data['user_email']);
-                let postArray = [];
-                pitches.forEach(function(pitch) {
-                    var postDateObj = new Date(pitch.created);
-                    var postDate = ''
-                    var postTime = '';
-                    var x = "AM";
-                    if (postDateObj.getHours() > 12) {
-                        x = "PM"
-                    }
-
-                    postDate = postDateObj.getDate() + "." + parseInt(postDateObj.getMonth() + 1) + "." + postDateObj.getFullYear();
-                    postTime = postDateObj.getHours() % 12 + ":" + postDateObj.getMinutes() + ' ' + x;
-                    var pitchData = {
-                        'author': {
-                            'name': pitch.user_data.first_name + ' ' + pitch.user_data.last_name,
-                            'url': '',
-                            'avatar': "https://i.pravatar.cc/45"
-                        },
-                        'post': {
-                            'post_id': pitch.id,
-                            'date': postDate,
-                            'time': postTime,
-                            'content': pitch.message,
-                            'comments': pitch.comments,
-                            'runs': pitch.runs,
-                            'image': pitch.image
-                        },
-                    }
-                    if (pitch.shared_user){
-                        var shared_user_name = pitch.shared_user.name;
-                        pitchData['coAuthor'] = {
-                            'name': shared_user_name,
-                            'url': ''
-                        }
-                    }
-                    postArray.push(pitchData);
+                // setPosts(response.data.results);
+                setPosts(prevPosts => {
+                    return [...new Set([...prevPosts, ...response.data.results])]
                 })
-                setPosts(postArray);
+                setHasMore(response.data.results.length > 0);
             })
             .catch(error => {
                 if (error.response.status === 400) {
@@ -101,13 +64,63 @@ const Posts = (filterPitches) => {
                     navigate('/login')
                 }
             })
-    }, []);
+    }
+ 
+    useEffect(() => {
 
-    return <div className="component posts">
-        {
-            posts.map((post, index) => <Post key={index} {...post} />)
+        fetchPitches();
+        let options = {
+          root: null,
+          rootMargin: "0px",
+          threshold: 1.0,
+        };
+        const observer = new IntersectionObserver(handleObserver, options);
+        observer.observe(postRef.current);
+
+     }, [pageNumber]);
+
+
+    const handleObserver = (entities, observer) => {
+        const y = entities[0].boundingClientRect.y;
+
+        if (prevYRef.current > y) {
+          fetchPitches();
+          setPageNumber(pageNumber => pageNumber + 10);
         }
+        console.log("currenty: ", y, "prevY: ", prevY);
+        setPrevY(y);
+    };
+
+    return (
+        <>
+        <div className="component posts">
+        {
+            posts.map((post, index) => {
+                if (index === posts.length - 1){
+                    return <Post key={index} {...post} />
+                }
+                else {
+                   return <Post key={index} {...post} />
+                }
+            })
+        }
+        <div>
+        <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+            {loading && <BallTriangle
+                height="100"
+                width="100"
+                color='grey'
+                ariaLabel='loading'
+            />}
+        </div>
+        <div
+            className="yoHello"
+            ref={postRef}>
+        </div>
+  </div>
     </div>
+    </>
+    )
 }
 
 export default Posts;

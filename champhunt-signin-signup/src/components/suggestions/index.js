@@ -45,7 +45,6 @@ const Suggestions = () => {
                         runs: element.runs,
                         following_id: element.id
                     });
-
                 })
                 setSuggestions(suggestionsData);
             })

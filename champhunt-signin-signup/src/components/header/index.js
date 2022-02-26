@@ -25,7 +25,7 @@ const Header = ( props ) => {
 
     const [showInput, setShowInput] = useState(false);
 
-    const [userCrickCoins, setUserCrickCoins] = useState(1000);
+    const [userRuns, setUserRuns] = useState(1000);
 
     const [todayNotificationsCount, setTodayNotificationsCount] = useState(0);
 
@@ -75,7 +75,7 @@ const Header = ( props ) => {
                 'Authorization': 'Bearer ' + accessToken,
             },
         };
-        setUserCrickCoins(localStorage.getItem('profile-crickcoins'));
+        setUserRuns(localStorage.getItem('profile-runs'));
         axios(notificationsOptions)
             .then(response => {
                 const nfs = response.data;
@@ -154,7 +154,7 @@ const Header = ( props ) => {
                 </div>
                 <div className='coins-block'>
                     <img src={Coins} alt='' className='coins-img' />
-                    <span className='coins-hand'>{userCrickCoins}</span>
+                    <span className='coins-hand'>{userRuns}</span>
                 </div>
             </div>
             }

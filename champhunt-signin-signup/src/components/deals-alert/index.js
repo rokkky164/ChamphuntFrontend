@@ -9,7 +9,7 @@ const DealsAlert = () => {
 
     }
     const profileEmail = localStorage.getItem('user_email');
-    const profileCrickCoins = localStorage.getItem('profile-crickcoins');
+    const profileRuns = localStorage.getItem('profile-runs');
     return <div className="component deals-alert">
         
         <div className='left'>
@@ -22,7 +22,7 @@ const DealsAlert = () => {
         <div className='right'>
             <div className='coins'>
                 <img src={Coins} alt=''/>
-                <span className='primary' > {profileCrickCoins} </span>
+                <span className='primary' > {profileRuns} </span>
             </div>
         </div>        
     </div>
