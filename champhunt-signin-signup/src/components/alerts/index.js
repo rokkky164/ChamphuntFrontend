@@ -130,13 +130,14 @@ const Alert = () => {
     </div>
     }
     const profileEmail = localStorage.getItem('user_email');
+    const profileName = localStorage.getItem('profile-name');
     return <div className="component alert">
         
         <div className='alert-container'>
             <div className='left'>
                 <img src={Avatar} alt='' />
                 <span className='primary'>
-                    Hello, {profileEmail}
+                    Hello, { profileName ? profileName : profileEmail}
                 </span>
             </div>
             
