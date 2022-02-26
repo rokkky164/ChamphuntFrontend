@@ -27,11 +27,21 @@ const Posts = (filterPitches) => {
     prevYRef.current = prevY;
 
     // set profile id in localStorage
-    var getProfileOptions = 
+    var getProfileOptions = {
+        method: 'get',
+        url: global.config.ROOTURL.prod + '/api/v0/logged-in-profile/',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + accessToken
+        },
+        json: true
+    }
     axios(getProfileOptions)
         .then(response => {
             localStorage.setItem('profile-id', response.data['profile_id']);
             localStorage.setItem('profile-runs', response.data['profile_runs']);
+            localStorage.setItem('profile-name', response.data['profile_name']);
         })
         .catch(error => {
             if (error.response.status == 401) {}

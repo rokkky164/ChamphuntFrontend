@@ -94,7 +94,8 @@ const Header = ( props ) => {
     },[]);
 
     
-    const userProfileName = localStorage.getItem('user_name');
+    const userName = localStorage.getItem('user_name');
+    const userProfileName = localStorage.getItem('profile-name');
     return <header className="header">
         <div className='header-cnt'>
             <div className="logo-block">
@@ -164,7 +165,7 @@ const Header = ( props ) => {
                     <img src={Avatar} alt='' />
                 </div>
                 <p className='primary'>
-                    {userProfileName}
+                    {userProfileName ? userProfileName : userName}
                     <i className='arrow down'></i>
                     <Tooltip
                         direction='bottom'
