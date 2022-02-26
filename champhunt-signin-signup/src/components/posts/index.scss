@@ -11,7 +11,21 @@
             background-color: #FFFFFF;
             flex-direction: column;
             border-radius: 15px;
-
+            & .profile-block {
+                
+                & .primary {
+                    margin-left: 12px;
+                }
+                
+                & .arrow {
+                    margin-left: 15px;
+                    border: solid #cfcfcf;
+                    border-width: 0 3px 3px 0;
+                    display: inline-block;
+                    transform: rotate(45deg);
+                    padding: 3px;
+                }
+            }
             & .post-header {
     
                 display: flex;
@@ -288,8 +302,67 @@
         }
     
     }
+    .bx--tooltip--shown {
+        margin-top: 15px;
+    }
+    .caret {
+        border-left: solid 10px transparent; 
+        border-right: solid 10px transparent; 
+        border-bottom: solid 10px #CED0FF; 
+        height: 0; 
+        width: 0;
+    }
+    .header-options {
+        .caret {
+            border-left: solid 10px transparent; 
+            border-right: solid 10px transparent; 
+            border-bottom: solid 10px #ffffff; 
+            height: 0; 
+            width: 0;
+        }
+        & .options {
+            cursor: pointer;
+            background-color: #ffffff;
+            border-radius: 12px;
 
+            & ul {
+               
+                list-style-type: none;
+                width: 130px;
+                margin: 0;
+                padding: 10px 12px;
+
+                & li {
+                    text-align: left;
+                }
+
+                & li:not(:last-child) {
+                    border-bottom: 1px solid;
+                }
+            }
+        }
+    }
     .runs-container {
+        display: flex;
+        border-radius: 8px;
+        background-color: #131639;
+        padding: 4px 20px;
+
+        & .run {
+            background-color: #ffffff;
+            height: 30px;
+            width: 30px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            &:not(:last-child) {
+                margin-right: 4px;
+            }
+        }
+    }
+    .post-choices-container {
         display: flex;
         border-radius: 8px;
         background-color: #131639;

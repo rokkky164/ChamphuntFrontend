@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import React from 'react';
 import ChampButton from '../../commons/form/button';
 import { connect, useSelector } from 'react-redux';
+import { Tooltip } from 'carbon-components-react';
 
 import Comments from '../../assets/images/posts/comments.svg';
 import Share from '../../assets/images/posts/share.svg';
@@ -12,7 +13,7 @@ import axios from "axios";
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 import { ToastContainer, toast } from 'react-toastify';
 import Avatar from '../../assets/images/header/avatar.png';
-
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import './index.scss';
 
 const Post = ( props ) => {
@@ -50,6 +51,7 @@ const Post = ( props ) => {
     });
     const [sharedBody, setSharedBody] = useState('');
     const [liverun, setRuns] = useState(0);
+    const [connectToSocket, setConnectToSocket] = useState(false);
 
     const postCommentsData = (post) => {
         var postComments = post.comments;
@@ -89,8 +91,8 @@ const Post = ( props ) => {
 
         axios(scorePostOptions)
             .then(response => {
+                setConnectToSocket(true);
                 setShowRuns(!showRuns);
-                 toast("Wow so easy !");
             })
             .catch(error => {
                 setShowRuns(!showRuns);
@@ -135,6 +137,7 @@ const Post = ( props ) => {
         };
         axios(sharePostOptions)
             .then(response => {
+                setConnectToSocket(true);
                 setPosts([response.data]);
                 closeModal();
             })
@@ -161,6 +164,7 @@ const Post = ( props ) => {
         };
         axios(submitPostCommentOptions)
             .then(response => {
+                setConnectToSocket(true);
                 setNewComments(response.data);
                 closeComment();
             })
@@ -170,30 +174,39 @@ const Post = ( props ) => {
     };
 
     useEffect(() => {
-        const clientScore = new W3CWebSocket(global.config.WSURLS.prod + '/ws/api/score-pitch/' + post_id + '/');
-        clientScore.onmessage = (message) => {
-            var data = JSON.parse(JSON.parse(message.data));
-            setRuns(data.runs_awarded);
-        };
-        const clientComment = new W3CWebSocket(global.config.WSURLS.prod + '/ws/api/comment-pitch/' + post_id + '/');
-        clientComment.onmessage = (message) => {
-            var data = JSON.parse(JSON.parse(message.data));
-            // setNewComments(
-            //     {
-            //         pitch: data.pitch,
-            //         comment: data.comment,
-            //         userprofile: data.userprofile,
-            //         date: data.date,
-            //         time: data.time,
-            //         author: {
-            //             first_name: data.first_name,
-            //             last_name: data.last_name
-            //         }
-            // })
-            
-        };
-    }, [])
+        if (connectToSocket){
+            console.log(connectToSocket);
+            console.log('connecting to socket...............');
+            const clientScore = new W3CWebSocket(global.config.WSURLS.prod + '/ws/api/score-pitch/' + post_id + '/');
+            clientScore.onmessage = (message) => {
+                var data = JSON.parse(JSON.parse(message.data));
+                setRuns(data.runs_awarded);
+            };
+            const clientComment = new W3CWebSocket(global.config.WSURLS.prod + '/ws/api/comment-pitch/' + post_id + '/');
+            clientComment.onmessage = (message) => {
+                var data = JSON.parse(JSON.parse(message.data));
+                // setNewComments(
+                //     {
+                //         pitch: data.pitch,
+                //         comment: data.comment,
+                //         userprofile: data.userprofile,
+                //         date: data.date,
+                //         time: data.time,
+                //         author: {
+                //             first_name: data.first_name,
+                //             last_name: data.last_name
+                //         }
+                // })
+                
+            };
+        }
+        setConnectToSocket(false);
+    }, [connectToSocket])
+
     return <div className="post">
+        <div style={{textAlign: 'right'}}>
+            <MoreVertIcon role='button'/>
+        </div>
         <div className="post-header">
             <div className="left">
                 <div className="avatar">

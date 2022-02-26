@@ -169,8 +169,7 @@ const Header = ( props ) => {
                     <i className='arrow down'></i>
                     <Tooltip
                         direction='bottom'
-                        className='header-options'
-                    >
+                        className='header-options'>
                         <div className='caret'></div>
                         <div className='options'>
                             <ul>

@@ -10,11 +10,12 @@ const DealsAlert = () => {
     }
     const profileEmail = localStorage.getItem('user_email');
     const profileRuns = localStorage.getItem('profile-runs');
+    const profileName = localStorage.getItem('profile-name');
     return <div className="component deals-alert">
         
         <div className='left'>
             <span className='primary'>
-                <span className='desktop-only greetings'> Hello , {profileEmail} ,</span>
+                <span className='desktop-only greetings'> Hello , { profileName ? profileName : profileEmail} ,</span>
                 <span className='info'> Redeem your virtual coins with these e vouchers</span>
             </span>
         </div>

@@ -27,26 +27,18 @@ const Posts = (filterPitches) => {
     prevYRef.current = prevY;
 
     // set profile id in localStorage
-    var getProfileOptions = {
-        method: 'get',
-        url: global.config.ROOTURL.prod + '/api/v0/logged-in-profile/',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + accessToken
-        },
-        json: true
+    const getUnique = (array, key) => {
+        if (typeof key !== 'function') {
+            const property = key;
+            key = function(item) { return item[property]; };
+        }
+        return Array.from(array.reduce(function(map, item) {
+            const k = key(item);
+            if (!map.has(k)) map.set(k, item);
+            return map;
+        }, new Map()).values());
     }
-    axios(getProfileOptions)
-        .then(response => {
-            localStorage.setItem('profile-id', response.data['profile_id']);
-            localStorage.setItem('profile-runs', response.data['profile_runs']);
-            localStorage.setItem('profile-name', response.data['profile_name']);
-        })
-        .catch(error => {
-            if (error.response.status == 401) {}
-        })
-    //
+
     const fetchPitches = () => {
         axios({
             method: 'get',
@@ -61,10 +53,10 @@ const Posts = (filterPitches) => {
         })
             .then(response => {
                 localStorage.setItem('profile_id', response.data['user_email']);
-                // setPosts(response.data.results);
                 setPosts(prevPosts => {
                     return [...new Set([...prevPosts, ...response.data.results])]
                 })
+                // setPosts(prevPosts => {return (Set([...prevPosts, ...response.data.results])});
                 setHasMore(response.data.results.length > 0);
             })
             .catch(error => {
@@ -77,7 +69,25 @@ const Posts = (filterPitches) => {
     }
  
     useEffect(() => {
-
+        var getProfileOptions = {
+            method: 'get',
+            url: global.config.ROOTURL.prod + '/api/v0/logged-in-profile/',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + accessToken
+            },
+            json: true
+        }
+        axios(getProfileOptions)
+            .then(response => {
+                localStorage.setItem('profile-id', response.data['profile_id']);
+                localStorage.setItem('profile-runs', response.data['profile_runs']);
+                localStorage.setItem('profile-name', response.data['profile_name']);
+            })
+            .catch(error => {
+                if (error.response.status == 401) {}
+            })
         fetchPitches();
         let options = {
           root: null,
@@ -105,7 +115,9 @@ const Posts = (filterPitches) => {
         <>
         <div className="component posts">
         {
+
             posts.map((post, index) => {
+                debugger;
                 if (index === posts.length - 1){
                     return <Post key={index} {...post} />
                 }
