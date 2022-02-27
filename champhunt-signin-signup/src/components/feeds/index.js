@@ -19,7 +19,7 @@ const Feeds = () => {
                 <Tab>By followers</Tab>
             </TabList>
             <TabPanel>
-                <Hero />
+                <MyCarousel />
                 <Posts />
             </TabPanel>
             <TabPanel>
