@@ -13,7 +13,7 @@ import { w3cwebsocket as W3CWebSocket } from "websocket";
 import { ToastContainer, toast } from "react-toastify";
 import Avatar from "../../assets/images/header/avatar.png";
 import "./index.scss";
-import DropdownMenu from "../dropdown-menu/downdownMenu";
+import DropdownMenu from "../dropdown-menu/dropdownMenu";
 
 const Post = (props) => {
   const [toggleValue, setToggleValue] = useState(false);
