@@ -7,6 +7,7 @@ import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import Report from "../report-modal/index";
 
 export default function DropdownMenu(props) {
   const [open, setOpen] = React.useState(false);
@@ -53,7 +54,14 @@ export default function DropdownMenu(props) {
 
   const handleReport = (event) => {
     handleClose(event);
+    setOpenModal(true);
+    
   };
+
+  const [openModal, setOpenModal] = React.useState(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
+
 
   return (
     <div>
@@ -109,6 +117,7 @@ export default function DropdownMenu(props) {
           )}
         </Popper>
       </div>
+      <Report handleOpen={handleOpenModal} handleClose={handleCloseModal} open={openModal} />
     </div>
   );
 }
