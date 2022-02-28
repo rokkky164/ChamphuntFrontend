@@ -13,190 +13,187 @@ import { w3cwebsocket as W3CWebSocket } from "websocket";
 import { ToastContainer, toast } from "react-toastify";
 import Avatar from "../../assets/images/header/avatar.png";
 import "./index.scss";
-import DropdownMenu from "../dropdown-menu/dropdownMenu";
+
+import DropdownMenu from "./../dropdown-menu/dropdownMenu";
 
 const Post = (props) => {
-  const [toggleValue, setToggleValue] = useState(false);
+    const [toggleValue, setToggleValue] = useState(false);
 
-  const {
-    author: { name, url, avatar },
-    coAuthor: { coAuthorName, coAuthorURL } = {},
-    post: { post_id, date, time, content, image, comments = [], runs },
-  } = props;
+    const {
+        author: { name, url, avatar },
+        coAuthor: { coAuthorName, coAuthorURL } = {},
+        post: { post_id, date, time, content, image, comments = [], runs },
+    } = props;
 
-  const [newComments, setNewComments] = useState({});
-  const [posts, setPosts] = useState([props]);
-  const [showRuns, setShowRuns] = useState(false);
-  const [sharing, setSharing] = useState(false);
-  const [comment, setComment] = useState("");
-  const [showComments, setShowComments] = useState(false);
-  const [commentData, setCommentData] = useState({
-    pitch: "",
-    comment: "",
-    userprofile: "",
-  });
-  const [sharedBody, setSharedBody] = useState("");
-  const [liverun, setRuns] = useState(0);
-  const [connectToSocket, setConnectToSocket] = useState(false);
+    const [newComments, setNewComments] = useState({});
+    const [posts, setPosts] = useState([props]);
+    const [showRuns, setShowRuns] = useState(false);
+    const [sharing, setSharing] = useState(false);
+    const [comment, setComment] = useState("");
+    const [showComments, setShowComments] = useState(false);
+    const [commentData, setCommentData] = useState({
+        pitch: "",
+        comment: "",
+        userprofile: "",
+    });
+    const [sharedBody, setSharedBody] = useState("");
+    const [liverun, setRuns] = useState(0);
+    const [connectToSocket, setConnectToSocket] = useState(false);
 
-  const postCommentsData = (post) => {
-    var postComments = post.comments;
-    if (newComments) {
-      postComments.push(newComments);
-    }
-  };
-
-  const getSharedBody = (event) => {
-    setSharedBody(event.target.value);
-  };
-  const getCommentData = (comment) => {
-    commentData.comment = comment.target.value;
-  };
-
-  const toggleRuns = () => {
-    setShowRuns(!showRuns);
-  };
-
-  const scorePost = (post_id, run) => {
-    const userprofile = localStorage.getItem("profile-id");
-    const scorePostData = {
-      pitch: post_id,
-      runs_awarded: run,
-      userprofile: userprofile,
-    };
-    const accessToken = localStorage.getItem("access-token");
-    var scorePostOptions = {
-      method: "post",
-      url: global.config.ROOTURL.prod + "/api/v0/user-score-pitch/",
-      headers: {
-        Authorization: "Bearer " + accessToken,
-      },
-      data: scorePostData,
-      json: true,
+    const postCommentsData = (post) => {
+        var postComments = post.comments;
+        if (newComments) {
+            postComments.push(newComments);
+        }
     };
 
-    axios(scorePostOptions)
-      .then((response) => {
-        setConnectToSocket(true);
+    const getSharedBody = (event) => {
+        setSharedBody(event.target.value);
+    };
+    const getCommentData = (comment) => {
+        commentData.comment = comment.target.value;
+    };
+
+    const toggleRuns = () => {
         setShowRuns(!showRuns);
-      })
-      .catch((error) => {
-        setShowRuns(!showRuns);
-      });
-  };
-
-  const showModal = () => {
-    setSharing(true);
-  };
-
-  const copyToClipboard = () => {
-    const copyText = document.querySelector("#referId");
-    copyText.select();
-    document.execCommand("copy");
-    closeModal();
-  };
-
-  const handleComment = () => {
-    setShowComments(true);
-  };
-
-  const closeModal = () => {
-    setSharing(false);
-  };
-
-  const sharePost = (post_id) => {
-    const userprofile = localStorage.getItem("profile-id");
-    const sharePostData = {
-      pitch_id: post_id,
-      shared_user: userprofile,
-      shared_body: sharedBody,
     };
-    const accessToken = localStorage.getItem("access-token");
-    var sharePostOptions = {
-      method: "post",
-      url: global.config.ROOTURL.prod + "/api/v0/share-pitch/",
-      headers: {
-        Authorization: "Bearer " + accessToken,
-      },
-      data: sharePostData,
-      json: true,
+
+    const scorePost = (post_id, run) => {
+        const userprofile = localStorage.getItem("profile-id");
+        const scorePostData = {
+            pitch: post_id,
+            runs_awarded: run,
+            userprofile: userprofile,
+        };
+        const accessToken = localStorage.getItem("access-token");
+        var scorePostOptions = {
+            method: "post",
+            url: global.config.ROOTURL.prod + "/api/v0/user-score-pitch/",
+            headers: {
+                Authorization: "Bearer " + accessToken,
+            },
+            data: scorePostData,
+            json: true,
+        };
+
+        axios(scorePostOptions)
+            .then((response) => {
+                setConnectToSocket(true);
+                setShowRuns(!showRuns);
+            })
+            .catch((error) => {
+                setShowRuns(!showRuns);
+            });
     };
-    axios(sharePostOptions)
-      .then((response) => {
-        setConnectToSocket(true);
-        setPosts([response.data]);
+
+    const showModal = () => {
+        setSharing(true);
+    };
+
+    const copyToClipboard = () => {
+        const copyText = document.querySelector("#referId");
+        copyText.select();
+        document.execCommand("copy");
         closeModal();
-      })
-      .catch((error) => {});
-  };
-
-  const closeComment = () => {
-    setShowComments(false);
-  };
-
-  const postComment = (post_id, post) => {
-    commentData.userprofile = localStorage.getItem("profile-id");
-    commentData.pitch = post_id;
-    const accessToken = localStorage.getItem("access-token");
-    var submitPostCommentOptions = {
-      method: "post",
-      url: global.config.ROOTURL.prod + "/api/v0/submit-comment/",
-      headers: {
-        Authorization: "Bearer " + accessToken,
-      },
-      data: commentData,
-      json: true,
     };
-    axios(submitPostCommentOptions)
-      .then((response) => {
-        setConnectToSocket(true);
-        setNewComments(response.data);
-        closeComment();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
-  useEffect(() => {
-    if (connectToSocket) {
-      console.log(connectToSocket);
-      console.log("connecting to socket...............");
-      const clientScore = new W3CWebSocket(
-        global.config.WSURLS.prod + "/ws/api/score-pitch/" + post_id + "/"
-      );
-      clientScore.onmessage = (message) => {
-        var data = JSON.parse(JSON.parse(message.data));
-        setRuns(data.runs_awarded);
-      };
-      const clientComment = new W3CWebSocket(
-        global.config.WSURLS.prod + "/ws/api/comment-pitch/" + post_id + "/"
-      );
-      clientComment.onmessage = (message) => {
-        var data = JSON.parse(JSON.parse(message.data));
-        // setNewComments(
-        //     {
-        //         pitch: data.pitch,
-        //         comment: data.comment,
-        //         userprofile: data.userprofile,
-        //         date: data.date,
-        //         time: data.time,
-        //         author: {
-        //             first_name: data.first_name,
-        //             last_name: data.last_name
-        //         }
-        // })
-      };
-    }
-    setConnectToSocket(false);
-  }, [connectToSocket]);
+    const handleComment = () => {
+        setShowComments(true);
+    };
+
+    const closeModal = () => {
+        setSharing(false);
+    };
+
+    const sharePost = (post_id) => {
+        const userprofile = localStorage.getItem("profile-id");
+        const sharePostData = {
+            pitch_id: post_id,
+            shared_user: userprofile,
+            shared_body: sharedBody,
+        };
+        const accessToken = localStorage.getItem("access-token");
+        var sharePostOptions = {
+            method: "post",
+            url: global.config.ROOTURL.prod + "/api/v0/share-pitch/",
+            headers: {
+                Authorization: "Bearer " + accessToken,
+            },
+            data: sharePostData,
+            json: true,
+        };
+        axios(sharePostOptions)
+            .then((response) => {
+                setConnectToSocket(true);
+                setPosts([response.data]);
+                closeModal();
+            })
+            .catch((error) => {});
+    };
+
+    const closeComment = () => {
+        setShowComments(false);
+    };
+
+    const postComment = (post_id, post) => {
+        commentData.userprofile = localStorage.getItem("profile-id");
+        commentData.pitch = post_id;
+        const accessToken = localStorage.getItem("access-token");
+        var submitPostCommentOptions = {
+            method: "post",
+            url: global.config.ROOTURL.prod + "/api/v0/submit-comment/",
+            headers: {
+                Authorization: "Bearer " + accessToken,
+            },
+            data: commentData,
+            json: true,
+        };
+        axios(submitPostCommentOptions)
+            .then((response) => {
+                setConnectToSocket(true);
+                setNewComments(response.data);
+                closeComment();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    useEffect(() => {
+        const clientScore = new W3CWebSocket(
+            global.config.WSURLS.prod + "/ws/api/score-pitch/" + post_id + "/"
+        );
+        clientScore.onmessage = (message) => {
+            var data = JSON.parse(JSON.parse(message.data));
+            setRuns(data.runs_awarded);
+        };
+        const clientComment = new W3CWebSocket(
+            global.config.WSURLS.prod + "/ws/api/comment-pitch/" + post_id + "/"
+        );
+        clientComment.onmessage = (message) => {
+            var data = JSON.parse(JSON.parse(message.data));
+            // setNewComments(
+            //     {
+            //         pitch: data.pitch,
+            //         comment: data.comment,
+            //         userprofile: data.userprofile,
+            //         date: data.date,
+            //         time: data.time,
+            //         author: {
+            //             first_name: data.first_name,
+            //             last_name: data.last_name
+            //         }
+            // })
+        };
+        setConnectToSocket(false);
+    }, [connectToSocket]);
 
 
-  return (
-    <div className="post">
+    return (
+        <div className="post">
       <div style={{ textAlign: "right" }}>
         <div className="post-edit">
-          <DropdownMenu type="post-menu"/>
+          <DropdownMenu type="post-menu" post_id={post_id}/>
         </div>
       </div>
       <div className="post-header">
@@ -359,7 +356,7 @@ const Post = (props) => {
         </div>
       </div>
     </div>
-  );
+    );
 };
 
 export default Post;

@@ -40,7 +40,7 @@ const Header = ( props ) => {
     }
 
     const handleMyProfile = () => {
-        navigate('/profile');
+        navigate('/my-profile');
     }
 
     const handleLogout = () => {

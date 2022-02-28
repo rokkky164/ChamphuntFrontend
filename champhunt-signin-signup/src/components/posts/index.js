@@ -115,9 +115,7 @@ const Posts = (filterPitches) => {
         <>
         <div className="component posts">
         {
-
             posts.map((post, index) => {
-                debugger;
                 if (index === posts.length - 1){
                     return <Post key={index} {...post} />
                 }

@@ -20,7 +20,7 @@ const style = {
   borderRadius: 5,
 };
 
-export default function Report(props) {
+export default function PitchEdit(props) {
   return (
     <div>
       <Modal
@@ -34,29 +34,10 @@ export default function Report(props) {
             id="modal-modal-title"
             variant="h6"
             component="h2"
-            sx={{}}
-          >
-            Report Pitch
+            sx={{}}>
+            Edit Pitch
           </Typography>
 
-          <RadioBtn>
-            <FormControlLabel
-              value="Harassment"
-              control={<Radio />}
-              label="Harassment"
-            />
-            <FormControlLabel value="Spam" control={<Radio />} label="Spam" />
-            <FormControlLabel
-              value="Plagiarism"
-              control={<Radio />}
-              label="Plagiarism"
-            />
-            <FormControlLabel
-              value="Poorly Written"
-              control={<Radio />}
-              label="Poorly Written"
-            />
-          </RadioBtn>
           <div style={{ flexDirection: 'row' }}>
           <Button>Cancel</Button>
           <Button>Submit</Button>

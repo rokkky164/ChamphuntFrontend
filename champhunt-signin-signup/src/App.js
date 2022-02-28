@@ -12,6 +12,7 @@ import DealsPage from './containers/deals';
 import NewsPage from './containers/news';
 import AboutUs from './containers/aboutus';
 import ArticlePage from './components/news/articles';
+import OwnProfileDetailsPage from './containers/profile';
 import ProfileDetailsPage from './containers/profile';
 import SignUp from './components/signin-signup/signup/signup.component';
 import NotFound from './components/notfound';
@@ -43,7 +44,8 @@ function App() {
               <Route path={'/deals'} element={<DealsPage />} />
               <Route path={'/news'} element={<NewsPage />} />
               <Route path={'/news/:article_id'} element={<ArticlePage />} />
-              <Route path={'/profile'} element={<ProfileDetailsPage />} />
+              <Route path={'/my-profile'} element={<OwnProfileDetailsPage />} />
+              <Route path={'/profile/:profile_id'} element={<ProfileDetailsPage />} />
               <Route path={'/onboarding'} element={<Onboarding />} />
               <Route path={'/login'} element={<SignIn />} />
               <Route path={'/signup'} element={<SignUp />} />

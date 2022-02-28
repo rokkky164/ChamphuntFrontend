@@ -20,7 +20,7 @@ const style = {
   borderRadius: 5,
 };
 
-export default function Report(props) {
+export default function PitchDelete(props) {
   return (
     <div>
       <Modal
@@ -36,30 +36,12 @@ export default function Report(props) {
             component="h2"
             sx={{}}
           >
-            Report Pitch
+            Delete this pitch?
           </Typography>
-
-          <RadioBtn>
-            <FormControlLabel
-              value="Harassment"
-              control={<Radio />}
-              label="Harassment"
-            />
-            <FormControlLabel value="Spam" control={<Radio />} label="Spam" />
-            <FormControlLabel
-              value="Plagiarism"
-              control={<Radio />}
-              label="Plagiarism"
-            />
-            <FormControlLabel
-              value="Poorly Written"
-              control={<Radio />}
-              label="Poorly Written"
-            />
-          </RadioBtn>
+            
           <div style={{ flexDirection: 'row' }}>
           <Button>Cancel</Button>
-          <Button>Submit</Button>
+          <Button>Yes Sure!</Button>
           </div>
         </Box>
       </Modal>

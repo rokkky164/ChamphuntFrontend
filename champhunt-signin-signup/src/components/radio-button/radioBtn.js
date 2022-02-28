@@ -9,7 +9,7 @@ import { PropTypes } from "carbon-components-react";
 export default function RadioBtn(props) {
   return (
     <FormControl>
-      <FormLabel id="radio-buttons-group-label">Gender</FormLabel>
+      <FormLabel id="radio-buttons-group-label"></FormLabel>
       <RadioGroup
         aria-labelledby="radio-buttons-group-label"
         name="radio-buttons-group"

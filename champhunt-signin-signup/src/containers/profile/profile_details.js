@@ -7,7 +7,7 @@ import Preferences from "../../components/preferences/preferences";
 
 import "./index.scss";
 
-const OwnProfileDetailsPage = () => {
+const ProfileDetailsPage = () => {
   return (
     <div className="page profile">
       <Header showAdd={true} />
@@ -23,4 +23,4 @@ const OwnProfileDetailsPage = () => {
   );
 };
 
-export default OwnProfileDetailsPage;
+export default ProfileDetailsPage;

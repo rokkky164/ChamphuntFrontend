@@ -7,64 +7,81 @@ import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import PitchEdit from "../pitch-edit-modal/index";
+import PitchDelete from "../pitch-delete-modal/index";
 import Report from "../report-modal/index";
 
+
 export default function DropdownMenu(props) {
-  const [open, setOpen] = React.useState(false);
-  const anchorRef = React.useRef(null);
+    const post_id = props;
+    const [open, setOpen] = React.useState(false);
+    const anchorRef = React.useRef(null);
 
-  const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
-  };
+    const handleToggle = (post_id) => {
+        if (parseInt(localStorage.getItem('profile-id')) === '') {
+            
+        }
+        const profileID = localStorage.getItem('profile-id');
+        setOwnPost(true);
+        setOpen((prevOpen) => !prevOpen);
+    };
 
-  const handleClose = (event) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
+    const handleClose = (event) => {
+        if (anchorRef.current && anchorRef.current.contains(event.target)) {
+            return;
+        }
+
+        setOpen(false);
+    };
+
+    function handleListKeyDown(event) {
+        if (event.key === "Tab") {
+            event.preventDefault();
+            setOpen(false);
+        } else if (event.key === "Escape") {
+            setOpen(false);
+        }
     }
 
-    setOpen(false);
-  };
+    // return focus to the button when we transitioned from !open -> open
+    const prevOpen = React.useRef(open);
+    React.useEffect(() => {
+        if (prevOpen.current === true && open === false) {
+            anchorRef.current.focus();
+        }
 
-  function handleListKeyDown(event) {
-    if (event.key === "Tab") {
-      event.preventDefault();
-      setOpen(false);
-    } else if (event.key === "Escape") {
-      setOpen(false);
-    }
-  }
+        prevOpen.current = open;
+    }, [open]);
 
-  // return focus to the button when we transitioned from !open -> open
-  const prevOpen = React.useRef(open);
-  React.useEffect(() => {
-    if (prevOpen.current === true && open === false) {
-      anchorRef.current.focus();
-    }
+    const handleEdit = (event) => {
+        handleClose(event);
+        setOpenPitchEditModal(true);
+    };
 
-    prevOpen.current = open;
-  }, [open]);
+    const handleDelete = (event) => {
+        handleClose(event);
+        setOpenPitchDeleteModal(true);
+    };
 
-  const handleEdit = (event) => {
-    handleClose(event);
-  };
+    const handleReport = (event) => {
+        handleClose(event);
+        setOpenModal(true);
 
-  const handleDelete = (event) => {
-    handleClose(event);
-  };
+    };
 
-  const handleReport = (event) => {
-    handleClose(event);
-    setOpenModal(true);
-    
-  };
+    const [ownPost, setOwnPost] = React.useState(false);
+    const [openModal, setOpenModal] = React.useState(false);
+    const [openPitchEditModal, setOpenPitchEditModal] = React.useState(false);
+    const [openPitchDeleteModal, setOpenPitchDeleteModal] = React.useState(false);
+    const handleOpenModal = () => setOpenModal(true);
+    const handleCloseModal = () => setOpenModal(false);
+    const handleOpenPitchEditModal = () => setOpenModal(true);
+    const handleClosePitchEditModal = () => setOpenPitchEditModal(false);
+    const handleOpenPitchDeleteModal = () => setOpenModal(true);
+    const handleClosePitchDeleteModal = () => setOpenPitchDeleteModal(false);
 
-  const [openModal, setOpenModal] = React.useState(false);
-  const handleOpenModal = () => setOpenModal(true);
-  const handleCloseModal = () => setOpenModal(false);
-
-
-  return (
-    <div>
+    return (
+        <div>
       <div>
         <Button
           ref={anchorRef}
@@ -72,7 +89,7 @@ export default function DropdownMenu(props) {
           aria-controls={open ? "composition-menu" : undefined}
           aria-expanded={open ? "true" : undefined}
           aria-haspopup="true"
-          onClick={handleToggle}
+          onClick={() => handleToggle(post_id)}
           disableRipple="true"
         >
           <MoreVertIcon style={{ color: "black" }} />
@@ -103,10 +120,14 @@ export default function DropdownMenu(props) {
                   >
                     {props.type === "post-menu" && (
                       <>
+                        { ownPost &&
                         <MenuItem onClick={handleEdit} open={"false"}>
                           Edit
                         </MenuItem>
-                        <MenuItem onClick={handleDelete}>Delete</MenuItem>
+                        }
+                        { ownPost &&
+                          <MenuItem onClick={handleDelete}>Delete</MenuItem>
+                        }
                         <MenuItem onClick={handleReport}>Report</MenuItem>
                       </>
                     )}
@@ -117,7 +138,9 @@ export default function DropdownMenu(props) {
           )}
         </Popper>
       </div>
+      <PitchEdit handleOpen={handleOpenPitchEditModal} handleClose={handleClosePitchEditModal} open={openPitchEditModal} />
+      <PitchDelete handleOpen={handleOpenPitchDeleteModal} handleClose={handleOpenPitchDeleteModal} open={openPitchDeleteModal} />
       <Report handleOpen={handleOpenModal} handleClose={handleCloseModal} open={openModal} />
     </div>
-  );
+    );
 }

@@ -2,6 +2,7 @@ import Button from "../../commons/form/button";
 import axios from "axios";
 import { useState } from 'react';
 import Avatar from '../../assets/images/header/avatar.png';
+import { Link } from "react-router-dom";
 
 import './index.scss';
 
@@ -10,6 +11,9 @@ const Suggestion = (props) => {
 
     const [showSugestionBox, setShowSuggestionBox] = useState(true);
     const [changeTextToFollowing, setchangeTextToFollowing] = useState(false);
+
+    const profileUrl = '/profile/' + following_id;
+
     const handleFollow = (following_id) => {
         const accessToken = localStorage.getItem('access-token');
         var followOptions = {
@@ -40,15 +44,17 @@ const Suggestion = (props) => {
     
     return <div className={`suggestion ${showSugestionBox ? 'visible':'hidden'}`}>
         <div className="left-block">
-            <div className="profile-info">
-                <img src={Avatar} alt={name} className="avatar" />
-                <p className="name primary">
-                    { name }
-                    <span className="role">
-                        { role }
-                    </span>
-                </p>
-            </div>
+            <Link to={profileUrl}>
+                <div className="profile-info">
+                    <img src={Avatar} alt={name} className="avatar" />
+                    <p className="name primary">
+                        { name }
+                        <span className="role">
+                            { role }
+                        </span>
+                    </p>
+                </div>
+             </Link>
             <div className="button-block">
                 <Button
                     label = {changeTextToFollowing ? 'Following' : 'Follow' }
