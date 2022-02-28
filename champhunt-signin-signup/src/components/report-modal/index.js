@@ -21,6 +21,8 @@ const style = {
 };
 
 export default function Report(props) {
+  const {post_id} = props;
+  
   return (
     <div>
       <Modal
@@ -58,8 +60,8 @@ export default function Report(props) {
             />
           </RadioBtn>
           <div style={{ flexDirection: 'row' }}>
-          <Button>Cancel</Button>
-          <Button>Submit</Button>
+            <Button onClick={props.handleClose}>Cancel</Button>
+            <Button onClick={() => props.handleReportPost(post_id)}>Submit</Button>
           </div>
         </Box>
       </Modal>

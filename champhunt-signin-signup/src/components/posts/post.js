@@ -23,6 +23,7 @@ const Post = (props) => {
         author: { name, url, avatar },
         coAuthor: { coAuthorName, coAuthorURL } = {},
         post: { post_id, date, time, content, image, comments = [], runs },
+        userprofile
     } = props;
 
     const [newComments, setNewComments] = useState({});
@@ -193,7 +194,7 @@ const Post = (props) => {
         <div className="post">
       <div style={{ textAlign: "right" }}>
         <div className="post-edit">
-          <DropdownMenu type="post-menu" post_id={post_id}/>
+          <DropdownMenu type="post-menu" post_id={post_id} userprofile={userprofile} />
         </div>
       </div>
       <div className="post-header">

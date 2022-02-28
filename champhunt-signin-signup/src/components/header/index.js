@@ -96,6 +96,7 @@ const Header = ( props ) => {
     
     const userName = localStorage.getItem('user_name');
     const userProfileName = localStorage.getItem('profile-name');
+
     return <header className="header">
         <div className='header-cnt'>
             <div className="logo-block">

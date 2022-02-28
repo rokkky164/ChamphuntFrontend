@@ -69,7 +69,6 @@ const ProfileCard = (props) => {
     } else {
         profileID = localStorage.getItem("profile-id");
     }
-    debugger;
     const saveProfile = (event) => {
         event.preventDefault();
 

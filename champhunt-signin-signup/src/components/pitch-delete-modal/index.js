@@ -21,6 +21,7 @@ const style = {
 };
 
 export default function PitchDelete(props) {
+  const {post_id} = props;
   return (
     <div>
       <Modal
@@ -40,8 +41,8 @@ export default function PitchDelete(props) {
           </Typography>
             
           <div style={{ flexDirection: 'row' }}>
-          <Button>Cancel</Button>
-          <Button>Yes Sure!</Button>
+          <Button onClick={props.handleClose}>Cancel</Button>
+          <Button onClick={() => props.handleDeletePost(post_id)}>Yes Sure!</Button>
           </div>
         </Box>
       </Modal>

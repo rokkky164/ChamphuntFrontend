@@ -1,8 +1,8 @@
-import { useEffect, useState, useRef, useCallback  } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import Post from './post';
-import { BallTriangle } from  'react-loader-spinner'
+import { BallTriangle } from 'react-loader-spinner'
 import './index.scss';
 
 const Posts = (filterPitches) => {
@@ -41,16 +41,16 @@ const Posts = (filterPitches) => {
 
     const fetchPitches = () => {
         axios({
-            method: 'get',
-            url: url,
-            params: { offset: pageNumber },
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + accessToken
-            },
-            json: true
-        })
+                method: 'get',
+                url: url,
+                params: { offset: pageNumber },
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + accessToken
+                },
+                json: true
+            })
             .then(response => {
                 localStorage.setItem('profile_id', response.data['user_email']);
                 setPosts(prevPosts => {
@@ -67,7 +67,7 @@ const Posts = (filterPitches) => {
                 }
             })
     }
- 
+
     useEffect(() => {
         var getProfileOptions = {
             method: 'get',
@@ -90,43 +90,38 @@ const Posts = (filterPitches) => {
             })
         fetchPitches();
         let options = {
-          root: null,
-          rootMargin: "0px",
-          threshold: 1.0,
+            root: null,
+            rootMargin: "0px",
+            threshold: 1.0,
         };
         const observer = new IntersectionObserver(handleObserver, options);
         observer.observe(postRef.current);
 
-     }, [pageNumber]);
+    }, [pageNumber]);
 
 
     const handleObserver = (entities, observer) => {
         const y = entities[0].boundingClientRect.y;
 
         if (prevYRef.current > y) {
-          fetchPitches();
-          setPageNumber(pageNumber => pageNumber + 10);
+            fetchPitches();
+            setPageNumber(pageNumber => pageNumber + 10);
         }
         console.log("currenty: ", y, "prevY: ", prevY);
         setPrevY(y);
     };
 
-    return (
-        <>
+    return ( <
+        >
         <div className="component posts">
         {
             posts.map((post, index) => {
-                if (index === posts.length - 1){
-                    return <Post key={index} {...post} />
-                }
-                else {
                    return <Post key={index} {...post} />
-                }
             })
         }
         <div>
         <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
-            {loading && <BallTriangle
+            {loading && hasMore && <BallTriangle
                 height="100"
                 width="100"
                 color='grey'
@@ -138,8 +133,8 @@ const Posts = (filterPitches) => {
             ref={postRef}>
         </div>
   </div>
-    </div>
-    </>
+    </div> <
+        />
     )
 }
 

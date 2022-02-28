@@ -11,18 +11,28 @@ import PitchEdit from "../pitch-edit-modal/index";
 import PitchDelete from "../pitch-delete-modal/index";
 import Report from "../report-modal/index";
 
+import axios from "axios";
 
 export default function DropdownMenu(props) {
-    const post_id = props;
+    const {type, post_id, userprofile} = props;
     const [open, setOpen] = React.useState(false);
-    const anchorRef = React.useRef(null);
+    const [content, setContent] = React.useState('');
+    const [image, setImage] = React.useState('');
 
-    const handleToggle = (post_id) => {
-        if (parseInt(localStorage.getItem('profile-id')) === '') {
-            
-        }
-        const profileID = localStorage.getItem('profile-id');
-        setOwnPost(true);
+    const anchorRef = React.useRef(null);
+    const [ownPost, setOwnPost] = React.useState(false);
+    const [openModal, setOpenModal] = React.useState(false);
+    const [openPitchEditModal, setOpenPitchEditModal] = React.useState(false);
+    const [openPitchDeleteModal, setOpenPitchDeleteModal] = React.useState(false);
+    const handleOpenModal = () => setOpenModal(true);
+    const handleCloseModal = () => setOpenModal(false);
+    const handleOpenPitchEditModal = () => setOpenModal(true);
+    const handleClosePitchEditModal = () => setOpenPitchEditModal(false);
+    const handleOpenPitchDeleteModal = () => setOpenModal(true);
+    const handleClosePitchDeleteModal = () => setOpenPitchDeleteModal(false);
+
+    const handleToggle = (userprofile) => {
+        setOwnPost(parseInt(localStorage.getItem('profile-id')) === userprofile);
         setOpen((prevOpen) => !prevOpen);
     };
 
@@ -53,8 +63,59 @@ export default function DropdownMenu(props) {
         prevOpen.current = open;
     }, [open]);
 
-    const handleEdit = (event) => {
-        handleClose(event);
+    const callPitchDetailsAPI = (post_id) => {
+        const accessToken = localStorage.getItem("access-token");
+        var getPostDetailsOptions = {
+            method: "get",
+            url: global.config.ROOTURL.prod + "/api/v0/pitches/" + post_id ,
+            headers: {
+                Authorization: "Bearer " + accessToken,
+            },
+        };
+
+        axios(getPostDetailsOptions)
+            .then((response) => {
+                setContent(response.data.message);
+                setImage(response.data.image);
+            })
+            .catch((error) => {
+            });
+
+    }
+
+    const handleUpdatePost = (post_id, content) => {
+        const accessToken = localStorage.getItem("access-token");
+        var updatePostDetailsOptions = {
+            method: "put",
+            url: global.config.ROOTURL.prod + "/api/v0/submit-pitch/" + post_id + '/',
+            headers: {
+                Authorization: "Bearer " + accessToken,
+                'content-type': 'multipart/form-data; boundary=----WebKitFormBoundaryjNQUpOmsBhVXIEE7',
+                'Accept': 'application/json'
+            },
+            data: {
+              'message': content
+            },
+            json: true
+        };
+
+        axios(updatePostDetailsOptions)
+            .then((response) => {setOpen(false);})
+            .catch((error) => {});
+
+    }
+
+    const handleDeletePost = (post_id) => {
+
+        console.log(post_id);
+    }
+
+    const handleReportPost = (post_id) => {
+
+        console.log(post_id);
+    }
+    const handleEdit = (post_id) => {
+        callPitchDetailsAPI(post_id);
         setOpenPitchEditModal(true);
     };
 
@@ -69,16 +130,6 @@ export default function DropdownMenu(props) {
 
     };
 
-    const [ownPost, setOwnPost] = React.useState(false);
-    const [openModal, setOpenModal] = React.useState(false);
-    const [openPitchEditModal, setOpenPitchEditModal] = React.useState(false);
-    const [openPitchDeleteModal, setOpenPitchDeleteModal] = React.useState(false);
-    const handleOpenModal = () => setOpenModal(true);
-    const handleCloseModal = () => setOpenModal(false);
-    const handleOpenPitchEditModal = () => setOpenModal(true);
-    const handleClosePitchEditModal = () => setOpenPitchEditModal(false);
-    const handleOpenPitchDeleteModal = () => setOpenModal(true);
-    const handleClosePitchDeleteModal = () => setOpenPitchDeleteModal(false);
 
     return (
         <div>
@@ -89,7 +140,7 @@ export default function DropdownMenu(props) {
           aria-controls={open ? "composition-menu" : undefined}
           aria-expanded={open ? "true" : undefined}
           aria-haspopup="true"
-          onClick={() => handleToggle(post_id)}
+          onClick={() => handleToggle(userprofile)}
           disableRipple="true"
         >
           <MoreVertIcon style={{ color: "black" }} />
@@ -121,7 +172,7 @@ export default function DropdownMenu(props) {
                     {props.type === "post-menu" && (
                       <>
                         { ownPost &&
-                        <MenuItem onClick={handleEdit} open={"false"}>
+                        <MenuItem onClick={() => handleEdit(post_id)} open={"false"}>
                           Edit
                         </MenuItem>
                         }
@@ -138,9 +189,27 @@ export default function DropdownMenu(props) {
           )}
         </Popper>
       </div>
-      <PitchEdit handleOpen={handleOpenPitchEditModal} handleClose={handleClosePitchEditModal} open={openPitchEditModal} />
-      <PitchDelete handleOpen={handleOpenPitchDeleteModal} handleClose={handleOpenPitchDeleteModal} open={openPitchDeleteModal} />
-      <Report handleOpen={handleOpenModal} handleClose={handleCloseModal} open={openModal} />
+      <PitchEdit
+          handleOpen={handleOpenPitchEditModal}
+          handleClose={handleClosePitchEditModal}
+          handleUpdatePost={handleUpdatePost}
+          open={openPitchEditModal} 
+          content={content}
+          image={image}
+          post_id={post_id}
+          />
+      <PitchDelete handleOpen={handleOpenPitchDeleteModal}
+            handleClose={handleOpenPitchDeleteModal}
+            open={openPitchDeleteModal}
+            handleDeletePost={handleDeletePost}
+            post_id={post_id}
+            />
+      <Report handleOpen={handleOpenModal}
+            handleClose={handleCloseModal}
+            open={openModal}
+            handleReportPost={handleReportPost}
+            post_id={post_id}
+             />
     </div>
     );
 }
