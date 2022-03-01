@@ -23,7 +23,10 @@ const ActivateUserPage = () => {
             .then((response) => {
                 localStorage.setItem('user_id', response.data['user_id']);
                 localStorage.setItem('user_email', response.data['user_email']);
-                navigate('/login');
+                const timer = setTimeout(() => {
+                    navigate('/login');
+                }, 3000);
+                return () => clearTimeout(timer);  
             })
             .catch((error) => {});
     }
