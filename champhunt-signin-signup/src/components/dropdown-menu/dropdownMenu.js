@@ -170,7 +170,7 @@ export default function DropdownMenu(props) {
                     onKeyDown={handleListKeyDown}
                   >
                     {props.type === "post-menu" && (
-                      <>
+                      <div>
                         { ownPost &&
                         <MenuItem onClick={() => handleEdit(post_id)} open={"false"}>
                           Edit
@@ -180,7 +180,7 @@ export default function DropdownMenu(props) {
                           <MenuItem onClick={handleDelete}>Delete</MenuItem>
                         }
                         <MenuItem onClick={handleReport}>Report</MenuItem>
-                      </>
+                      </div>
                     )}
                   </MenuList>
                 </ClickAwayListener>
@@ -199,7 +199,7 @@ export default function DropdownMenu(props) {
           post_id={post_id}
           />
       <PitchDelete handleOpen={handleOpenPitchDeleteModal}
-            handleClose={handleOpenPitchDeleteModal}
+            handleClose={handleClosePitchDeleteModal}
             open={openPitchDeleteModal}
             handleDeletePost={handleDeletePost}
             post_id={post_id}
