@@ -67,7 +67,7 @@ export default function SignUpForm(props) {
              url: global.config.ROOTURL.prod + '/api/v0/register/',
              data: JSON.stringify(
                 {'email': event.target.email.value,
-                 'mobile': event.target.mobile.value,
+                 'mobile': null,
                  'password': event.target.password.value,
                  'password2': event.target.password2.value
                 }
@@ -128,26 +128,6 @@ export default function SignUpForm(props) {
                 />
                 {emailErrorMsg && (
                   <p style={{ color: 'red' }}> {emailErrorMsg} </p>
-                )}
-                <CTextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="mobile"
-                    name="mobile"
-                    placeholder="Mobile No"
-                    className={classes.root}
-                    InputProps={{
-                        className: classes.inputProps,
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <CIcon src={MobileIcon} fontSize={24} />
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-                {mobileErrorMsg && (
-                  <p style={{ color: 'red' }}> {mobileErrorMsg} </p>
                 )}
                 <CTextField
                     margin="normal"

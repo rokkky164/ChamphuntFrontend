@@ -106,13 +106,49 @@ export default function DropdownMenu(props) {
     }
 
     const handleDeletePost = (post_id) => {
+        const accessToken = localStorage.getItem("access-token");
+        var deletePostOptions = {
+            method: "put",
+            url: global.config.ROOTURL.prod + "/api/v0/submit-pitch/" + post_id + '/',
+            headers: {
+                Authorization: "Bearer " + accessToken,
+                'content-type': 'multipart/form-data; boundary=----WebKitFormBoundaryjNQUpOmsBhVXIEE7',
+                'Accept': 'application/json'
+            },
+            data: {
+              'can_be_shown': false
+            },
+            json: true
+        };
 
-        console.log(post_id);
+        axios(deletePostOptions)
+            .then((response) => {setOpen(false);})
+            .catch((error) => {});
+
     }
 
-    const handleReportPost = (post_id) => {
+    const handleReportPost = (post_id, report_type) => {
+        const accessToken = localStorage.getItem("access-token");
+        const profileID = localStorage.getItem("profile-id");
+        var reportOptions = {
+            method: "post",
+            url: global.config.ROOTURL.prod + "/api/v0/report-pitch/" + post_id + '/',
+            headers: {
+                Authorization: "Bearer " + accessToken,
+                'content-type': 'application/json',
+                'Accept': 'application/json'
+            },
+            data: {
+                "report_message": report_type,
+                "pitch": post_id,
+                "userprofile": profileID
+            },
+            json: true
+        };
 
-        console.log(post_id);
+        axios(reportOptions)
+            .then((response) => {setOpen(false);})
+            .catch((error) => {});
     }
     const handleEdit = (post_id) => {
         callPitchDetailsAPI(post_id);
@@ -179,7 +215,9 @@ export default function DropdownMenu(props) {
                         { ownPost &&
                           <MenuItem onClick={handleDelete}>Delete</MenuItem>
                         }
+                        { !ownPost &&
                         <MenuItem onClick={handleReport}>Report</MenuItem>
+                        }
                       </>
                     )}
                   </MenuList>

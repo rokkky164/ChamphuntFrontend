@@ -58,15 +58,6 @@ const Search = () => {
                 })
                 // populate pitches 
                 pitches.forEach(function(pitch) {
-                    var postDateObj = new Date(pitch.created);
-                    var postDate = ''
-                    var postTime = '';
-                    var x = "AM";
-                    if (postDateObj.getHours() > 12) {
-                        x = "PM"
-                    }
-                    postDate = postDateObj.getDate() + "." + parseInt(postDateObj.getMonth() + 1) + "." + postDateObj.getFullYear();
-                    postTime = postDateObj.getHours() % 12 + ":" + postDateObj.getMinutes() + ' ' + x;
                     searchResults.pitches.push({
                         'author': {
                             'name': pitch.user_data.first_name + ' ' + pitch.user_data.last_name,
@@ -74,8 +65,8 @@ const Search = () => {
                             'avatar': 'https://i.pravatar.cc/45'
                         },
                         'post': {
-                            'date': postDate,
-                            'time': postTime,
+                            'date': pitch.post['date'],
+                            'time': pitch.post['time'],
                             'content': pitch.message,
                             'comments': [],
                             'runs': pitch.runs,

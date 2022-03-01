@@ -19,6 +19,7 @@ import NotFound from './components/notfound';
 import ResetPassword from './components/signin-signup/fgt-pwd/resetpwd.component'
 import ForgotPassword from './components/signin-signup/fgt-pwd/fgtpwd.component'
 import CollectUserInfo from './components/signin-signup/collect-userInfo/collect-userInfo.component';
+import ActivateUserPage from './containers/activateuser'
 import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme({
@@ -53,6 +54,7 @@ function App() {
               <Route path={'/reset-pwd'} element={<ResetPassword />} />
               <Route path={'/reset-pwd/:activation_token'} element={<ForgotPassword />} />
               <Route path={'/about-us'} element={<AboutUs />} />
+              <Route path={'/activate/:uid/:token/'} element={<ActivateUserPage />} />
               <Route path={'/'} exact element={<PitchPage />} />
               <Route path={'*'} element={<NotFound />} />
             </Routes>

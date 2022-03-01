@@ -22,7 +22,7 @@ const style = {
 
 export default function Report(props) {
   const {post_id} = props;
-  
+  const reportTypeRef = React.useRef();
   return (
     <div>
       <Modal
@@ -43,25 +43,31 @@ export default function Report(props) {
 
           <RadioBtn>
             <FormControlLabel
+              name="report_type"
+              ref={reportTypeRef}
               value="Harassment"
               control={<Radio />}
               label="Harassment"
             />
-            <FormControlLabel value="Spam" control={<Radio />} label="Spam" />
+            <FormControlLabel name="report_type" value="Spam" ref={reportTypeRef} control={<Radio />} label="Spam" />
             <FormControlLabel
+              name="report_type"
+              ref={reportTypeRef}
               value="Plagiarism"
               control={<Radio />}
               label="Plagiarism"
             />
             <FormControlLabel
-              value="Poorly Written"
+              name="report_type"
+              value="Adult Content"
+              ref={reportTypeRef}
               control={<Radio />}
-              label="Poorly Written"
+              label="Adult Content"
             />
           </RadioBtn>
           <div style={{ flexDirection: 'row' }}>
             <Button onClick={props.handleClose}>Cancel</Button>
-            <Button onClick={() => props.handleReportPost(post_id)}>Submit</Button>
+            <Button onClick={() => props.handleReportPost(post_id, reportTypeRef.current.value)}>Submit</Button>
           </div>
         </Box>
       </Modal>
