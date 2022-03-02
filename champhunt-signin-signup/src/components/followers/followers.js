@@ -20,7 +20,7 @@ const Followers = (props) => {
       <div className="followers">
         <div className="follower">
           <div style={{ display: "flex" }}>
-            <Link to={profileUrl} className="show-pointer">
+            <Link to={profileUrl} className="show-pointer" style={{ textDecoration: 'none' }}>
                 <div className="left-block">
                     <div className="profile-info">
                       <img src={profile_pic} alt={name} className="avatar" />

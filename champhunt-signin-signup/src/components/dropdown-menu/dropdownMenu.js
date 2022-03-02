@@ -211,9 +211,13 @@ export default function DropdownMenu(props) {
                         }
                         { !ownPost &&
                         <MenuItem onClick={handleReport}>Report</MenuItem>
+<<<<<<< HEAD
                         }
                         </div>
 
+=======
+                      </div>
+>>>>>>> cce16e0ac5e4897a51d1a207683d8f698003b987
                     )}
                   </MenuList>
                 </ClickAwayListener>

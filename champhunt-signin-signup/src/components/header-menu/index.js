@@ -30,11 +30,11 @@ const HeaderMenu = () => {
                                 Deals
                         </NavLink>
                     </li>
-                    <li>
+                    {/* <li>
                         <NavLink to='/support' className={isActive => `nav-link ${isActive?'active':''}`}>
                                 I Support
                         </NavLink>
-                    </li>
+                    </li> */}
                     <li>
                         <NavLink to='/about-us' className={isActive => `nav-link ${isActive?'active':''}`}>
                                     About Us

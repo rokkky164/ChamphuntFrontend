@@ -137,6 +137,8 @@ const ProfileCard = (props) => {
         axios(getFollowersOptions)
             .then((response) => {
                 setFollowers(response.data);
+                console.log("follower", followers)
+
             })
             .catch((error) => {
                 if (error.status == 401) {
@@ -160,6 +162,7 @@ const ProfileCard = (props) => {
         axios(getFollowingOptions)
             .then((response) => {
                 setFollowings(response.data);
+                console.log("following", followings)
             })
             .catch((error) => {
                 if (error.status == 401) {
@@ -261,20 +264,9 @@ const ProfileCard = (props) => {
                     <Typography sx={{ mt: 2 }}>
                       Add a photo to better connect with people
                     </Typography>
-                    <div style={{ display: "flex", paddingTop: "15px" }}>
+                    {/* <div style={{ display: "flex", paddingTop: "15px" }}> */}
                       <UploadBtn />
-                      <Button
-                        variant="outlined"
-                        sx={{
-                          borderRadius: 10,
-                          my: 4,
-                          ml: "auto",
-                          width: "150px",
-                        }}
-                      >
-                        Upload
-                      </Button>
-                    </div>
+                    {/* </div> */}
                     <Typography sx={{ mt: 2, fontWeight: 500 }}>
                       About me
                     </Typography>
