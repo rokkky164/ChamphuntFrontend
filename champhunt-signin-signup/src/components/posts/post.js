@@ -209,7 +209,7 @@ const Post = (props) => {
                 <>
                   {" "}
                   shared
-                  <Link className="shared-link" to={coAuthorURL}>
+                  <Link className="shared-link" to={coAuthorURL} style={{ textDecoration: 'none' }}>
                     {" "}
                     {name}{" "}
                   </Link>{" "}

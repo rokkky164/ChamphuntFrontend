@@ -44,7 +44,7 @@ const Suggestion = (props) => {
     
     return <div className={`suggestion ${showSugestionBox ? 'visible':'hidden'}`}>
         <div className="left-block">
-            <Link to={profileUrl}>
+            <Link to={profileUrl} style={{ textDecoration: 'none' }}>
                 <div className="profile-info">
                     <img src={Avatar} alt={name} className="avatar" />
                     <p className="name primary">
