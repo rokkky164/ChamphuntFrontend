@@ -13,7 +13,7 @@ import GoogleIcon from '../../../assets/images/signin-signup/google.svg';
 import { useCookies } from 'react-cookie';
 
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import validator from 'validator';
 
 const pageFontColor = '#FFFFFF'
@@ -69,7 +69,10 @@ const SubmitButton = styled(Button)({
 export default function SignInForm({ breakPoint }) {
     const classes = useStyles();
     const [authenticatedFailedMsg, setauthenticatedFailedMsg] = useState('');
+    // const [userActivationMsg, setUserActivationMsg] = useState('');
     const [cookies, setCookie] = useCookies(['user']);
+    const {state} = useLocation();
+    const { activationMsg } = state;
     // call login api
     const navigate = useNavigate();
     var initialValues = {
@@ -134,6 +137,9 @@ export default function SignInForm({ breakPoint }) {
     // api call end
     return ( <
         >
+        {activationMsg && (
+                  <p style={{ color: 'white' }}> {activationMsg}</p>
+        )}
         <Box component="form" onSubmit={loginSubmit} noValidate>
                 <CTextField
                     defaultValue={initialValues.userid}

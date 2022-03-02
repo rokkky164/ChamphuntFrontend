@@ -58,6 +58,7 @@ const Alert = () => {
         
         formData.append("message", formContent.message);
         formData.append("userprofile", localStorage.getItem('profile-id'));
+        formData.append("can_be_shown", true);
         if (formContent.image){formData.append("image", formContent.image);}
 
         const accessToken = localStorage.getItem('access-token');

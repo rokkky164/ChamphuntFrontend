@@ -84,45 +84,40 @@ export default function DropdownMenu(props) {
     }
 
     const handleUpdatePost = (post_id, content) => {
+        const data = {'message': content}
         const accessToken = localStorage.getItem("access-token");
         var updatePostDetailsOptions = {
             method: "put",
             url: global.config.ROOTURL.prod + "/api/v0/submit-pitch/" + post_id + '/',
+            mode: 'no-cors',
             headers: {
                 Authorization: "Bearer " + accessToken,
-                'content-type': 'multipart/form-data; boundary=----WebKitFormBoundaryjNQUpOmsBhVXIEE7',
-                'Accept': 'application/json'
             },
-            data: {
-              'message': content
-            },
-            json: true
+            data: JSON.stringify(data),
         };
 
         axios(updatePostDetailsOptions)
-            .then((response) => {setOpen(false);})
+            .then((response) => {
+                handleClosePitchEditModal();
+            })
             .catch((error) => {});
 
     }
 
     const handleDeletePost = (post_id) => {
         const accessToken = localStorage.getItem("access-token");
+        const data = {'can_be_shown': false}
         var deletePostOptions = {
             method: "put",
             url: global.config.ROOTURL.prod + "/api/v0/submit-pitch/" + post_id + '/',
             headers: {
                 Authorization: "Bearer " + accessToken,
-                'content-type': 'multipart/form-data; boundary=----WebKitFormBoundaryjNQUpOmsBhVXIEE7',
-                'Accept': 'application/json'
             },
-            data: {
-              'can_be_shown': false
-            },
-            json: true
+            data: JSON.stringify(data),
         };
 
         axios(deletePostOptions)
-            .then((response) => {setOpen(false);})
+            .then((response) => {handleClosePitchDeleteModal();})
             .catch((error) => {});
 
     }
@@ -132,22 +127,21 @@ export default function DropdownMenu(props) {
         const profileID = localStorage.getItem("profile-id");
         var reportOptions = {
             method: "post",
-            url: global.config.ROOTURL.prod + "/api/v0/report-pitch/" + post_id + '/',
+            url: global.config.ROOTURL.prod + "/api/v0/report-pitch/",
             headers: {
                 Authorization: "Bearer " + accessToken,
                 'content-type': 'application/json',
                 'Accept': 'application/json'
             },
             data: {
-                "report_message": report_type,
+                "report_type": report_type,
                 "pitch": post_id,
                 "userprofile": profileID
             },
             json: true
         };
-
         axios(reportOptions)
-            .then((response) => {setOpen(false);})
+            .then((response) => {handleCloseModal();})
             .catch((error) => {});
     }
     const handleEdit = (post_id) => {
@@ -206,7 +200,7 @@ export default function DropdownMenu(props) {
                     onKeyDown={handleListKeyDown}
                   >
                     {props.type === "post-menu" && (
-                      <>
+                      <div>
                         { ownPost &&
                         <MenuItem onClick={() => handleEdit(post_id)} open={"false"}>
                           Edit
@@ -218,7 +212,8 @@ export default function DropdownMenu(props) {
                         { !ownPost &&
                         <MenuItem onClick={handleReport}>Report</MenuItem>
                         }
-                      </>
+                        </div>
+
                     )}
                   </MenuList>
                 </ClickAwayListener>
@@ -237,7 +232,7 @@ export default function DropdownMenu(props) {
           post_id={post_id}
           />
       <PitchDelete handleOpen={handleOpenPitchDeleteModal}
-            handleClose={handleOpenPitchDeleteModal}
+            handleClose={handleClosePitchDeleteModal}
             open={openPitchDeleteModal}
             handleDeletePost={handleDeletePost}
             post_id={post_id}

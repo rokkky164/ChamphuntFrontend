@@ -7,14 +7,16 @@ import { connect, useSelector } from "react-redux";
 import Comments from "../../assets/images/posts/comments.svg";
 import Share from "../../assets/images/posts/share.svg";
 import Runs from "../../assets/images/posts/runs.svg";
+import RedBall from "../../assets/images/posts/ball-iconss-2.png";
 import InfoIcon from "../../assets/images/posts/info.svg";
 import axios from "axios";
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 import { ToastContainer, toast } from "react-toastify";
 import Avatar from "../../assets/images/header/avatar.png";
+import DropdownMenu from "./../dropdown-menu/dropdownMenu";
+
 import "./index.scss";
 
-import DropdownMenu from "./../dropdown-menu/dropdownMenu";
 
 const Post = (props) => {
     const [toggleValue, setToggleValue] = useState(false);

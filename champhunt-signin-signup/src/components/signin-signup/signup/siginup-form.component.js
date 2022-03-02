@@ -80,7 +80,8 @@ export default function SignUpForm(props) {
         };
         axios(registerOptions)
         .then(response => {
-            navigate('/onboarding')
+            navigate('/login',  { state: {activationMsg: 'An email has been sent to your given mail address\n'+
+                'Please check your mailbox to activate your account.\n'}})
         })
         .catch(error => {
             if ('email' in error.response.data){

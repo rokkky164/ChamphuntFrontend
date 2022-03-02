@@ -86,8 +86,12 @@ const Posts = (filterPitches) => {
                 localStorage.setItem('profile-name', response.data['profile_name']);
             })
             .catch(error => {
-                if (error.response.status == 401) {}
-            })
+                if (error.response.status == 404) {
+                    localStorage.removeItem('profile-id');
+                    localStorage.removeItem('profile-runs');
+                    localStorage.removeItem('profile-name');
+                }
+            });
         fetchPitches();
         let options = {
             root: null,
