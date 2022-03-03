@@ -3,7 +3,7 @@ import ProfileCard from "../../components/profile";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import Activities from "../../components/activities/activities";
-import Preferences from "../../components/preferences/preferences";
+// import Preferences from "../../components/preferences/preferences";
 
 import "./index.scss";
 
@@ -15,7 +15,7 @@ const OwnProfileDetailsPage = () => {
         <ProfileCard />
         <div className="side-panel">
           <Activities />
-          <Preferences />
+          {/* <Preferences /> */}
         </div>
       </main>
       <Footer />
