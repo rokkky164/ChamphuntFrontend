@@ -11,7 +11,7 @@ const OwnProfileDetailsPage = () => {
   return (
     <div className="page profile">
       <Header showAdd={true} />
-      <main className="profile-main">
+      <main className="profile-main-page">
         <ProfileCard />
         <div className="side-panel">
           <Activities />
