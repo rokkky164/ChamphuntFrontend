@@ -54,7 +54,7 @@ const Posts = (filterPitches) => {
             .then(response => {
                 localStorage.setItem('profile_id', response.data['user_email']);
                 setPosts(prevPosts => {
-                    return [...new Set([...prevPosts, ...response.data.results])]
+                    return [...prevPosts, ...response.data.results]
                 })
                 // setPosts(prevPosts => {return (Set([...prevPosts, ...response.data.results])});
                 setHasMore(response.data.results.length > 0);
@@ -67,6 +67,62 @@ const Posts = (filterPitches) => {
                 }
             })
     }
+
+    // console.log(posts)
+
+    const postComment = (post_id, commentData) => {
+        let userprofile = localStorage.getItem("profile-id");
+        let pitch = post_id;
+        const accessToken = localStorage.getItem("access-token");
+        var submitPostCommentOptions = {
+            method: "post",
+            url: global.config.ROOTURL.prod + "/api/v0/submit-comment/",
+            headers: {
+                Authorization: "Bearer " + accessToken,
+            },
+            data: {comment:commentData, pitch, userprofile},
+            json: true,
+        };
+        axios(submitPostCommentOptions) 
+            .then((response) => {
+
+                console.log("axios", response.data)
+
+                axios({
+                    method: 'get',
+                    url: url,
+                    params: { offset: pageNumber },
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + accessToken
+                    },
+                    json: true
+                })
+                .then(response => {
+                    localStorage.setItem('profile_id', response.data['user_email']);
+                    setPosts(prevPosts => {
+                        return [...response.data.results]
+                    })
+                    // setPosts(prevPosts => {return (Set([...prevPosts, ...response.data.results])});
+                    setHasMore(response.data.results.length > 0);
+                })
+                .catch(error => {
+                    if (error.response.status === 400) {
+    
+                    } else if (error.response.status === 401) {
+                        navigate('/login')
+                    }
+                })
+                // closeComment();
+                setIsClose(!isClose);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+    
+
 
     useEffect(() => {
         var getProfileOptions = {
@@ -86,12 +142,8 @@ const Posts = (filterPitches) => {
                 localStorage.setItem('profile-name', response.data['profile_name']);
             })
             .catch(error => {
-                if (error.response.status == 404) {
-                    localStorage.removeItem('profile-id');
-                    localStorage.removeItem('profile-runs');
-                    localStorage.removeItem('profile-name');
-                }
-            });
+                if (error.response.status == 401) {}
+            })
         fetchPitches();
         let options = {
             root: null,
@@ -114,13 +166,13 @@ const Posts = (filterPitches) => {
         console.log("currenty: ", y, "prevY: ", prevY);
         setPrevY(y);
     };
+const [isClose, setIsClose] = useState(false);
 
-    return ( <
-        >
+    return ( <>
         <div className="component posts">
         {
             posts.map((post, index) => {
-                   return <Post key={index} {...post} />
+                   return <Post key={index} {...post} postComment={postComment} />
             })
         }
         <div>
@@ -137,8 +189,7 @@ const Posts = (filterPitches) => {
             ref={postRef}>
         </div>
   </div>
-    </div> <
-        />
+    </div> </>
     )
 }
 

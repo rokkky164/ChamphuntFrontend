@@ -7,20 +7,19 @@ import { connect, useSelector } from "react-redux";
 import Comments from "../../assets/images/posts/comments.svg";
 import Share from "../../assets/images/posts/share.svg";
 import Runs from "../../assets/images/posts/runs.svg";
-import RedBall from "../../assets/images/posts/ball-iconss-2.png";
 import InfoIcon from "../../assets/images/posts/info.svg";
 import axios from "axios";
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 import { ToastContainer, toast } from "react-toastify";
 import Avatar from "../../assets/images/header/avatar.png";
-import DropdownMenu from "./../dropdown-menu/dropdownMenu";
-
 import "./index.scss";
 
+import defaultAvatar from "../../assets/images/profile/default_avatar.png"
+
+import DropdownMenu from "./../dropdown-menu/dropdownMenu";
 
 const Post = (props) => {
-    const [toggleValue, setToggleValue] = useState(false);
-
+    // const [toggleValue, setToggleValue] = useState(false);
     const {
         author: { name, url, avatar },
         coAuthor: { coAuthorName, coAuthorURL } = {},
@@ -28,11 +27,14 @@ const Post = (props) => {
         userprofile
     } = props;
 
-    const [newComments, setNewComments] = useState({});
+    // const [newComments, setNewComments] = useState({});
     const [posts, setPosts] = useState([props]);
     const [showRuns, setShowRuns] = useState(false);
     const [sharing, setSharing] = useState(false);
-    const [comment, setComment] = useState("");
+    const [newComments, setComments] = useState([]);
+    useEffect(() => {
+      setComments(props.comments);
+    }, [props.comments.length])
     const [showComments, setShowComments] = useState(false);
     const [commentData, setCommentData] = useState({
         pitch: "",
@@ -43,12 +45,8 @@ const Post = (props) => {
     const [liverun, setRuns] = useState(0);
     const [connectToSocket, setConnectToSocket] = useState(false);
 
-    const postCommentsData = (post) => {
-        var postComments = post.comments;
-        if (newComments) {
-            postComments.push(newComments);
-        }
-    };
+
+
 
     const getSharedBody = (event) => {
         setSharedBody(event.target.value);
@@ -137,32 +135,15 @@ const Post = (props) => {
     const closeComment = () => {
         setShowComments(false);
     };
-
-    const postComment = (post_id, post) => {
-        commentData.userprofile = localStorage.getItem("profile-id");
-        commentData.pitch = post_id;
-        const accessToken = localStorage.getItem("access-token");
-        var submitPostCommentOptions = {
-            method: "post",
-            url: global.config.ROOTURL.prod + "/api/v0/submit-comment/",
-            headers: {
-                Authorization: "Bearer " + accessToken,
-            },
-            data: commentData,
-            json: true,
-        };
-        axios(submitPostCommentOptions)
-            .then((response) => {
-                setConnectToSocket(true);
-                setNewComments(response.data);
-                closeComment();
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
-
     useEffect(() => {
+      setShowComments(false);
+    }, [props.isClose])
+
+        const clientComment = new W3CWebSocket(
+          global.config.WSURLS.prod + "/ws/api/comment-pitch/" + post_id + "/"
+      );
+    useEffect(() => {
+      
         const clientScore = new W3CWebSocket(
             global.config.WSURLS.prod + "/ws/api/score-pitch/" + post_id + "/"
         );
@@ -170,11 +151,9 @@ const Post = (props) => {
             var data = JSON.parse(JSON.parse(message.data));
             setRuns(data.runs_awarded);
         };
-        const clientComment = new W3CWebSocket(
-            global.config.WSURLS.prod + "/ws/api/comment-pitch/" + post_id + "/"
-        );
+
         clientComment.onmessage = (message) => {
-            var data = JSON.parse(JSON.parse(message.data));
+            let data = JSON.parse(JSON.parse(message.data));
             // setNewComments(
             //     {
             //         pitch: data.pitch,
@@ -190,6 +169,8 @@ const Post = (props) => {
         };
         setConnectToSocket(false);
     }, [connectToSocket]);
+
+
 
 
     return (
@@ -241,8 +222,8 @@ const Post = (props) => {
       </div>
       <div className="post-footer post-header">
         <div className="comments-hld">
-          {comments.length > 0 && (
-            <span className="info-box">{comments.length}</span>
+          {newComments.length > 0 && (
+            <span className="info-box">{newComments.length}</span>
           )}
           <img src={Comments} alt="" role="button" onClick={handleComment} />
         </div>
@@ -320,7 +301,7 @@ const Post = (props) => {
               label="Cancel"
             />
             <ChampButton
-              onClick={() => postComment(post_id)}
+              onClick={() => props.postComment(post_id, commentData.comment)}
               classes="share"
               label="Post"
             />
@@ -329,8 +310,8 @@ const Post = (props) => {
         <div className="post-header view-comments">
           <p className="comments-heading">{`${comments.length} Comments`}</p>
           <div className="all-comments">
-            {comments.map((comment, index) => {
-              const { author, comment: postComment } = comment;
+            {newComments.map((comment, index) => {
+              // const { author, comment: postComment } = comment;
 
               return (
                 <div key={index} className="comment">
@@ -338,13 +319,13 @@ const Post = (props) => {
                     <div className="avatar">
                       <img
                         className="avatar-image"
-                        src={avatar}
-                        alt={author.name}
+                        src={comment.author.avatar || defaultAvatar }
+                        // alt={author.name}
                       />
                     </div>
                     <div className="avatar-cnt">
                       <p>
-                        {author.first_name} {author.last_name}
+                        {comment.author.first_name} {comment.author.last_name}
                       </p>
                       <p className="date-time">
                         {comment.date} {comment.time}
